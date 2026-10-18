@@ -1,0 +1,41 @@
+name: Render video
+
+on:
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: "Composition ID"
+        required: false
+        default: "HaloDunia"
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint & typecheck
+        run: npm run lint
+
+      - name: Render video
+        run: npx remotion render "${{ inputs.composition || 'HaloDunia' }}" out/video.mp4 --codec=h264
+
+      - name: Render still frames (1s, 4s, 6s)
+        run: npx remotion render "${{ inputs.composition || 'HaloDunia' }}" out/frames --frames=30,120,180 --image-format=png
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: |
+            out/video.mp4
+            out/frames/
+          if-no-files-found: error

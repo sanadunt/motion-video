@@ -1,54 +1,44 @@
-# Remotion video
+# motion-video
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.apng">
-      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
-    </picture>
-  </a>
-</p>
+Video motion graphic vertikal (1080x1920, 30 fps, 8 detik) yang dibuat dengan [Remotion](https://www.remotion.dev).
 
-Welcome to your Remotion project!
+## Isi video (`HaloDunia`)
 
-## Commands
+| Detik | Animasi |
+| ----- | ------- |
+| 0–1   | Lingkaran ungu `#8B5CF6` muncul dari tengah, scale 0→1 dengan spring (sedikit membal) |
+| 1–3   | Teks **"Halo, Dunia!"** muncul kata per kata (slide up + fade in), jeda 0.2 s antar kata |
+| 3–5   | Subjudul "Dibuat oleh AI" (`#A5B4FC`) fade in |
+| 5–7   | Angka count-up 0→100% (`#FACC15`) di bagian bawah |
+| 7–8   | Semua elemen zoom out + fade out ke hitam |
 
-**Install Dependencies**
+Latar: gradasi `#0F0F1A` → `#1E1B4B`. Semua gerakan memakai easing/spring, margin aman ≥ 80 px.
 
-```console
-npm i --loglevel=error
+Kode komposisi ada di `src/HaloDunia.tsx`, registrasi di `src/Root.tsx`.
+
+## Perintah
+
+```bash
+npm install
+npm run dev      # buka Remotion Studio (preview interaktif)
+npm run render   # render ke out/video.mp4 (h264)
+npm run lint     # eslint + tsc
 ```
 
-**Start Preview**
+Render still frame tertentu, misalnya detik 1, 4, dan 6:
 
-```console
-npm run dev
+```bash
+npx remotion render HaloDunia out/frames --frames=30,120,180 --image-format=png
 ```
 
-**Render video**
+## Render lewat GitHub Actions
 
-```console
-npx remotion render
-```
+Workflow `.github/workflows/render-video.yml` bisa dijalankan manual dari tab **Actions** → **Render video** → **Run workflow**. Hasilnya diunggah sebagai artifact `video`.
 
-**Upgrade Remotion**
+## Hasil render
 
-```console
-npx remotion upgrade
-```
+`out/video.mp4` ikut di-commit sebagai hasil render (folder `out/` di-ignore secara default, ditambahkan dengan `git add -f`).
 
-## Docs
+## Remotion Agent Skills
 
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
-
-## Help
-
-We provide help on our [Discord server](https://discord.gg/6VzzNDwUwV).
-
-## Issues
-
-Found an issue with Remotion? [File an issue here](https://github.com/remotion-dev/remotion/issues/new).
-
-## License
-
-Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+Folder `.agents/skills/` (dan symlink di `.claude/skills/`) berisi Remotion Agent Skills yang dipasang lewat `npx remotion skills add`.

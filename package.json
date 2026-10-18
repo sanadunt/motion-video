@@ -1,5 +1,5 @@
 {
-  "name": "motion-video-tmp",
+  "name": "motion-video",
   "version": "1.0.0",
   "description": "My Remotion video",
   "repository": {},
@@ -25,6 +25,7 @@
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
+    "render": "remotion render HaloDunia out/video.mp4 --codec=h264",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   },
