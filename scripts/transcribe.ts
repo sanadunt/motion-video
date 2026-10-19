@@ -13,7 +13,7 @@
  *
  * Setelah transkripsi, kata dikoreksi memakai scripts/glossary.json.
  */
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import {
@@ -29,10 +29,11 @@ import { applyGlossary } from "./glossary";
 const WHISPER_VERSION = "1.7.5";
 
 const main = async () => {
-
   const [, , inputName, modelArg = "small", languageArg = "id"] = process.argv;
   if (!inputName) {
-    console.error("Pakai: npx tsx scripts/transcribe.ts <file-di-public> [model] [bahasa]");
+    console.error(
+      "Pakai: npx tsx scripts/transcribe.ts <file-di-public> [model] [bahasa]",
+    );
     process.exit(1);
   }
 
@@ -51,28 +52,60 @@ const main = async () => {
   mkdirSync(tmpDir, { recursive: true });
   const wavPath = path.join(tmpDir, `${path.parse(inputName).name}.16k.wav`);
 
-  console.log(`[1/4] Install whisper.cpp v${WHISPER_VERSION} -> ${whisperPath}`);
+  console.log(
+    `[1/4] Install whisper.cpp v${WHISPER_VERSION} -> ${whisperPath}`,
+  );
   await installWhisperCpp({ to: whisperPath, version: WHISPER_VERSION });
 
   console.log(`[2/4] Unduh model "${model}" -> ${modelFolder}`);
+  let lastPct = -1;
   await downloadWhisperModel({
     model,
     folder: modelFolder,
-    onProgress: (progress) => {
-      const pct = Math.round(progress * 100);
-      if (pct % 10 === 0) process.stdout.write(`\r  ${pct}%`);
+    printOutput: false,
+    onProgress: (downloadedBytes, totalBytes) => {
+      const pct =
+        totalBytes > 0
+          ? Math.floor((downloadedBytes / totalBytes) * 10) * 10
+          : 0;
+      if (pct !== lastPct) {
+        lastPct = pct;
+        console.log(`  ${pct}% (${Math.round(downloadedBytes / 1e6)} MB)`);
+      }
     },
   });
-  process.stdout.write("\n");
 
-  console.log(`[3/4] Ekstrak audio 16 kHz mono -> ${wavPath}`);
-  execFileSync(
-    "ffmpeg",
-    ["-y", "-v", "error", "-i", inputPath, "-ar", "16000", "-ac", "1", "-c:a", "pcm_s16le", wavPath],
-    { stdio: "inherit" },
+  // Pakai ffmpeg sistem kalau ada; kalau tidak (mis. runner GitHub Actions),
+  // pakai ffmpeg yang dibundel Remotion lewat `npx remotion ffmpeg`.
+  const hasSystemFfmpeg =
+    spawnSync("ffmpeg", ["-version"], { stdio: "ignore" }).status === 0;
+  const ffmpegArgs = [
+    "-y",
+    "-v",
+    "error",
+    "-i",
+    inputPath,
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-c:a",
+    "pcm_s16le",
+    wavPath,
+  ];
+  console.log(
+    `[3/4] Ekstrak audio 16 kHz mono -> ${wavPath} (${hasSystemFfmpeg ? "ffmpeg sistem" : "ffmpeg Remotion"})`,
   );
+  if (hasSystemFfmpeg) {
+    execFileSync("ffmpeg", ffmpegArgs, { stdio: "inherit" });
+  } else {
+    execFileSync("npx", ["remotion", "ffmpeg", ...ffmpegArgs], {
+      stdio: "inherit",
+    });
+  }
 
   console.log(`[4/4] Transkripsi (bahasa: ${language})`);
+  lastPct = -1;
   const whisperCppOutput = await transcribe({
     inputPath: wavPath,
     whisperPath,
@@ -81,23 +114,42 @@ const main = async () => {
     modelFolder,
     language,
     tokenLevelTimestamps: true,
-    splitOnWord: true,
-    additionalArgs: process.env.WHISPER_PROMPT
-      ? [["--prompt", process.env.WHISPER_PROMPT]]
-      : undefined,
-    onProgress: (p) => process.stdout.write(`\r  ${Math.round(p * 100)}%`),
+    // --split-on-word dipasang lewat additionalArgs: opsi splitOnWord bawaan
+    // meneruskan "true" sebagai argumen terpisah yang dianggap nama file oleh whisper-cli.
+    additionalArgs: [
+      "--split-on-word",
+      ...(process.env.WHISPER_PROMPT
+        ? ["--prompt", process.env.WHISPER_PROMPT]
+        : []),
+    ],
+    onProgress: (p) => {
+      const pct = Math.floor(p * 10) * 10;
+      if (pct !== lastPct) {
+        lastPct = pct;
+        console.log(`  ${pct}%`);
+      }
+    },
   });
-  process.stdout.write("\n");
 
   const { captions: rawCaptions } = toCaptions({ whisperCppOutput });
   const { captions, replaced } = applyGlossary(rawCaptions);
-  if (replaced > 0) console.log(`  ${replaced} kata dikoreksi lewat glossary.json`);
-  const outPath = path.join(root, "public", `${path.parse(inputName).name}.captions.json`);
+  if (replaced > 0)
+    console.log(`  ${replaced} kata dikoreksi lewat glossary.json`);
+  const outPath = path.join(
+    root,
+    "public",
+    `${path.parse(inputName).name}.captions.json`,
+  );
   writeFileSync(outPath, JSON.stringify(captions, null, 2));
   rmSync(wavPath, { force: true });
 
   console.log(`Selesai: ${captions.length} token -> ${outPath}`);
-  console.log(captions.slice(0, 12).map((c) => c.text).join(""));
+  console.log(
+    captions
+      .slice(0, 12)
+      .map((c) => c.text)
+      .join(""),
+  );
 };
 
 main().catch((err) => {

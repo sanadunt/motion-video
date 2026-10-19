@@ -1,5 +1,5 @@
 {
-  "_comment": "Koreksi kata yang sering salah didengar Whisper. Kunci dicocokkan tanpa memandang huruf besar/kecil, per kata utuh.",
+  "_comment": "Koreksi kata yang sering salah didengar Whisper. Kunci dicocokkan tanpa memandang huruf besar/kecil, per kata utuh. Nilai \"\" berarti kata dibuang.",
   "kakasi": "Kakashi",
   "sidori": "Chidori",
   "syaringan": "Sharingan",
@@ -8,5 +8,8 @@
   "naruto": "Naruto",
   "duna": "Dunia",
   "kemat": "Keempat",
-  "disembunyai": "disembuhin"
+  "disembunyai": "disembuhin",
+  "saringan": "Sharingan",
+  "saringannya": "Sharingannya",
+  "soaya": ""
 }

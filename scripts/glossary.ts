@@ -14,27 +14,40 @@ const glossaryPath = path.join(here, "glossary.json");
 
 export const loadGlossary = (): Record<string, string> => {
   if (!existsSync(glossaryPath)) return {};
-  const raw = JSON.parse(readFileSync(glossaryPath, "utf8")) as Record<string, string>;
+  const raw = JSON.parse(readFileSync(glossaryPath, "utf8")) as Record<
+    string,
+    string
+  >;
   const entries = Object.entries(raw).filter(([key]) => !key.startsWith("_"));
   return Object.fromEntries(entries.map(([k, v]) => [k.toLowerCase(), v]));
 };
 
-export const applyGlossary = (captions: Caption[], glossary = loadGlossary()) => {
+/**
+ * Ganti kata sesuai glosarium. Nilai "" (string kosong) berarti kata dibuang;
+ * caption yang teksnya jadi kosong ikut dihapus.
+ */
+export const applyGlossary = (
+  captions: Caption[],
+  glossary = loadGlossary(),
+) => {
   let replaced = 0;
-  const out = captions.map((caption) => {
-    const text = caption.text.replace(/[\p{L}\p{N}]+/gu, (word) => {
-      const fix = glossary[word.toLowerCase()];
-      if (!fix) return word;
-      replaced += 1;
-      return fix;
-    });
-    return { ...caption, text };
-  });
+  const out = captions
+    .map((caption) => {
+      const text = caption.text.replace(/[\p{L}\p{N}]+/gu, (word) => {
+        const fix = glossary[word.toLowerCase()];
+        if (fix === undefined) return word;
+        replaced += 1;
+        return fix;
+      });
+      return { ...caption, text };
+    })
+    .filter((caption) => caption.text.trim().length > 0);
   return { captions: out, replaced };
 };
 
 const isMain =
-  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
 if (isMain) {
   const file = process.argv[2];
