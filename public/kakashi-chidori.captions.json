@@ -1,0 +1,1374 @@
+[
+  {
+    "text": "Walaupun",
+    "startMs": 40,
+    "endMs": 350,
+    "timestampMs": 100,
+    "confidence": 0.477628
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 350,
+    "endMs": 670,
+    "timestampMs": 480,
+    "confidence": 0.882372
+  },
+  {
+    "text": " adalah",
+    "startMs": 670,
+    "endMs": 880,
+    "timestampMs": 880,
+    "confidence": 0.478889
+  },
+  {
+    "text": " orang",
+    "startMs": 880,
+    "endMs": 1090,
+    "timestampMs": 1080,
+    "confidence": 0.958558
+  },
+  {
+    "text": " yang",
+    "startMs": 1090,
+    "endMs": 1280,
+    "timestampMs": 1200,
+    "confidence": 0.965471
+  },
+  {
+    "text": " menciptakan",
+    "startMs": 1280,
+    "endMs": 1780,
+    "timestampMs": 1360,
+    "confidence": 0.687373
+  },
+  {
+    "text": " Chidori,",
+    "startMs": 1780,
+    "endMs": 2190,
+    "timestampMs": 1780,
+    "confidence": 0.306381
+  },
+  {
+    "text": " tapi",
+    "startMs": 2190,
+    "endMs": 2370,
+    "timestampMs": 2300,
+    "confidence": 0.608399
+  },
+  {
+    "text": " di",
+    "startMs": 2370,
+    "endMs": 2460,
+    "timestampMs": 2440,
+    "confidence": 0.864814
+  },
+  {
+    "text": " arahnya",
+    "startMs": 2460,
+    "endMs": 2760,
+    "timestampMs": 2540,
+    "confidence": 0.408882
+  },
+  {
+    "text": " buru",
+    "startMs": 2760,
+    "endMs": 2990,
+    "timestampMs": 2860,
+    "confidence": 0.240372
+  },
+  {
+    "text": " tau",
+    "startMs": 2990,
+    "endMs": 3150,
+    "timestampMs": 3060,
+    "confidence": 0.660682
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 3150,
+    "endMs": 3600,
+    "timestampMs": 3300,
+    "confidence": 0.710916
+  },
+  {
+    "text": " udah",
+    "startMs": 3600,
+    "endMs": 3850,
+    "timestampMs": 3640,
+    "confidence": 0.774823
+  },
+  {
+    "text": " gak",
+    "startMs": 3850,
+    "endMs": 4040,
+    "timestampMs": 3780,
+    "confidence": 0.293712
+  },
+  {
+    "text": " bisa",
+    "startMs": 4040,
+    "endMs": 4370,
+    "timestampMs": 4000,
+    "confidence": 0.951982
+  },
+  {
+    "text": " pakai",
+    "startMs": 4370,
+    "endMs": 4600,
+    "timestampMs": 4220,
+    "confidence": 0.698811
+  },
+  {
+    "text": " Chidori.",
+    "startMs": 4600,
+    "endMs": 5260,
+    "timestampMs": 4520,
+    "confidence": 0.92074
+  },
+  {
+    "text": " Lah",
+    "startMs": 5260,
+    "endMs": 5460,
+    "timestampMs": 5380,
+    "confidence": 0.402383
+  },
+  {
+    "text": " kok",
+    "startMs": 5460,
+    "endMs": 5620,
+    "timestampMs": 5540,
+    "confidence": 0.585
+  },
+  {
+    "text": " bisa?",
+    "startMs": 5620,
+    "endMs": 6100,
+    "timestampMs": 5780,
+    "confidence": 0.986969
+  },
+  {
+    "text": " Karena",
+    "startMs": 6100,
+    "endMs": 6510,
+    "timestampMs": 6280,
+    "confidence": 0.547391
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 6510,
+    "endMs": 6850,
+    "timestampMs": 6500,
+    "confidence": 0.993206
+  },
+  {
+    "text": " udah",
+    "startMs": 6850,
+    "endMs": 7110,
+    "timestampMs": 7020,
+    "confidence": 0.937605
+  },
+  {
+    "text": " gak",
+    "startMs": 7110,
+    "endMs": 7370,
+    "timestampMs": 7240,
+    "confidence": 0.879415
+  },
+  {
+    "text": " punya",
+    "startMs": 7370,
+    "endMs": 7640,
+    "timestampMs": 7580,
+    "confidence": 0.996535
+  },
+  {
+    "text": " Sharingan.",
+    "startMs": 7640,
+    "endMs": 8260,
+    "timestampMs": 7780,
+    "confidence": 0.437532
+  },
+  {
+    "text": " Karena",
+    "startMs": 8260,
+    "endMs": 8530,
+    "timestampMs": 8400,
+    "confidence": 0.963189
+  },
+  {
+    "text": " sebetul",
+    "startMs": 8530,
+    "endMs": 8840,
+    "timestampMs": 8520,
+    "confidence": 0.45799
+  },
+  {
+    "text": " yang",
+    "startMs": 8840,
+    "endMs": 9020,
+    "timestampMs": 8700,
+    "confidence": 0.614292
+  },
+  {
+    "text": " kita",
+    "startMs": 9020,
+    "endMs": 9190,
+    "timestampMs": 8840,
+    "confidence": 0.986069
+  },
+  {
+    "text": " tau,",
+    "startMs": 9190,
+    "endMs": 9420,
+    "timestampMs": 9020,
+    "confidence": 0.626118
+  },
+  {
+    "text": " Chidori",
+    "startMs": 9420,
+    "endMs": 9680,
+    "timestampMs": 9240,
+    "confidence": 0.952061
+  },
+  {
+    "text": " itu",
+    "startMs": 9680,
+    "endMs": 9810,
+    "timestampMs": 9600,
+    "confidence": 0.78146
+  },
+  {
+    "text": " butuh",
+    "startMs": 9810,
+    "endMs": 10030,
+    "timestampMs": 9780,
+    "confidence": 0.975635
+  },
+  {
+    "text": " pergerakan",
+    "startMs": 10030,
+    "endMs": 10470,
+    "timestampMs": 9980,
+    "confidence": 0.741187
+  },
+  {
+    "text": " yang",
+    "startMs": 10470,
+    "endMs": 10650,
+    "timestampMs": 10460,
+    "confidence": 0.957914
+  },
+  {
+    "text": " cepet",
+    "startMs": 10650,
+    "endMs": 10910,
+    "timestampMs": 10740,
+    "confidence": 0.936247
+  },
+  {
+    "text": " banget.",
+    "startMs": 10910,
+    "endMs": 11260,
+    "timestampMs": 11180,
+    "confidence": 0.996915
+  },
+  {
+    "text": " Nah",
+    "startMs": 11260,
+    "endMs": 11420,
+    "timestampMs": 11360,
+    "confidence": 0.405171
+  },
+  {
+    "text": " makanya",
+    "startMs": 11420,
+    "endMs": 11800,
+    "timestampMs": 11500,
+    "confidence": 0.871768
+  },
+  {
+    "text": " dulu",
+    "startMs": 11800,
+    "endMs": 12020,
+    "timestampMs": 11840,
+    "confidence": 0.590939
+  },
+  {
+    "text": " Minato",
+    "startMs": 12020,
+    "endMs": 12340,
+    "timestampMs": 12040,
+    "confidence": 0.427742
+  },
+  {
+    "text": " sempat",
+    "startMs": 12340,
+    "endMs": 12670,
+    "timestampMs": 12300,
+    "confidence": 0.838629
+  },
+  {
+    "text": " melarang",
+    "startMs": 12670,
+    "endMs": 13100,
+    "timestampMs": 12560,
+    "confidence": 0.886704
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 13100,
+    "endMs": 13420,
+    "timestampMs": 12860,
+    "confidence": 0.995222
+  },
+  {
+    "text": " untuk",
+    "startMs": 13420,
+    "endMs": 13690,
+    "timestampMs": 13400,
+    "confidence": 0.940299
+  },
+  {
+    "text": " memakai",
+    "startMs": 13690,
+    "endMs": 14070,
+    "timestampMs": 13640,
+    "confidence": 0.959377
+  },
+  {
+    "text": " Chidori.",
+    "startMs": 14070,
+    "endMs": 14520,
+    "timestampMs": 14160,
+    "confidence": 0.982695
+  },
+  {
+    "text": " Nah",
+    "startMs": 14520,
+    "endMs": 14660,
+    "timestampMs": 14600,
+    "confidence": 0.924904
+  },
+  {
+    "text": " tapi",
+    "startMs": 14660,
+    "endMs": 14870,
+    "timestampMs": 14800,
+    "confidence": 0.876451
+  },
+  {
+    "text": " setelah",
+    "startMs": 14870,
+    "endMs": 15160,
+    "timestampMs": 14940,
+    "confidence": 0.677609
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 15160,
+    "endMs": 15430,
+    "timestampMs": 15160,
+    "confidence": 0.993441
+  },
+  {
+    "text": " dapat",
+    "startMs": 15430,
+    "endMs": 15660,
+    "timestampMs": 15480,
+    "confidence": 0.705617
+  },
+  {
+    "text": " mata",
+    "startMs": 15660,
+    "endMs": 15860,
+    "timestampMs": 15720,
+    "confidence": 0.979889
+  },
+  {
+    "text": " Sharingannya",
+    "startMs": 15860,
+    "endMs": 16390,
+    "timestampMs": 15920,
+    "confidence": 0.948735
+  },
+  {
+    "text": " Obito,",
+    "startMs": 16390,
+    "endMs": 16780,
+    "timestampMs": 16360,
+    "confidence": 0.25367
+  },
+  {
+    "text": " Chidori",
+    "startMs": 16780,
+    "endMs": 17210,
+    "timestampMs": 16880,
+    "confidence": 0.808123
+  },
+  {
+    "text": " nya",
+    "startMs": 17210,
+    "endMs": 17420,
+    "timestampMs": 17140,
+    "confidence": 0.648125
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 17420,
+    "endMs": 17860,
+    "timestampMs": 17320,
+    "confidence": 0.974633
+  },
+  {
+    "text": " jadi",
+    "startMs": 17860,
+    "endMs": 18190,
+    "timestampMs": 17860,
+    "confidence": 0.985887
+  },
+  {
+    "text": " sempurna.",
+    "startMs": 18190,
+    "endMs": 19020,
+    "timestampMs": 18080,
+    "confidence": 0.981243
+  },
+  {
+    "text": " Karena",
+    "startMs": 19020,
+    "endMs": 19280,
+    "timestampMs": 19160,
+    "confidence": 0.85039
+  },
+  {
+    "text": " walaupun",
+    "startMs": 19280,
+    "endMs": 19620,
+    "timestampMs": 19320,
+    "confidence": 0.984615
+  },
+  {
+    "text": " dia",
+    "startMs": 19620,
+    "endMs": 19740,
+    "timestampMs": 19580,
+    "confidence": 0.977967
+  },
+  {
+    "text": " bergerak",
+    "startMs": 19740,
+    "endMs": 20090,
+    "timestampMs": 19740,
+    "confidence": 0.994167
+  },
+  {
+    "text": " dengan",
+    "startMs": 20090,
+    "endMs": 20430,
+    "timestampMs": 20060,
+    "confidence": 0.986431
+  },
+  {
+    "text": " sangat",
+    "startMs": 20430,
+    "endMs": 20610,
+    "timestampMs": 20220,
+    "confidence": 0.430241
+  },
+  {
+    "text": " cepat,",
+    "startMs": 20610,
+    "endMs": 20900,
+    "timestampMs": 20400,
+    "confidence": 0.980449
+  },
+  {
+    "text": " dia",
+    "startMs": 20900,
+    "endMs": 21030,
+    "timestampMs": 20740,
+    "confidence": 0.962716
+  },
+  {
+    "text": " masih",
+    "startMs": 21030,
+    "endMs": 21260,
+    "timestampMs": 21020,
+    "confidence": 0.981457
+  },
+  {
+    "text": " bisa",
+    "startMs": 21260,
+    "endMs": 21420,
+    "timestampMs": 21300,
+    "confidence": 0.995889
+  },
+  {
+    "text": " melihat",
+    "startMs": 21420,
+    "endMs": 21720,
+    "timestampMs": 21480,
+    "confidence": 0.982832
+  },
+  {
+    "text": " pergerakan",
+    "startMs": 21720,
+    "endMs": 22150,
+    "timestampMs": 21740,
+    "confidence": 0.954342
+  },
+  {
+    "text": " musuh.",
+    "startMs": 22150,
+    "endMs": 22520,
+    "timestampMs": 22360,
+    "confidence": 0.978884
+  },
+  {
+    "text": " Nah",
+    "startMs": 22520,
+    "endMs": 22690,
+    "timestampMs": 22600,
+    "confidence": 0.942733
+  },
+  {
+    "text": " itulah",
+    "startMs": 22690,
+    "endMs": 23020,
+    "timestampMs": 22700,
+    "confidence": 0.929452
+  },
+  {
+    "text": " juga",
+    "startMs": 23020,
+    "endMs": 23240,
+    "timestampMs": 22980,
+    "confidence": 0.955013
+  },
+  {
+    "text": " alasan",
+    "startMs": 23240,
+    "endMs": 23590,
+    "timestampMs": 23160,
+    "confidence": 0.983037
+  },
+  {
+    "text": " kenapa",
+    "startMs": 23590,
+    "endMs": 23900,
+    "timestampMs": 23460,
+    "confidence": 0.966278
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 23900,
+    "endMs": 24230,
+    "timestampMs": 23880,
+    "confidence": 0.976071
+  },
+  {
+    "text": " cuma",
+    "startMs": 24230,
+    "endMs": 24450,
+    "timestampMs": 24240,
+    "confidence": 0.797663
+  },
+  {
+    "text": " mengajarkan",
+    "startMs": 24450,
+    "endMs": 25060,
+    "timestampMs": 24400,
+    "confidence": 0.974593
+  },
+  {
+    "text": " Chidori",
+    "startMs": 25060,
+    "endMs": 25390,
+    "timestampMs": 24900,
+    "confidence": 0.984431
+  },
+  {
+    "text": " ke",
+    "startMs": 25390,
+    "endMs": 25510,
+    "timestampMs": 25280,
+    "confidence": 0.897987
+  },
+  {
+    "text": " Sasuke.",
+    "startMs": 25510,
+    "endMs": 25940,
+    "timestampMs": 25560,
+    "confidence": 0.878914
+  },
+  {
+    "text": " Dan",
+    "startMs": 25940,
+    "endMs": 26120,
+    "timestampMs": 26040,
+    "confidence": 0.954088
+  },
+  {
+    "text": " itu",
+    "startMs": 26120,
+    "endMs": 26310,
+    "timestampMs": 26220,
+    "confidence": 0.98086
+  },
+  {
+    "text": " juga",
+    "startMs": 26310,
+    "endMs": 26540,
+    "timestampMs": 26440,
+    "confidence": 0.993195
+  },
+  {
+    "text": " alasan",
+    "startMs": 26540,
+    "endMs": 26900,
+    "timestampMs": 26600,
+    "confidence": 0.909535
+  },
+  {
+    "text": " mengapa",
+    "startMs": 26900,
+    "endMs": 27320,
+    "timestampMs": 26980,
+    "confidence": 0.983429
+  },
+  {
+    "text": " Sasuke",
+    "startMs": 27320,
+    "endMs": 27700,
+    "timestampMs": 27420,
+    "confidence": 0.966991
+  },
+  {
+    "text": " spam",
+    "startMs": 27700,
+    "endMs": 27920,
+    "timestampMs": 27740,
+    "confidence": 0.579167
+  },
+  {
+    "text": " Chidori",
+    "startMs": 27920,
+    "endMs": 28290,
+    "timestampMs": 27980,
+    "confidence": 0.962256
+  },
+  {
+    "text": " pas",
+    "startMs": 28290,
+    "endMs": 28460,
+    "timestampMs": 28420,
+    "confidence": 0.980077
+  },
+  {
+    "text": " lawan",
+    "startMs": 28460,
+    "endMs": 28760,
+    "timestampMs": 28640,
+    "confidence": 0.948883
+  },
+  {
+    "text": " Raikage.",
+    "startMs": 28760,
+    "endMs": 29420,
+    "timestampMs": 28960,
+    "confidence": 0.528096
+  },
+  {
+    "text": " Karena",
+    "startMs": 29450,
+    "endMs": 29750,
+    "timestampMs": 29560,
+    "confidence": 0.815489
+  },
+  {
+    "text": " Chidori",
+    "startMs": 29750,
+    "endMs": 30070,
+    "timestampMs": 29760,
+    "confidence": 0.961296
+  },
+  {
+    "text": " itu",
+    "startMs": 30070,
+    "endMs": 30230,
+    "timestampMs": 30040,
+    "confidence": 0.402594
+  },
+  {
+    "text": " dapet",
+    "startMs": 30230,
+    "endMs": 30500,
+    "timestampMs": 30140,
+    "confidence": 0.745476
+  },
+  {
+    "text": " buff",
+    "startMs": 30500,
+    "endMs": 30720,
+    "timestampMs": 30420,
+    "confidence": 0.952369
+  },
+  {
+    "text": " kecepatan.",
+    "startMs": 30720,
+    "endMs": 31420,
+    "timestampMs": 30520,
+    "confidence": 0.971136
+  },
+  {
+    "text": " Nah",
+    "startMs": 31420,
+    "endMs": 31550,
+    "timestampMs": 31440,
+    "confidence": 0.969056
+  },
+  {
+    "text": " tapi",
+    "startMs": 31550,
+    "endMs": 31720,
+    "timestampMs": 31720,
+    "confidence": 0.943588
+  },
+  {
+    "text": " setelah",
+    "startMs": 31720,
+    "endMs": 32020,
+    "timestampMs": 31860,
+    "confidence": 0.993997
+  },
+  {
+    "text": " perang",
+    "startMs": 32020,
+    "endMs": 32270,
+    "timestampMs": 32080,
+    "confidence": 0.834557
+  },
+  {
+    "text": " Dunia",
+    "startMs": 32270,
+    "endMs": 32440,
+    "timestampMs": 32240,
+    "confidence": 0.336664
+  },
+  {
+    "text": " Shinobi",
+    "startMs": 32440,
+    "endMs": 32740,
+    "timestampMs": 32480,
+    "confidence": 0.471075
+  },
+  {
+    "text": " Keempat",
+    "startMs": 32740,
+    "endMs": 32960,
+    "timestampMs": 32760,
+    "confidence": 0.901906
+  },
+  {
+    "text": " berakhir",
+    "startMs": 32960,
+    "endMs": 33290,
+    "timestampMs": 33020,
+    "confidence": 0.968185
+  },
+  {
+    "text": " dengan",
+    "startMs": 33290,
+    "endMs": 33540,
+    "timestampMs": 33380,
+    "confidence": 0.962691
+  },
+  {
+    "text": " kemenangannya",
+    "startMs": 33540,
+    "endMs": 34100,
+    "timestampMs": 33540,
+    "confidence": 0.797991
+  },
+  {
+    "text": " Naruto,",
+    "startMs": 34100,
+    "endMs": 34420,
+    "timestampMs": 34120,
+    "confidence": 0.553951
+  },
+  {
+    "text": " Sharingannya",
+    "startMs": 34420,
+    "endMs": 35180,
+    "timestampMs": 34520,
+    "confidence": 0.199295
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 35180,
+    "endMs": 35600,
+    "timestampMs": 34940,
+    "confidence": 0.997508
+  },
+  {
+    "text": " udah",
+    "startMs": 35600,
+    "endMs": 35810,
+    "timestampMs": 35460,
+    "confidence": 0.879058
+  },
+  {
+    "text": " hilang.",
+    "startMs": 35810,
+    "endMs": 36420,
+    "timestampMs": 35920,
+    "confidence": 0.797584
+  },
+  {
+    "text": " Karena",
+    "startMs": 36420,
+    "endMs": 36730,
+    "timestampMs": 36620,
+    "confidence": 0.757227
+  },
+  {
+    "text": " di",
+    "startMs": 36730,
+    "endMs": 36830,
+    "timestampMs": 36740,
+    "confidence": 0.888904
+  },
+  {
+    "text": " akhir-akhir",
+    "startMs": 36830,
+    "endMs": 37390,
+    "timestampMs": 36840,
+    "confidence": 0.958113
+  },
+  {
+    "text": " perang",
+    "startMs": 37390,
+    "endMs": 37680,
+    "timestampMs": 37300,
+    "confidence": 0.80738
+  },
+  {
+    "text": " madara",
+    "startMs": 37680,
+    "endMs": 37980,
+    "timestampMs": 37620,
+    "confidence": 0.440257
+  },
+  {
+    "text": " mengambil",
+    "startMs": 37980,
+    "endMs": 38430,
+    "timestampMs": 37860,
+    "confidence": 0.982845
+  },
+  {
+    "text": " Sharingannya",
+    "startMs": 38430,
+    "endMs": 39060,
+    "timestampMs": 38320,
+    "confidence": 0.959928
+  },
+  {
+    "text": " Kakashi.",
+    "startMs": 39060,
+    "endMs": 39420,
+    "timestampMs": 39040,
+    "confidence": 0.995676
+  },
+  {
+    "text": " Nah",
+    "startMs": 39420,
+    "endMs": 39600,
+    "timestampMs": 39580,
+    "confidence": 0.9347
+  },
+  {
+    "text": " tapi",
+    "startMs": 39600,
+    "endMs": 39730,
+    "timestampMs": 39760,
+    "confidence": 0.980215
+  },
+  {
+    "text": " untungnya",
+    "startMs": 39730,
+    "endMs": 40120,
+    "timestampMs": 39880,
+    "confidence": 0.967119
+  },
+  {
+    "text": " matanya",
+    "startMs": 40120,
+    "endMs": 40450,
+    "timestampMs": 40200,
+    "confidence": 0.911588
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 40450,
+    "endMs": 40730,
+    "timestampMs": 40580,
+    "confidence": 0.972349
+  },
+  {
+    "text": " yang",
+    "startMs": 40730,
+    "endMs": 40870,
+    "timestampMs": 40860,
+    "confidence": 0.995204
+  },
+  {
+    "text": " diambil",
+    "startMs": 40870,
+    "endMs": 41180,
+    "timestampMs": 40980,
+    "confidence": 0.874168
+  },
+  {
+    "text": " bisa",
+    "startMs": 41180,
+    "endMs": 41360,
+    "timestampMs": 41560,
+    "confidence": 0.950168
+  },
+  {
+    "text": " disembuhin",
+    "startMs": 41360,
+    "endMs": 41840,
+    "timestampMs": 41700,
+    "confidence": 0.792498
+  },
+  {
+    "text": " lagi",
+    "startMs": 41840,
+    "endMs": 42140,
+    "timestampMs": 42120,
+    "confidence": 0.952047
+  },
+  {
+    "text": " sama",
+    "startMs": 42140,
+    "endMs": 42390,
+    "timestampMs": 42260,
+    "confidence": 0.846703
+  },
+  {
+    "text": " Naruto",
+    "startMs": 42390,
+    "endMs": 42780,
+    "timestampMs": 42540,
+    "confidence": 0.84778
+  },
+  {
+    "text": " dengan",
+    "startMs": 42780,
+    "endMs": 43170,
+    "timestampMs": 42900,
+    "confidence": 0.82368
+  },
+  {
+    "text": " Rikudo",
+    "startMs": 43170,
+    "endMs": 43470,
+    "timestampMs": 43160,
+    "confidence": 0.347881
+  },
+  {
+    "text": " Senjutsu.",
+    "startMs": 43470,
+    "endMs": 44120,
+    "timestampMs": 43640,
+    "confidence": 0.668688
+  },
+  {
+    "text": " Jadi",
+    "startMs": 44120,
+    "endMs": 44330,
+    "timestampMs": 44240,
+    "confidence": 0.92073
+  },
+  {
+    "text": " matanya",
+    "startMs": 44330,
+    "endMs": 44700,
+    "timestampMs": 44480,
+    "confidence": 0.987686
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 44700,
+    "endMs": 45020,
+    "timestampMs": 44800,
+    "confidence": 0.996987
+  },
+  {
+    "text": " bisa",
+    "startMs": 45020,
+    "endMs": 45280,
+    "timestampMs": 45180,
+    "confidence": 0.972866
+  },
+  {
+    "text": " sembuh",
+    "startMs": 45280,
+    "endMs": 45540,
+    "timestampMs": 45420,
+    "confidence": 0.481463
+  },
+  {
+    "text": " walaupun",
+    "startMs": 45540,
+    "endMs": 45960,
+    "timestampMs": 45660,
+    "confidence": 0.666158
+  },
+  {
+    "text": " sekarang",
+    "startMs": 45960,
+    "endMs": 46390,
+    "timestampMs": 46080,
+    "confidence": 0.947165
+  },
+  {
+    "text": " matanya",
+    "startMs": 46390,
+    "endMs": 46760,
+    "timestampMs": 46360,
+    "confidence": 0.954303
+  },
+  {
+    "text": " jadi",
+    "startMs": 46760,
+    "endMs": 46970,
+    "timestampMs": 46820,
+    "confidence": 0.962276
+  },
+  {
+    "text": " mata",
+    "startMs": 46970,
+    "endMs": 47180,
+    "timestampMs": 47100,
+    "confidence": 0.962713
+  },
+  {
+    "text": " biasa.",
+    "startMs": 47180,
+    "endMs": 47720,
+    "timestampMs": 47380,
+    "confidence": 0.993403
+  },
+  {
+    "text": " Nah",
+    "startMs": 47720,
+    "endMs": 47880,
+    "timestampMs": 47800,
+    "confidence": 0.739593
+  },
+  {
+    "text": " makanya",
+    "startMs": 47880,
+    "endMs": 48250,
+    "timestampMs": 47940,
+    "confidence": 0.984877
+  },
+  {
+    "text": " kalau",
+    "startMs": 48250,
+    "endMs": 48520,
+    "timestampMs": 48220,
+    "confidence": 0.607865
+  },
+  {
+    "text": " lu",
+    "startMs": 48520,
+    "endMs": 48620,
+    "timestampMs": 48400,
+    "confidence": 0.513891
+  },
+  {
+    "text": " nonton",
+    "startMs": 48620,
+    "endMs": 49000,
+    "timestampMs": 48520,
+    "confidence": 0.886941
+  },
+  {
+    "text": " Boruto,",
+    "startMs": 49000,
+    "endMs": 49360,
+    "timestampMs": 48840,
+    "confidence": 0.466661
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 49360,
+    "endMs": 49680,
+    "timestampMs": 49300,
+    "confidence": 0.982606
+  },
+  {
+    "text": " udah",
+    "startMs": 49680,
+    "endMs": 49890,
+    "timestampMs": 49600,
+    "confidence": 0.947952
+  },
+  {
+    "text": " ngeperan",
+    "startMs": 49890,
+    "endMs": 50300,
+    "timestampMs": 49760,
+    "confidence": 0.490855
+  },
+  {
+    "text": " nunjukin",
+    "startMs": 50300,
+    "endMs": 50720,
+    "timestampMs": 50080,
+    "confidence": 0.579398
+  },
+  {
+    "text": " Chidori",
+    "startMs": 50720,
+    "endMs": 51040,
+    "timestampMs": 50420,
+    "confidence": 0.956193
+  },
+  {
+    "text": " lagi.",
+    "startMs": 51040,
+    "endMs": 51520,
+    "timestampMs": 51060,
+    "confidence": 0.982259
+  },
+  {
+    "text": " Jujur",
+    "startMs": 51520,
+    "endMs": 51750,
+    "timestampMs": 51640,
+    "confidence": 0.544288
+  },
+  {
+    "text": " ada",
+    "startMs": 51750,
+    "endMs": 51900,
+    "timestampMs": 51900,
+    "confidence": 0.948579
+  },
+  {
+    "text": " sedih",
+    "startMs": 51900,
+    "endMs": 52140,
+    "timestampMs": 52140,
+    "confidence": 0.969288
+  },
+  {
+    "text": " sih",
+    "startMs": 52140,
+    "endMs": 52290,
+    "timestampMs": 52360,
+    "confidence": 0.856547
+  },
+  {
+    "text": " tapi",
+    "startMs": 52290,
+    "endMs": 52490,
+    "timestampMs": 52580,
+    "confidence": 0.561925
+  },
+  {
+    "text": " yaudahlah",
+    "startMs": 52490,
+    "endMs": 52910,
+    "timestampMs": 52720,
+    "confidence": 0.710083
+  },
+  {
+    "text": " ya.",
+    "startMs": 52910,
+    "endMs": 53220,
+    "timestampMs": 53160,
+    "confidence": 0.862065
+  },
+  {
+    "text": " Nah",
+    "startMs": 53220,
+    "endMs": 53380,
+    "timestampMs": 53320,
+    "confidence": 0.844673
+  },
+  {
+    "text": " tapi",
+    "startMs": 53380,
+    "endMs": 53590,
+    "timestampMs": 53520,
+    "confidence": 0.992174
+  },
+  {
+    "text": " di",
+    "startMs": 53590,
+    "endMs": 53690,
+    "timestampMs": 53640,
+    "confidence": 0.984919
+  },
+  {
+    "text": " arahnya",
+    "startMs": 53690,
+    "endMs": 54060,
+    "timestampMs": 53720,
+    "confidence": 0.928045
+  },
+  {
+    "text": " Boruto,",
+    "startMs": 54060,
+    "endMs": 54480,
+    "timestampMs": 54020,
+    "confidence": 0.965154
+  },
+  {
+    "text": " Kakashi",
+    "startMs": 54480,
+    "endMs": 54800,
+    "timestampMs": 54460,
+    "confidence": 0.995966
+  },
+  {
+    "text": " punya",
+    "startMs": 54800,
+    "endMs": 55070,
+    "timestampMs": 54920,
+    "confidence": 0.967781
+  },
+  {
+    "text": " penggantinya.",
+    "startMs": 55070,
+    "endMs": 55920,
+    "timestampMs": 55080,
+    "confidence": 0.893103
+  },
+  {
+    "text": " Ya",
+    "startMs": 55920,
+    "endMs": 56030,
+    "timestampMs": 56140,
+    "confidence": 0.144265
+  },
+  {
+    "text": " itu",
+    "startMs": 56030,
+    "endMs": 56200,
+    "timestampMs": 56500,
+    "confidence": 0.914448
+  },
+  {
+    "text": " si",
+    "startMs": 56200,
+    "endMs": 56310,
+    "timestampMs": 56740,
+    "confidence": 0.411504
+  },
+  {
+    "text": " Dan",
+    "startMs": 56310,
+    "endMs": 56480,
+    "timestampMs": 56960,
+    "confidence": 0.910992
+  },
+  {
+    "text": " jadi",
+    "startMs": 56480,
+    "endMs": 56700,
+    "timestampMs": 57260,
+    "confidence": 0.515215
+  },
+  {
+    "text": " bentuknya",
+    "startMs": 56700,
+    "endMs": 57200,
+    "timestampMs": 57440,
+    "confidence": 0.946303
+  },
+  {
+    "text": " sama",
+    "startMs": 57200,
+    "endMs": 57420,
+    "timestampMs": 57800,
+    "confidence": 0.984401
+  },
+  {
+    "text": " kayak",
+    "startMs": 57420,
+    "endMs": 57710,
+    "timestampMs": 57980,
+    "confidence": 0.358987
+  },
+  {
+    "text": " Chidori",
+    "startMs": 57710,
+    "endMs": 58050,
+    "timestampMs": 58160,
+    "confidence": 0.990631
+  },
+  {
+    "text": " tapi",
+    "startMs": 58050,
+    "endMs": 58260,
+    "timestampMs": 58600,
+    "confidence": 0.901452
+  },
+  {
+    "text": " gerakannya",
+    "startMs": 58260,
+    "endMs": 58820,
+    "timestampMs": 58820,
+    "confidence": 0.993773
+  },
+  {
+    "text": " lebih",
+    "startMs": 58820,
+    "endMs": 59100,
+    "timestampMs": 59260,
+    "confidence": 0.980832
+  },
+  {
+    "text": " lambat",
+    "startMs": 59100,
+    "endMs": 59520,
+    "timestampMs": 59460,
+    "confidence": 0.993358
+  },
+  {
+    "text": " dan",
+    "startMs": 59520,
+    "endMs": 59760,
+    "timestampMs": 59740,
+    "confidence": 0.913198
+  },
+  {
+    "text": " uharnanya",
+    "startMs": 59760,
+    "endMs": 60480,
+    "timestampMs": 59900,
+    "confidence": 0.287086
+  },
+  {
+    "text": " ungguh",
+    "startMs": 60480,
+    "endMs": 60960,
+    "timestampMs": 60720,
+    "confidence": 0.572276
+  },
+  {
+    "text": " coi.",
+    "startMs": 60960,
+    "endMs": 61320,
+    "timestampMs": 61040,
+    "confidence": 0.114206
+  }
+]

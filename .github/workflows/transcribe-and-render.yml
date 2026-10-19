@@ -1,0 +1,119 @@
+name: Transcribe & render captions
+
+# Jalankan manual dari tab Actions -> "Transcribe & render captions" -> Run workflow.
+# Alur: whisper.cpp (CPU) mentranskripsi video di public/ -> captions JSON ->
+# Remotion merender komposisi CaptionedVideo -> MP4 + JSON diunggah sebagai artifact.
+
+on:
+  workflow_dispatch:
+    inputs:
+      video:
+        description: "Nama file video di folder public/ (mis. kakashi-chidori.mp4)"
+        required: true
+        default: "kakashi-chidori.mp4"
+      model:
+        description: "Model Whisper (small = cepat, medium = lebih akurat)"
+        required: true
+        default: "small"
+        type: choice
+        options: [tiny, base, small, medium, large-v3-turbo]
+      language:
+        description: "Kode bahasa (id, en, ...)"
+        required: true
+        default: "id"
+      prompt:
+        description: "Kosakata/nama untuk membantu Whisper, dipisah koma (opsional)"
+        required: false
+        default: "Kakashi, Chidori, Sharingan, Obito, Minato, Sasuke, Raikage, Madara, Naruto, Boruto, Rikudo Senjutsu"
+      skip_transcribe:
+        description: "Lewati transkripsi, pakai <video>.captions.json yang sudah ada di public/"
+        required: false
+        default: false
+        type: boolean
+      commit_results:
+        description: "Commit captions JSON (dan MP4 hasil render) kembali ke branch ini"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  transcribe-and-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      WHISPER_VERSION: "1.7.5"
+      WHISPER_DIR: ${{ github.workspace }}/whisper.cpp
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint & typecheck
+        run: npm run lint
+
+      - name: Derive file names
+        id: names
+        run: |
+          base="${{ inputs.video }}"
+          base="${base%.*}"
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          echo "captions=$base.captions.json" >> "$GITHUB_OUTPUT"
+          echo "output=out/$base-captioned.mp4" >> "$GITHUB_OUTPUT"
+
+      - name: Cache whisper.cpp build + model
+        if: ${{ !inputs.skip_transcribe }}
+        uses: actions/cache@v4
+        with:
+          path: whisper.cpp
+          key: whisper-cpp-${{ runner.os }}-v${{ env.WHISPER_VERSION }}-${{ inputs.model }}
+
+      - name: Transcribe with whisper.cpp
+        if: ${{ !inputs.skip_transcribe }}
+        env:
+          WHISPER_PROMPT: ${{ inputs.prompt }}
+        run: npx tsx scripts/transcribe.ts "${{ inputs.video }}" "${{ inputs.model }}" "${{ inputs.language }}"
+
+      - name: Check captions file exists
+        run: test -f "public/${{ steps.names.outputs.captions }}"
+
+      - name: Render captioned video
+        run: |
+          npx remotion render CaptionedVideo "${{ steps.names.outputs.output }}" --codec=h264 \
+            --props='{"src":"${{ inputs.video }}","captionsFile":"${{ steps.names.outputs.captions }}","captions":[],"captionTop":1260,"captionHeight":220,"blurBehindCaptions":true}'
+
+      - name: Render still frames for review
+        run: |
+          npx remotion render CaptionedVideo out/review-frames --frames=120,600,1200 --image-format=png \
+            --props='{"src":"${{ inputs.video }}","captionsFile":"${{ steps.names.outputs.captions }}","captions":[],"captionTop":1260,"captionHeight":220,"blurBehindCaptions":true}'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: captioned-video-${{ steps.names.outputs.base }}
+          path: |
+            ${{ steps.names.outputs.output }}
+            out/review-frames/
+            public/${{ steps.names.outputs.captions }}
+          if-no-files-found: error
+
+      - name: Commit results back to branch
+        if: ${{ inputs.commit_results }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "public/${{ steps.names.outputs.captions }}"
+          git add -f "${{ steps.names.outputs.output }}"
+          if git diff --cached --quiet; then
+            echo "Tidak ada perubahan untuk di-commit."
+          else
+            git commit -m "Add captions and render for ${{ inputs.video }}"
+            git push
+          fi

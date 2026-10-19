@@ -6,11 +6,28 @@
     "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
-    "lib": ["es2015"],
+    "lib": [
+      "es2022",
+      "dom"
+    ],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "types": [
+      "node",
+      "@types/web"
+    ]
   },
-  "exclude": ["remotion.config.ts"]
+  "exclude": [
+    "node_modules",
+    "whisper.cpp",
+    "tmp",
+    "out"
+  ],
+  "include": [
+    "src",
+    "scripts",
+    "remotion.config.ts"
+  ]
 }
