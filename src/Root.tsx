@@ -10,6 +10,12 @@ import {
   meneuroborosVHSDefaults,
   meneuroborosVHSSchema,
 } from "./Logo/MeneuroborosVHS";
+import {
+  calculateMeneuroborosMinimalMetadata,
+  MeneuroborosMinimal,
+  meneuroborosMinimalDefaults,
+  meneuroborosMinimalSchema,
+} from "./Logo/MeneuroborosMinimal";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -79,6 +85,39 @@ export const RemotionRoot: React.FC = () => {
           width={1080}
           height={1080}
           defaultProps={meneuroborosVHSDefaults}
+        />
+        <Composition
+          id="MeneuroborosMinimal-Portrait"
+          component={MeneuroborosMinimal}
+          schema={meneuroborosMinimalSchema}
+          calculateMetadata={calculateMeneuroborosMinimalMetadata}
+          durationInFrames={135}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={meneuroborosMinimalDefaults}
+        />
+        <Composition
+          id="MeneuroborosMinimal-Landscape"
+          component={MeneuroborosMinimal}
+          schema={meneuroborosMinimalSchema}
+          calculateMetadata={calculateMeneuroborosMinimalMetadata}
+          durationInFrames={135}
+          fps={30}
+          width={1920}
+          height={1080}
+          defaultProps={meneuroborosMinimalDefaults}
+        />
+        <Composition
+          id="MeneuroborosMinimal-Square"
+          component={MeneuroborosMinimal}
+          schema={meneuroborosMinimalSchema}
+          calculateMetadata={calculateMeneuroborosMinimalMetadata}
+          durationInFrames={135}
+          fps={30}
+          width={1080}
+          height={1080}
+          defaultProps={meneuroborosMinimalDefaults}
         />
       </Folder>
     </>

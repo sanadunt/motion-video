@@ -30,9 +30,18 @@ type Props = {
   readonly eyeGlow: number;
   readonly colors: EmblemColors;
   readonly idPrefix: string;
+  /** 0..1, how much of the top snake is drawn (tail to snout). Default 1. */
+  readonly topReveal?: number;
+  /** 0..1, how much of the bottom snake is drawn (tail to snout). Default 1. */
+  readonly bottomReveal?: number;
+  /** 0..1, eyelid opening (1 = open). Default 1. */
+  readonly eyeOpen?: number;
+  /** 0..1, strength of the static highlights/shading. Default 1. */
+  readonly lighting?: number;
 };
 
-const rot = (s: SnakeSpec, deg: number) => `rotate(${deg.toFixed(3)} ${s.cx} ${s.cy})`;
+const rot = (s: SnakeSpec, deg: number) =>
+  `rotate(${deg.toFixed(3)} ${s.cx} ${s.cy})`;
 
 const Eyes: React.FC<{
   s: SnakeSpec;
@@ -40,7 +49,8 @@ const Eyes: React.FC<{
   glow: number;
   color: string;
   filterId: string;
-}> = ({ s, size, glow, color, filterId }) => {
+  open: number;
+}> = ({ s, size, glow, color, filterId, open }) => {
   const v = 0.5;
   const a = headAngle(s, v);
   const w = headWidth(s, v);
@@ -63,7 +73,7 @@ const Eyes: React.FC<{
               cx={p.x}
               cy={p.y}
               rx={size}
-              ry={size * 0.7}
+              ry={size * 0.7 * Math.max(0.06, open)}
               fill={core}
               transform={`rotate(${a + 90} ${p.x} ${p.y})`}
             />
@@ -87,6 +97,9 @@ const Snake: React.FC<{
   eyeColor: string;
   glowFilterId: string;
   marks?: string;
+  reveal: number;
+  maskId: string;
+  eyeOpen: number;
 }> = ({
   s,
   angle,
@@ -99,83 +112,173 @@ const Snake: React.FC<{
   eyeColor,
   glowFilterId,
   marks,
+  reveal,
+  maskId,
+  eyeOpen,
 }) => {
   const sweep = bodySweep(s);
+  const masked = reveal < 1;
+  // the snake is "drawn" tail -> neck, then neck -> snout. Body and head get separate masks
+  // because the snout overlaps the tail tip.
+  const headSpan = s.headSweep + 4;
+  const total = sweep + headSpan;
+  const bodyReveal = Math.min(1, Math.max(0, (reveal * total) / sweep));
+  const headReveal = Math.min(
+    1,
+    Math.max(0, (reveal * total - sweep) / headSpan),
+  );
+  const line = (from: number, to: number, steps: number) =>
+    Array.from({ length: steps + 1 }, (_, i) => {
+      const p = ringPoint(s, s.dir * (from + ((to - from) * i) / steps));
+      return `${p.x.toFixed(2)},${p.y.toFixed(2)}`;
+    }).join(" ");
+  // just wide enough to cover body / head + outline, so the round leading edge
+  // never uncovers the neck end that lies next to the tail tip
+  const bodyMaskWidth = 2 * (s.hw + s.outline / 2 + 2);
+  const headMaskWidth = 2 * (s.hw * 1.5 + s.outline / 2 + 2);
+  const pad = headMaskWidth;
+  const maskBox = {
+    x: s.cx - s.r - pad,
+    y: s.cy - s.r - pad,
+    width: (s.r + pad) * 2,
+    height: (s.r + pad) * 2,
+  };
   const scaleFrom = s.dir * sweep * 0.3;
   const scaleTo = s.dir * (sweep - 4);
   const dash = s.hw * 0.42;
   return (
     <g transform={rot(s, angle)}>
-      <path
-        d={bodyPath(s)}
-        fill={fill}
-        stroke={outline}
-        strokeWidth={s.outline}
-        strokeLinejoin="round"
-        paintOrder="stroke"
-      />
-      <path
-        d={arcPath(s, scaleFrom, scaleTo)}
-        fill="none"
-        stroke={scaleColor}
-        strokeOpacity={scaleOpacity}
-        strokeWidth={s.hw * 1.25}
-        strokeDasharray={`${dash.toFixed(2)} ${(dash * 1.6).toFixed(2)}`}
-      />
-      {marks
-        ? [0.55, 0.8].map((u) => {
-            const p = ringPoint(s, s.dir * sweep * u);
-            const a = s.dir * sweep * u;
-            return (
-              <ellipse
-                key={u}
-                cx={p.x}
-                cy={p.y}
-                rx={s.hw * 1.05}
-                ry={s.hw * 0.17}
-                fill={marks}
-                transform={`rotate(${a + 90} ${p.x} ${p.y})`}
+      {masked ? (
+        <defs>
+          <mask id={`${maskId}-body`} maskUnits="userSpaceOnUse" {...maskBox}>
+            {bodyReveal > 0 ? (
+              <polyline
+                points={line(0, sweep, 120)}
+                fill="none"
+                stroke="#FFFFFF"
+                strokeWidth={bodyMaskWidth}
+                strokeLinecap="round"
+                pathLength={1}
+                strokeDasharray={`${bodyReveal.toFixed(4)} 2`}
               />
-            );
-          })
-        : null}
-      <path
-        d={headPath(s)}
-        fill={fill}
-        stroke={outline}
-        strokeWidth={s.outline}
-        strokeLinejoin="round"
-        paintOrder="stroke"
-      />
-      {/* faint centre ridge on the head */}
-      <path
-        d={arcPath(s, headAngle(s, 0.12), headAngle(s, 0.78))}
-        fill="none"
-        stroke="#000000"
-        strokeOpacity={0.35}
-        strokeWidth={s.hw * 0.16}
-        strokeLinecap="round"
-      />
-      <Eyes s={s} size={eyeSize} glow={eyeGlow} color={eyeColor} filterId={glowFilterId} />
+            ) : null}
+          </mask>
+          <mask id={`${maskId}-head`} maskUnits="userSpaceOnUse" {...maskBox}>
+            {headReveal > 0 ? (
+              <polyline
+                points={line(sweep - 3, sweep + headSpan, 24)}
+                fill="none"
+                stroke="#FFFFFF"
+                strokeWidth={headMaskWidth}
+                strokeLinecap="round"
+                pathLength={1}
+                strokeDasharray={`${headReveal.toFixed(4)} 2`}
+              />
+            ) : null}
+          </mask>
+        </defs>
+      ) : null}
+      <g mask={masked ? `url(#${maskId}-body)` : undefined}>
+        <path
+          d={bodyPath(s)}
+          fill={fill}
+          stroke={outline}
+          strokeWidth={s.outline}
+          strokeLinejoin="round"
+          paintOrder="stroke"
+        />
+        <path
+          d={arcPath(s, scaleFrom, scaleTo)}
+          fill="none"
+          stroke={scaleColor}
+          strokeOpacity={scaleOpacity}
+          strokeWidth={s.hw * 1.25}
+          strokeDasharray={`${dash.toFixed(2)} ${(dash * 1.6).toFixed(2)}`}
+        />
+        {marks
+          ? [0.55, 0.8].map((u) => {
+              const p = ringPoint(s, s.dir * sweep * u);
+              const a = s.dir * sweep * u;
+              return (
+                <ellipse
+                  key={u}
+                  cx={p.x}
+                  cy={p.y}
+                  rx={s.hw * 1.05}
+                  ry={s.hw * 0.17}
+                  fill={marks}
+                  transform={`rotate(${a + 90} ${p.x} ${p.y})`}
+                />
+              );
+            })
+          : null}
+      </g>
+      <g mask={masked ? `url(#${maskId}-head)` : undefined}>
+        <path
+          d={headPath(s)}
+          fill={fill}
+          stroke={outline}
+          strokeWidth={s.outline}
+          strokeLinejoin="round"
+          paintOrder="stroke"
+        />
+        {/* faint centre ridge on the head */}
+        <path
+          d={arcPath(s, headAngle(s, 0.12), headAngle(s, 0.78))}
+          fill="none"
+          stroke="#000000"
+          strokeOpacity={0.35}
+          strokeWidth={s.hw * 0.16}
+          strokeLinecap="round"
+        />
+        <Eyes
+          s={s}
+          size={eyeSize}
+          glow={eyeGlow}
+          color={eyeColor}
+          filterId={glowFilterId}
+          open={eyeOpen}
+        />
+      </g>
     </g>
   );
 };
 
 /** Clip shape that follows a rotated snake (body + head). */
-const SnakeClip: React.FC<{ id: string; s: SnakeSpec; angle: number }> = ({ id, s, angle }) => (
+const SnakeClip: React.FC<{ id: string; s: SnakeSpec; angle: number }> = ({
+  id,
+  s,
+  angle,
+}) => (
   <clipPath id={id}>
     <path d={bodyPath(s)} transform={rot(s, angle)} />
     <path d={headPath(s)} transform={rot(s, angle)} />
   </clipPath>
 );
 
-export const Emblem: React.FC<Props> = ({ topAngle, bottomAngle, eyeGlow, colors, idPrefix }) => {
+export const Emblem: React.FC<Props> = ({
+  topAngle,
+  bottomAngle,
+  eyeGlow,
+  colors,
+  idPrefix,
+  topReveal = 1,
+  bottomReveal = 1,
+  eyeOpen = 1,
+  lighting = 1,
+}) => {
+  // highlights only appear once the whole snake (incl. head) is drawn
+  const gate = (r: number) => Math.min(1, Math.max(0, (r - 0.985) / 0.015));
+  const topLight = lighting * gate(topReveal);
+  const bottomLight = lighting * gate(bottomReveal);
   const ids = {
     glow: `${idPrefix}-glow`,
     topClip: `${idPrefix}-top-clip`,
     bottomClip: `${idPrefix}-bottom-clip`,
     front: `${idPrefix}-front`,
     shade: `${idPrefix}-shade`,
+    topMask: `${idPrefix}-top-mask`,
+    bottomMask: `${idPrefix}-bottom-mask`,
   };
 
   const top = (
@@ -191,9 +294,12 @@ export const Emblem: React.FC<Props> = ({ topAngle, bottomAngle, eyeGlow, colors
         eyeGlow={eyeGlow}
         eyeColor={colors.eye}
         glowFilterId={ids.glow}
+        reveal={topReveal}
+        maskId={ids.topMask}
+        eyeOpen={eyeOpen}
       />
       {/* static light: highlight on the upper-left of the red ring */}
-      <g clipPath={`url(#${ids.topClip})`}>
+      <g clipPath={`url(#${ids.topClip})`} opacity={topLight}>
         <path
           d={arcPath(TOP, 195, 262, TOP.hw * 0.45)}
           fill="none"
@@ -247,10 +353,18 @@ export const Emblem: React.FC<Props> = ({ topAngle, bottomAngle, eyeGlow, colors
         eyeColor={colors.eye}
         glowFilterId={ids.glow}
         marks={colors.top}
+        reveal={bottomReveal}
+        maskId={ids.bottomMask}
+        eyeOpen={eyeOpen}
       />
       {/* static light on the bottom ring: rim shading + two sheens */}
-      <g clipPath={`url(#${ids.bottomClip})`}>
-        <circle cx={BOTTOM.cx} cy={BOTTOM.cy} r={BOTTOM.r + BOTTOM.hw * 1.5} fill={`url(#${ids.shade})`} />
+      <g clipPath={`url(#${ids.bottomClip})`} opacity={bottomLight}>
+        <circle
+          cx={BOTTOM.cx}
+          cy={BOTTOM.cy}
+          r={BOTTOM.r + BOTTOM.hw * 1.5}
+          fill={`url(#${ids.shade})`}
+        />
         <path
           d={arcPath(BOTTOM, 200, 262, BOTTOM.hw * 0.35)}
           fill="none"
