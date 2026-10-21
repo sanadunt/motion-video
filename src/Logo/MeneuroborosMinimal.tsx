@@ -1,3 +1,4 @@
+import { Audio } from "@remotion/media";
 import { zColor } from "@remotion/zod-types";
 import React from "react";
 import {
@@ -5,6 +6,7 @@ import {
   CalculateMetadataFunction,
   Easing,
   interpolate,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -52,6 +54,10 @@ export const meneuroborosMinimalSchema = z.object({
       "End transition: letters drop, each snake swallows itself tail-first",
     ),
   outroDuration: z.number().min(0.6).max(3).describe("Seconds"),
+  sound: z
+    .boolean()
+    .describe("Sound effects (bundled in public/sfx/meneuroboros)"),
+  soundVolume: z.number().min(0).max(1),
   shading: z
     .number()
     .min(0)
@@ -78,6 +84,8 @@ export const meneuroborosMinimalDefaults: MeneuroborosMinimalProps = {
   blink: true,
   outro: true,
   outroDuration: 1.3,
+  sound: true,
+  soundVolume: 0.9,
   shading: 1,
 };
 
@@ -292,6 +300,113 @@ export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
           </g>
         </g>
       </svg>
+      {props.sound ? (
+        <SoundTrack
+          volume={props.soundVolume}
+          blink={props.blink}
+          outro={props.outro}
+          outroStart={o0}
+          outroDuration={O}
+          end={D}
+        />
+      ) : null}
     </AbsoluteFill>
+  );
+};
+
+// ------------------------------------------------------------------ sound
+
+const sfx = (name: string) => staticFile(`sfx/meneuroboros/${name}.wav`);
+
+/** Synthesised SFX (scripts/sfx/meneuroboros_sfx.py), placed on the animation's beats. */
+const SoundTrack: React.FC<{
+  volume: number;
+  blink: boolean;
+  outro: boolean;
+  outroStart: number;
+  outroDuration: number;
+  end: number;
+}> = ({ volume, blink, outro, outroStart, outroDuration, end }) => {
+  const { fps } = useVideoConfig();
+  const at = (sec: number) => Math.max(0, Math.round(sec * fps));
+  const ot = (f: number) => outroStart + f * outroDuration;
+  // the pad fades in, then out with the outro (or at the very end without one)
+  const padOutStart = outro ? outroStart : end - 0.6;
+  const padOutEnd = outro ? ot(0.95) : end;
+  return (
+    <>
+      <Audio
+        name="Pad"
+        src={sfx("pad")}
+        loop
+        volume={(f) =>
+          volume *
+          0.35 *
+          interpolate(f / fps, [0, 1, padOutStart, padOutEnd], [0, 1, 1, 0], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          })
+        }
+      />
+      <Audio
+        name="Whoosh in"
+        from={at(0.05)}
+        src={sfx("whoosh-in")}
+        volume={volume * 0.62}
+      />
+      <Audio
+        name="Letters"
+        from={at(T.lettersStart)}
+        src={sfx("letters")}
+        volume={volume * 0.7}
+      />
+      <Audio
+        name="Bite (bottom)"
+        from={at(1.08)}
+        src={sfx("bite")}
+        volume={volume * 0.62}
+      />
+      <Audio
+        name="Bite (top)"
+        from={at(1.2)}
+        src={sfx("bite")}
+        playbackRate={1.3}
+        volume={volume * 0.36}
+      />
+      <Audio
+        name="Hiss"
+        from={at(1.3)}
+        src={sfx("hiss")}
+        volume={volume * 0.6}
+      />
+      {blink ? (
+        <Audio
+          name="Blink"
+          from={at(T.blink[0] - 0.01)}
+          src={sfx("blink")}
+          volume={volume * 0.8}
+        />
+      ) : null}
+      {outro ? (
+        <>
+          <Audio
+            name="Whoosh out"
+            from={at(outroStart)}
+            src={sfx("whoosh-out")}
+            playbackRate={Math.min(
+              2,
+              Math.max(0.5, 1.15 / (outroDuration * 0.9)),
+            )}
+            volume={volume * 0.75}
+          />
+          <Audio
+            name="Gulp"
+            from={at(ot(0.8))}
+            src={sfx("gulp")}
+            volume={volume * 0.85}
+          />
+        </>
+      ) : null}
+    </>
   );
 };
