@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 331" width="240" height="331">
+<title>Meneuroboros emblem</title>
+<g id="emblem">
+  <defs>
+    <linearGradient id="emblem-gloss-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3A3A3A"/>
+      <stop offset="0.18" stop-color="#161616"/>
+      <stop offset="0.82" stop-color="#161616"/>
+      <stop offset="1" stop-color="#3A3A3A"/>
+    </linearGradient>
+    <linearGradient id="emblem-shine-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="emblem-band-grad" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0.62" stop-color="#5A5A5A"/>
+      <stop offset="0.72" stop-color="#3A3A3A"/>
+      <stop offset="1" stop-color="#3A3A3A"/>
+    </radialGradient>
+    <clipPath id="emblem-band-clip">
+      <path clip-rule="evenodd" d="M15 206a105 110 0 1 0 210 0a105 110 0 1 0 -210 0ZM43 216.5a77 69.5 0 1 0 154 0a77 69.5 0 1 0 -154 0Z"/>
+    </clipPath>
+  </defs>
+  <path id="emblem-band-outline" fill="#000000" fill-rule="evenodd" d="M8 206a112 117 0 1 0 224 0a112 117 0 1 0 -224 0ZM50 216.5a70 62.5 0 1 0 140 0a70 62.5 0 1 0 -140 0Z"/>
+  <path id="emblem-band" fill="url(#emblem-band-grad)" fill-rule="evenodd" d="M15 206a105 110 0 1 0 210 0a105 110 0 1 0 -210 0ZM43 216.5a77 69.5 0 1 0 154 0a77 69.5 0 1 0 -154 0Z"/>
+  <g id="emblem-coil-group" clip-path="url(#emblem-band-clip)">
+  <path id="emblem-coil" fill="none" stroke="url(#emblem-gloss-grad)" stroke-width="30" stroke-linecap="butt" d="M38.2 202.4A86 86 0 0 1 201.8 202.4"/>
+  <path id="emblem-coil-shine" fill="none" stroke="url(#emblem-shine-grad)" stroke-width="3" stroke-linecap="round" d="M57.8 159.9A93 93 0 0 1 182.2 159.9"/>
+  <ellipse id="emblem-coil-bulge" cx="84" cy="157" rx="17" ry="9" transform="rotate(-28 84 157)" fill="#161616"/>
+  </g>
+  <ellipse id="emblem-slit" cx="121" cy="130" rx="21" ry="3.6" fill="#921C1D"/>
+  <path id="emblem-band-sheen" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="4" stroke-linecap="round" d="M181.3 263.1A80 72.5 0 0 1 58.7 263.1"/>
+  <g id="emblem-tail">
+    <path id="emblem-tail-outline" fill="none" stroke="#000000" stroke-width="26" stroke-linecap="butt" d="M167.4 106.3A52.5 52.5 0 1 0 82 102.6"/>
+    <path id="emblem-tail-tip-outline" fill="none" stroke="#000000" stroke-width="20" stroke-linecap="round" d="M82 102.6L77.9 97.5"/>
+    <path id="emblem-tail-body" fill="none" stroke="#921C1D" stroke-width="13" stroke-linecap="butt" d="M167.4 106.3A52.5 52.5 0 1 0 82 102.6"/>
+    <path id="emblem-tail-tip" fill="none" stroke="#921C1D" stroke-width="10" stroke-linecap="round" d="M82 102.6L77.9 97.5"/>
+    <path id="emblem-tail-highlight" fill="none" stroke="#C23A36" stroke-width="2.5" stroke-linecap="round" d="M73.8 55A55.5 55.5 0 0 1 111.6 20.4"/>
+    <path id="emblem-tail-tip-shine" fill="none" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="1.6" stroke-linecap="round" d="M86.5 107.1L78.9 96.5"/>
+  </g>
+  <g id="emblem-head" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.9">
+    <path id="emblem-head-shape" fill="#000000" fill-opacity="0.18" stroke="none" d="M162 103C176 101 192 113 200 129C206 141 206 149 202 151C190 145 172 137 156 135C148 129 150 113 162 103Z"/>
+    <path id="emblem-head-jaw" d="M166 106C174 113 186 125 194 141"/>
+    <path id="emblem-head-scales" d="M172 105C182 109 190 117 196 127M178 117l5 -2M184 125l5 -2M189 133l5 -2"/>
+    <path id="emblem-head-brow" d="M148 126C153 121 162 121 167 126"/>
+    <ellipse id="emblem-head-eye" cx="158" cy="130" rx="5" ry="2.6" fill="#FFFFFF" stroke="none"/>
+    <path id="emblem-head-fang" d="M192 137l-2 6"/>
+  </g>
+</g>
+</svg>
