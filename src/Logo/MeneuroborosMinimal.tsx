@@ -42,7 +42,9 @@ export const meneuroborosMinimalSchema = z.object({
     .number()
     .min(0)
     .max(90)
-    .describe("Degrees per second after settling (0 = still)"),
+    .describe(
+      "Degrees per second the snakes keep turning (0 = stop after settling)",
+    ),
   blink: z.boolean(),
   shading: z
     .number()
@@ -66,7 +68,7 @@ export const meneuroborosMinimalDefaults: MeneuroborosMinimalProps = {
   bottomSnakeColor: "#3A3A3A",
   eyeColor: "#FFFFFF",
   spinIn: 150,
-  idleSpin: 0,
+  idleSpin: 36,
   blink: true,
   shading: 1,
 };
@@ -87,6 +89,7 @@ const T = {
   bottomDraw: [0.1, 1.15] as const,
   topDraw: [0.3, 1.25] as const,
   settle: [0.1, 1.7] as const,
+  spinRamp: [0.4, 1.6] as const,
   pop: [0, 1.3] as const,
   lettersStart: 1.0,
   letterStagger: 0.035,
@@ -113,7 +116,15 @@ export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
     ...clamp,
     easing: outExpo,
   });
-  const idle = Math.max(0, t - T.settle[1]) * props.idleSpin;
+  // continuous spin: eases in while the settle slows down, so the snakes never stop
+  let idle = 0;
+  for (let i = 0; i < frame; i++) {
+    const ramp = interpolate(i / fps, T.spinRamp, [0, 1], {
+      ...clamp,
+      easing: smooth,
+    });
+    idle += (props.idleSpin * ramp) / fps;
+  }
   const topAngle = TOP_REST - props.spinIn * (1 - settle) + idle;
   const bottomAngle =
     BOTTOM_REST + props.spinIn * 0.8 * (1 - settle) - idle * 0.8;
