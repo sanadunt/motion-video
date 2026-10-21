@@ -21,7 +21,7 @@ import {
 
 export const meneuroborosMinimalSchema = z.object({
   layout: z.enum(["auto", "horizontal", "stacked"]),
-  durationInSeconds: z.number().min(3).max(30),
+  durationInSeconds: z.number().min(4).max(30),
   backgroundColor: zColor(),
   transparentBackground: z
     .boolean()
@@ -46,6 +46,12 @@ export const meneuroborosMinimalSchema = z.object({
       "Degrees per second the snakes keep turning (0 = stop after settling)",
     ),
   blink: z.boolean(),
+  outro: z
+    .boolean()
+    .describe(
+      "End transition: letters drop, each snake swallows itself tail-first",
+    ),
+  outroDuration: z.number().min(0.6).max(3).describe("Seconds"),
   shading: z
     .number()
     .min(0)
@@ -59,7 +65,7 @@ export type MeneuroborosMinimalProps = z.infer<
 
 export const meneuroborosMinimalDefaults: MeneuroborosMinimalProps = {
   layout: "auto",
-  durationInSeconds: 4.5,
+  durationInSeconds: 5.5,
   backgroundColor: "#FFFFFF",
   transparentBackground: false,
   letterColor: "#FFFFFF",
@@ -70,6 +76,8 @@ export const meneuroborosMinimalDefaults: MeneuroborosMinimalProps = {
   spinIn: 150,
   idleSpin: 36,
   blink: true,
+  outro: true,
+  outroDuration: 1.3,
   shading: 1,
 };
 
@@ -100,13 +108,31 @@ const T = {
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const smooth = Easing.bezier(0.65, 0, 0.35, 1);
 const outExpo = Easing.bezier(0.16, 1, 0.3, 1);
+const inExpo = Easing.bezier(0.7, 0, 0.84, 0);
+// starts slow, finishes fast: the snake gulps the last bit (its head) quickly
+const eraseEase = Easing.bezier(0.5, 0, 0.9, 0.55);
+
+/** Outro timing as fractions of the outro window. */
+const OUTRO = {
+  letterStagger: 0.025,
+  letterFall: 0.34,
+  bottomErase: [0.06, 0.8] as const,
+  topErase: [0.13, 0.84] as const,
+  headsOut: [0.78, 0.94] as const,
+  extraSpin: 150,
+};
 
 export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
   props,
 ) => {
   const frame = useCurrentFrame();
-  const { fps, width, height } = useVideoConfig();
+  const { fps, width, height, durationInFrames } = useVideoConfig();
   const t = frame / fps;
+  const D = durationInFrames / fps;
+  // outro window [o0, D]; with outro off it sits past the end and never starts
+  const O = props.outroDuration;
+  const o0 = props.outro ? D - O : D + 1;
+  const ot = (f: number) => o0 + f * O;
 
   const layout = getLockupLayout(width, height, props.layout, { fill: 0.92 });
 
@@ -125,9 +151,41 @@ export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
     });
     idle += (props.idleSpin * ramp) / fps;
   }
-  const topAngle = TOP_REST - props.spinIn * (1 - settle) + idle;
+  // the spin speeds up as the snakes eat themselves
+  const extra =
+    OUTRO.extraSpin *
+    interpolate(t, [o0, D], [0, 1], {
+      ...clamp,
+      easing: Easing.in(Easing.cubic),
+    });
+  const topAngle = TOP_REST - props.spinIn * (1 - settle) + idle + extra;
   const bottomAngle =
-    BOTTOM_REST + props.spinIn * 0.8 * (1 - settle) - idle * 0.8;
+    BOTTOM_REST + props.spinIn * 0.8 * (1 - settle) - (idle + extra) * 0.8;
+  const topErase = interpolate(
+    t,
+    [ot(OUTRO.topErase[0]), ot(OUTRO.topErase[1])],
+    [0, 1],
+    {
+      ...clamp,
+      easing: eraseEase,
+    },
+  );
+  const bottomErase = interpolate(
+    t,
+    [ot(OUTRO.bottomErase[0]), ot(OUTRO.bottomErase[1])],
+    [0, 1],
+    { ...clamp, easing: eraseEase },
+  );
+  // what is left (the two heads) shrinks away
+  const headsOut = interpolate(
+    t,
+    [ot(OUTRO.headsOut[0]), ot(OUTRO.headsOut[1])],
+    [0, 1],
+    {
+      ...clamp,
+      easing: inExpo,
+    },
+  );
   const topReveal = interpolate(t, T.topDraw, [0, 1], {
     ...clamp,
     easing: smooth,
@@ -142,7 +200,9 @@ export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
     : 1;
 
   // gentle scale-in of the emblem around its own centre
-  const pop = interpolate(t, T.pop, [0.9, 1], { ...clamp, easing: outExpo });
+  const pop =
+    interpolate(t, T.pop, [0.9, 1], { ...clamp, easing: outExpo }) *
+    (1 - 0.12 * headsOut);
   const ec = {
     x: EMBLEM_BOX.x + EMBLEM_BOX.w / 2,
     y: EMBLEM_BOX.y + EMBLEM_BOX.h / 2,
@@ -171,6 +231,7 @@ export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
           transform={`translate(${layout.tx} ${layout.ty}) scale(${layout.s})`}
         >
           <g
+            opacity={1 - headsOut}
             transform={`translate(${layout.emblem.x} ${layout.emblem.y}) scale(${layout.emblem.k}) translate(${ec.x} ${ec.y}) scale(${pop}) translate(${-ec.x} ${-ec.y})`}
           >
             <Emblem
@@ -187,6 +248,8 @@ export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
               idPrefix="min"
               topReveal={topReveal}
               bottomReveal={bottomReveal}
+              topErase={topErase}
+              bottomErase={bottomErase}
               eyeOpen={eyeOpen}
               lighting={props.shading}
             />
@@ -211,11 +274,18 @@ export const MeneuroborosMinimal: React.FC<MeneuroborosMinimalProps> = (
                   easing: outExpo,
                 },
               );
+              const fallStart = ot(i * OUTRO.letterStagger);
+              const fall = interpolate(
+                t,
+                [fallStart, fallStart + OUTRO.letterFall * O],
+                [0, 1],
+                { ...clamp, easing: inExpo },
+              );
               return (
                 <path
                   key={i}
                   d={letter.d}
-                  transform={`translate(0 ${(rise * (WORDMARK_HEIGHT + 10)).toFixed(2)})`}
+                  transform={`translate(0 ${((rise + fall) * (WORDMARK_HEIGHT + 10)).toFixed(2)})`}
                 />
               );
             })}

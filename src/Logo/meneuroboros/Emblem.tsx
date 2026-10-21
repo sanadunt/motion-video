@@ -34,6 +34,10 @@ type Props = {
   readonly topReveal?: number;
   /** 0..1, how much of the bottom snake is drawn (tail to snout). Default 1. */
   readonly bottomReveal?: number;
+  /** 0..1, how much of the top snake is eaten away, tail first, snout last. Default 0. */
+  readonly topErase?: number;
+  /** 0..1, same for the bottom snake. Default 0. */
+  readonly bottomErase?: number;
   /** 0..1, eyelid opening (1 = open). Default 1. */
   readonly eyeOpen?: number;
   /** 0..1, strength of the static highlights/shading. Default 1. */
@@ -98,6 +102,7 @@ const Snake: React.FC<{
   glowFilterId: string;
   marks?: string;
   reveal: number;
+  erase: number;
   maskId: string;
   eyeOpen: number;
 }> = ({
@@ -113,11 +118,12 @@ const Snake: React.FC<{
   glowFilterId,
   marks,
   reveal,
+  erase,
   maskId,
   eyeOpen,
 }) => {
   const sweep = bodySweep(s);
-  const masked = reveal < 1;
+  const masked = reveal < 1 || erase > 0;
   // the snake is "drawn" tail -> neck, then neck -> snout. Body and head get separate masks
   // because the snout overlaps the tail tip.
   const headSpan = s.headSweep + 4;
@@ -126,6 +132,12 @@ const Snake: React.FC<{
   const headReveal = Math.min(
     1,
     Math.max(0, (reveal * total - sweep) / headSpan),
+  );
+  // erase runs over the whole snake too: body from the tail, then the head up to the snout
+  const bodyErase = Math.min(1, Math.max(0, (erase * total) / sweep));
+  const headErase = Math.min(
+    1,
+    Math.max(0, (erase * total - sweep) / headSpan),
   );
   const line = (from: number, to: number, steps: number) =>
     Array.from({ length: steps + 1 }, (_, i) => {
@@ -151,7 +163,7 @@ const Snake: React.FC<{
       {masked ? (
         <defs>
           <mask id={`${maskId}-body`} maskUnits="userSpaceOnUse" {...maskBox}>
-            {bodyReveal > 0 ? (
+            {bodyReveal - bodyErase > 0.0005 ? (
               <polyline
                 points={line(0, sweep, 120)}
                 fill="none"
@@ -159,12 +171,13 @@ const Snake: React.FC<{
                 strokeWidth={bodyMaskWidth}
                 strokeLinecap="round"
                 pathLength={1}
-                strokeDasharray={`${bodyReveal.toFixed(4)} 2`}
+                strokeDasharray={`${(bodyReveal - bodyErase).toFixed(4)} 2`}
+                strokeDashoffset={-bodyErase}
               />
             ) : null}
           </mask>
           <mask id={`${maskId}-head`} maskUnits="userSpaceOnUse" {...maskBox}>
-            {headReveal > 0 ? (
+            {headReveal - headErase > 0.0005 ? (
               <polyline
                 points={line(sweep - 3, sweep + headSpan, 24)}
                 fill="none"
@@ -172,7 +185,8 @@ const Snake: React.FC<{
                 strokeWidth={headMaskWidth}
                 strokeLinecap="round"
                 pathLength={1}
-                strokeDasharray={`${headReveal.toFixed(4)} 2`}
+                strokeDasharray={`${(headReveal - headErase).toFixed(4)} 2`}
+                strokeDashoffset={-headErase}
               />
             ) : null}
           </mask>
@@ -264,13 +278,17 @@ export const Emblem: React.FC<Props> = ({
   idPrefix,
   topReveal = 1,
   bottomReveal = 1,
+  topErase = 0,
+  bottomErase = 0,
   eyeOpen = 1,
   lighting = 1,
 }) => {
   // highlights only appear once the whole snake (incl. head) is drawn
   const gate = (r: number) => Math.min(1, Math.max(0, (r - 0.985) / 0.015));
-  const topLight = lighting * gate(topReveal);
-  const bottomLight = lighting * gate(bottomReveal);
+  // ...and switch off as soon as the tail starts being eaten
+  const ungate = (e: number) => Math.min(1, Math.max(0, 1 - e / 0.04));
+  const topLight = lighting * gate(topReveal) * ungate(topErase);
+  const bottomLight = lighting * gate(bottomReveal) * ungate(bottomErase);
   const ids = {
     glow: `${idPrefix}-glow`,
     topClip: `${idPrefix}-top-clip`,
@@ -295,6 +313,7 @@ export const Emblem: React.FC<Props> = ({
         eyeColor={colors.eye}
         glowFilterId={ids.glow}
         reveal={topReveal}
+        erase={topErase}
         maskId={ids.topMask}
         eyeOpen={eyeOpen}
       />
@@ -354,6 +373,7 @@ export const Emblem: React.FC<Props> = ({
         glowFilterId={ids.glow}
         marks={colors.top}
         reveal={bottomReveal}
+        erase={bottomErase}
         maskId={ids.bottomMask}
         eyeOpen={eyeOpen}
       />

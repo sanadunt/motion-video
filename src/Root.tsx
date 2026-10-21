@@ -91,7 +91,7 @@ export const RemotionRoot: React.FC = () => {
           component={MeneuroborosMinimal}
           schema={meneuroborosMinimalSchema}
           calculateMetadata={calculateMeneuroborosMinimalMetadata}
-          durationInFrames={135}
+          durationInFrames={165}
           fps={30}
           width={1080}
           height={1920}
@@ -102,7 +102,7 @@ export const RemotionRoot: React.FC = () => {
           component={MeneuroborosMinimal}
           schema={meneuroborosMinimalSchema}
           calculateMetadata={calculateMeneuroborosMinimalMetadata}
-          durationInFrames={135}
+          durationInFrames={165}
           fps={30}
           width={1920}
           height={1080}
@@ -113,7 +113,7 @@ export const RemotionRoot: React.FC = () => {
           component={MeneuroborosMinimal}
           schema={meneuroborosMinimalSchema}
           calculateMetadata={calculateMeneuroborosMinimalMetadata}
-          durationInFrames={135}
+          durationInFrames={165}
           fps={30}
           width={1080}
           height={1080}
