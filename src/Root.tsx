@@ -4,6 +4,12 @@ import {
   calculateCaptionedVideoMetadata,
 } from "./CaptionedVideo";
 import { HaloDunia } from "./HaloDunia";
+import {
+  calculateMeneuroborosVHSMetadata,
+  MeneuroborosVHS,
+  meneuroborosVHSDefaults,
+  meneuroborosVHSSchema,
+} from "./Logo/MeneuroborosVHS";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -38,6 +44,41 @@ export const RemotionRoot: React.FC = () => {
             captionHeight: 220,
             blurBehindCaptions: true,
           }}
+        />
+      </Folder>
+      <Folder name="Logo">
+        <Composition
+          id="MeneuroborosVHS-Portrait"
+          component={MeneuroborosVHS}
+          schema={meneuroborosVHSSchema}
+          calculateMetadata={calculateMeneuroborosVHSMetadata}
+          durationInFrames={180}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={meneuroborosVHSDefaults}
+        />
+        <Composition
+          id="MeneuroborosVHS-Landscape"
+          component={MeneuroborosVHS}
+          schema={meneuroborosVHSSchema}
+          calculateMetadata={calculateMeneuroborosVHSMetadata}
+          durationInFrames={180}
+          fps={30}
+          width={1920}
+          height={1080}
+          defaultProps={meneuroborosVHSDefaults}
+        />
+        <Composition
+          id="MeneuroborosVHS-Square"
+          component={MeneuroborosVHS}
+          schema={meneuroborosVHSSchema}
+          calculateMetadata={calculateMeneuroborosVHSMetadata}
+          durationInFrames={180}
+          fps={30}
+          width={1080}
+          height={1080}
+          defaultProps={meneuroborosVHSDefaults}
         />
       </Folder>
     </>
