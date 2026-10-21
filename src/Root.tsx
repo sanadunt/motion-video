@@ -119,6 +119,48 @@ export const RemotionRoot: React.FC = () => {
           height={1080}
           defaultProps={meneuroborosMinimalDefaults}
         />
+        <Composition
+          id="MeneuroborosMinimalBlack-Portrait"
+          component={MeneuroborosMinimal}
+          schema={meneuroborosMinimalSchema}
+          calculateMetadata={calculateMeneuroborosMinimalMetadata}
+          durationInFrames={165}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{
+            ...meneuroborosMinimalDefaults,
+            backgroundColor: "#000000",
+          }}
+        />
+        <Composition
+          id="MeneuroborosMinimalBlack-Landscape"
+          component={MeneuroborosMinimal}
+          schema={meneuroborosMinimalSchema}
+          calculateMetadata={calculateMeneuroborosMinimalMetadata}
+          durationInFrames={165}
+          fps={30}
+          width={1920}
+          height={1080}
+          defaultProps={{
+            ...meneuroborosMinimalDefaults,
+            backgroundColor: "#000000",
+          }}
+        />
+        <Composition
+          id="MeneuroborosMinimalBlack-Square"
+          component={MeneuroborosMinimal}
+          schema={meneuroborosMinimalSchema}
+          calculateMetadata={calculateMeneuroborosMinimalMetadata}
+          durationInFrames={165}
+          fps={30}
+          width={1080}
+          height={1080}
+          defaultProps={{
+            ...meneuroborosMinimalDefaults,
+            backgroundColor: "#000000",
+          }}
+        />
       </Folder>
     </>
   );
