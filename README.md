@@ -31,6 +31,33 @@ Render still frame tertentu, misalnya detik 1, 4, dan 6:
 npx remotion render HaloDunia out/frames --frames=30,120,180 --image-format=png
 ```
 
+## Motion logo "Isekai Juicer"
+
+Logo vektor + animasi 6 detik dengan efek suara untuk game *Isekai Juicer* (Ucok, penyihir dari dunia lain
+yang portalnya malah memuntahkan buah, kini jadi tukang jus). Emblem: portal ungu berputar, gelas jus di
+tengah, enam buah terlempar keluar; wordmark "ISEKAI" (Cinzel Decorative) + "JUICER" (Luckiest Guy).
+
+| Komposisi | Ukuran | Keterangan |
+| --- | --- | --- |
+| `IsekaiJuicer-Landscape` | 1920x1080 | motion logo + SFX |
+| `IsekaiJuicer-Portrait` | 1080x1920 | motion logo + SFX |
+| `IsekaiJuicer-Square` | 1080x1080 | motion logo + SFX |
+| `IsekaiJuicer-Logo` (Still) | 1200x1200 | PNG logo statis; props `background` (false = transparan) dan `showText` (false = emblem saja) |
+
+Kode: `src/Logo/isekai-juicer/Art.tsx` (grafik SVG, semua nilai animasi lewat prop `anim`),
+`src/Logo/IsekaiJuicer.tsx` (timeline + audio), `src/Logo/IsekaiJuicerStill.tsx`.
+Props motion: `fadeOut`, `sound`, `volume`.
+
+Efek suara di `public/sfx/isekai-juicer/`: `portal-open`, `sparkle`, `pop-1..5`, `splash`, `impact`, `final-chord`
+disintesis oleh `scripts/sfx/isekai_juicer_sfx.py` (numpy, bebas lisensi); `whoosh` dan `ding` dari remotion.media.
+
+```bash
+npx remotion render IsekaiJuicer-Landscape out/isekai-juicer-landscape.mp4 --codec=h264
+npx remotion still IsekaiJuicer-Logo out/isekai-juicer-logo.png
+npx remotion still IsekaiJuicer-Logo out/logo-transparent.png --props='{"background":false,"showText":true}'
+python3 scripts/sfx/isekai_juicer_sfx.py   # regenerasi SFX kalau ingin ubah karakternya
+```
+
 ## Auto caption (`CaptionedVideo`)
 
 Komposisi `CaptionedVideo` memutar video dari `public/` dan menampilkan caption animasi gaya TikTok
@@ -79,6 +106,8 @@ Folder `out/` di-ignore secara default; hasil berikut ditambahkan dengan `git ad
 
 - `out/video.mp4` — render `HaloDunia`
 - `out/kakashi-chidori-captioned.mp4` — render `CaptionedVideo` untuk `public/kakashi-chidori.mp4`
+- `out/isekai-juicer-{landscape,portrait,square}.mp4` — motion logo Isekai Juicer
+- `out/isekai-juicer-logo.png`, `out/isekai-juicer-logo-transparent.png`, `out/isekai-juicer-emblem-transparent.png` — logo statis
 
 ## Remotion Agent Skills
 

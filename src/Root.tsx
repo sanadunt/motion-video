@@ -1,9 +1,11 @@
-import { Composition, Folder } from "remotion";
+import { Composition, Folder, Still } from "remotion";
 import {
   CaptionedVideo,
   calculateCaptionedVideoMetadata,
 } from "./CaptionedVideo";
 import { HaloDunia } from "./HaloDunia";
+import { ISEKAI_JUICER_DURATION, IsekaiJuicer } from "./Logo/IsekaiJuicer";
+import { IsekaiJuicerStill } from "./Logo/IsekaiJuicerStill";
 import {
   calculateMeneuroborosVHSMetadata,
   MeneuroborosVHS,
@@ -160,6 +162,40 @@ export const RemotionRoot: React.FC = () => {
             ...meneuroborosMinimalDefaults,
             backgroundColor: "#000000",
           }}
+        />
+        <Composition
+          id="IsekaiJuicer-Landscape"
+          component={IsekaiJuicer}
+          durationInFrames={ISEKAI_JUICER_DURATION}
+          fps={30}
+          width={1920}
+          height={1080}
+          defaultProps={{ fadeOut: true, sound: true, volume: 0.85 }}
+        />
+        <Composition
+          id="IsekaiJuicer-Portrait"
+          component={IsekaiJuicer}
+          durationInFrames={ISEKAI_JUICER_DURATION}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{ fadeOut: true, sound: true, volume: 0.85 }}
+        />
+        <Composition
+          id="IsekaiJuicer-Square"
+          component={IsekaiJuicer}
+          durationInFrames={ISEKAI_JUICER_DURATION}
+          fps={30}
+          width={1080}
+          height={1080}
+          defaultProps={{ fadeOut: true, sound: true, volume: 0.85 }}
+        />
+        <Still
+          id="IsekaiJuicer-Logo"
+          component={IsekaiJuicerStill}
+          width={1200}
+          height={1200}
+          defaultProps={{ background: true, showText: true }}
         />
       </Folder>
     </>
