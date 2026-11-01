@@ -1,0 +1,21 @@
+{
+  "width": 1414,
+  "height": 2000,
+  "strands": {
+    "hair-left": {
+      "x": 568,
+      "y": 1058,
+      "w": 84,
+      "h": 150
+    },
+    "hair-right": {
+      "x": 838,
+      "y": 988,
+      "w": 163,
+      "h": 258
+    }
+  },
+  "skin": "#FCEEEE",
+  "skinLeftEye": "#FCEEEE",
+  "skinRightEye": "#FCEEEE"
+}

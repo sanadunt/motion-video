@@ -4,6 +4,13 @@ import {
   calculateCaptionedVideoMetadata,
 } from "./CaptionedVideo";
 import { HaloDunia } from "./HaloDunia";
+import {
+  CREW_FULL_FRAMES,
+  CREW_IDLE_FRAMES,
+  CREW_IN_FRAMES,
+  CREW_OUT_FRAMES,
+  CrewReveal,
+} from "./Characters/CrewReveal";
 import { ISEKAI_JUICER_DURATION, IsekaiJuicer } from "./Logo/IsekaiJuicer";
 import { IsekaiJuicerStill } from "./Logo/IsekaiJuicerStill";
 import {
@@ -35,6 +42,122 @@ export const RemotionRoot: React.FC = () => {
           },
         }}
       />
+      <Folder name="Characters">
+        <Composition
+          id="CrewReveal-Portrait"
+          component={CrewReveal}
+          durationInFrames={CREW_FULL_FRAMES}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{
+            phase: "full",
+            bgTop: "#1B1F4B",
+            bgBottom: "#0B0A1E",
+            glowColor: "#5B4DD6",
+            skinColor: "#F6DCD6",
+            skinColorRight: "#F6DCD6",
+            fitMode: "contain",
+            motionAmount: 1,
+            particles: true,
+          }}
+        />
+        <Composition
+          id="CrewReveal-Landscape"
+          component={CrewReveal}
+          durationInFrames={CREW_FULL_FRAMES}
+          fps={30}
+          width={1920}
+          height={1080}
+          defaultProps={{
+            phase: "full",
+            bgTop: "#1B1F4B",
+            bgBottom: "#0B0A1E",
+            glowColor: "#5B4DD6",
+            skinColor: "#F6DCD6",
+            skinColorRight: "#F6DCD6",
+            fitMode: "contain",
+            motionAmount: 1,
+            particles: true,
+          }}
+        />
+        <Composition
+          id="CrewReveal-Square"
+          component={CrewReveal}
+          durationInFrames={CREW_FULL_FRAMES}
+          fps={30}
+          width={1080}
+          height={1080}
+          defaultProps={{
+            phase: "full",
+            bgTop: "#1B1F4B",
+            bgBottom: "#0B0A1E",
+            glowColor: "#5B4DD6",
+            skinColor: "#F6DCD6",
+            skinColorRight: "#F6DCD6",
+            fitMode: "contain",
+            motionAmount: 1,
+            particles: true,
+          }}
+        />
+        <Composition
+          id="CrewRevealIn-Portrait"
+          component={CrewReveal}
+          durationInFrames={CREW_IN_FRAMES}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{
+            phase: "in",
+            bgTop: "#1B1F4B",
+            bgBottom: "#0B0A1E",
+            glowColor: "#5B4DD6",
+            skinColor: "#F6DCD6",
+            skinColorRight: "#F6DCD6",
+            fitMode: "contain",
+            motionAmount: 1,
+            particles: true,
+          }}
+        />
+        <Composition
+          id="CrewRevealIdle-Portrait"
+          component={CrewReveal}
+          durationInFrames={CREW_IDLE_FRAMES}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{
+            phase: "idle",
+            bgTop: "#1B1F4B",
+            bgBottom: "#0B0A1E",
+            glowColor: "#5B4DD6",
+            skinColor: "#F6DCD6",
+            skinColorRight: "#F6DCD6",
+            fitMode: "contain",
+            motionAmount: 1,
+            particles: true,
+          }}
+        />
+        <Composition
+          id="CrewRevealOut-Portrait"
+          component={CrewReveal}
+          durationInFrames={CREW_OUT_FRAMES}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={{
+            phase: "out",
+            bgTop: "#1B1F4B",
+            bgBottom: "#0B0A1E",
+            glowColor: "#5B4DD6",
+            skinColor: "#F6DCD6",
+            skinColorRight: "#F6DCD6",
+            fitMode: "contain",
+            motionAmount: 1,
+            particles: true,
+          }}
+        />
+      </Folder>
       <Folder name="Captions">
         <Composition
           id="CaptionedVideo"
