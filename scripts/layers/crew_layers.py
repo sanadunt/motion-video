@@ -15,7 +15,7 @@ Keluaran di public/crew/ (semua koordinat dalam ruang gambar 1414x2000):
 
 File cutout tidak pernah ditimpa; skrip hanya membaca.
 
-Pakai:  python3 scripts/layers/crew_layers.py magz-1.png magz-2.png ... magz-7.png
+Pakai:  python3 scripts/layers/crew_layers.py scripts/layers/crew-source/magz-{1,2,3,4,5,6,7}.png
 Butuh:  pip install opencv-python-headless pillow numpy
 Koordinat helai rambut & sampel kulit di bawah khusus untuk ilustrasi ini; sesuaikan kalau gambarnya lain.
 """

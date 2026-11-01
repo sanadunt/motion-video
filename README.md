@@ -77,7 +77,7 @@ Kode: `src/Characters/CrewReveal.tsx`. Tata letak lapisan dibaca dari `public/cr
 ### Lapisan (`scripts/layers/crew_layers.py`)
 
 Masukan: 7 PNG transparan hasil potong manual, ukuran & posisi sama dengan ilustrasi asli
-(di laptop: `../magz-1.png` .. `../magz-7.png`, 2604x3683, tidak ikut di-commit). Nomor = urutan muncul =
+(`scripts/layers/crew-source/magz-1.png` .. `magz-7.png`, 2604x3683). Nomor = urutan muncul =
 urutan kedalaman (1 paling depan). Skrip hanya membaca file itu, lalu menulis ke `public/crew/`:
 
 - `front.png` — karakter 1 tanpa dua helai rambut bawah; di bawah helai diisi jaket/rambut di sampingnya
@@ -89,7 +89,7 @@ urutan kedalaman (1 paling depan). Skrip hanya membaca file itu, lalu menulis ke
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install opencv-python-headless pillow numpy
-.venv/bin/python scripts/layers/crew_layers.py ../magz-{1,2,3,4,5,6,7}.png
+.venv/bin/python scripts/layers/crew_layers.py scripts/layers/crew-source/magz-{1,2,3,4,5,6,7}.png
 ```
 
 Koordinat kotak helai rambut dan poligon mata di skrip khusus untuk ilustrasi ini.
