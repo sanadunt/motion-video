@@ -1,39 +1,64 @@
 """
-Pisahkan ilustrasi grup (PNG transparan) menjadi lapisan untuk komposisi CrewReveal:
+Siapkan lapisan komposisi CrewReveal dari cutout manual per karakter.
 
-  public/crew/back.png        gambar utuh, area gadis depan ditambal (lapisan belakang)
-  public/crew/front.png       gadis depan tanpa dua helai rambut bawah
-  public/crew/hair-left.png   helai rambut kiri (crop, posisi di layers.json)
-  public/crew/hair-right.png  helai rambut kanan
-  public/crew/layers.json     ukuran gambar, kotak helai rambut, warna kulit
+Masukan: 7 PNG transparan dengan ukuran & posisi sama dengan ilustrasi asli (boleh resolusi lebih besar,
+misalnya 2604x3683; akan diperkecil ke 1414x2000). Urutan = urutan muncul = urutan kedalaman:
+nomor 1 paling depan (gadis jaket biru), 7 paling belakang. Gabungan ketujuhnya = gambar asli.
 
-Mask manual: kalau ada public/crew/front-mask.png (putih = gadis depan, hitam = lainnya,
-ukuran sama dengan gambar sumber), file itu dipakai sebagai pengganti GrabCut.
+Keluaran di public/crew/ (semua koordinat dalam ruang gambar 1414x2000):
+  front.png             karakter 1 tanpa dua helai rambut bawah (crop, posisi di layers.json)
+  hair-left/right.png   helai rambut bawah karakter 1 yang bergoyang
+  char-2.png..char-7.png karakter lain; bagian yang tertutup karakter di depannya ditambal selebar
+                        BAND px supaya saat lapisan bergerak yang tersingkap adalah tambalan, bukan lubang
+  eyes-mask.png         area mata karakter 1 (tanpa rambut di depannya): kelopak kedip hanya digambar di sini
+  layers.json           ukuran, kotak tiap lapisan, titik jangkar "muncul", kelopak, warna kulit
 
-Pakai:  python3 scripts/layers/crew_layers.py <gambar-sumber.png|webp>
+File cutout tidak pernah ditimpa; skrip hanya membaca.
+
+Pakai:  python3 scripts/layers/crew_layers.py magz-1.png magz-2.png ... magz-7.png
 Butuh:  pip install opencv-python-headless pillow numpy
-Koordinat di bawah khusus untuk ilustrasi 1414x2000 ini; sesuaikan kalau gambarnya lain.
+Koordinat helai rambut & sampel kulit di bawah khusus untuk ilustrasi ini; sesuaikan kalau gambarnya lain.
 """
 import json, os, sys
 import cv2, numpy as np
 from PIL import Image
 
-src = sys.argv[1]
+W, H = 1414, 2000
+BAND = 40  # lebar tambalan di balik karakter depan (px, ruang 1414x2000)
+
+srcs = sys.argv[1:]
+if len(srcs) != 7:
+    sys.exit("butuh 7 file cutout, urut dari depan (1) ke belakang (7)")
 out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "public", "crew")
 os.makedirs(out_dir, exist_ok=True)
 
-im = Image.open(src).convert("RGBA")
-a = np.asarray(im).copy()
-rgb = cv2.cvtColor(a[..., :3], cv2.COLOR_RGB2BGR)
-alpha = a[..., 3]
-H, W = alpha.shape
+
+def load(path):
+    im = Image.open(path).convert("RGBA")
+    if im.size != (W, H):
+        im = im.resize((W, H), Image.LANCZOS)
+    a = np.asarray(im).copy()
+    # buang sisa hapusan: komponen terpisah yang hampir transparan (membesarkan kotak lapisan)
+    n, lab, _, _ = cv2.connectedComponentsWithStats((a[..., 3] > 0).astype(np.uint8))
+    peak = np.zeros(n, np.uint8)
+    np.maximum.at(peak, lab.ravel(), a[..., 3].ravel())
+    a[..., 3][peak[lab] < 64] = 0
+    return a
 
 
-def grabcut(mask_init, iters=6):
-    bgd = np.zeros((1, 65), np.float64); fgd = np.zeros((1, 65), np.float64)
-    m = mask_init.copy()
-    cv2.grabCut(rgb, m, None, bgd, fgd, iters, cv2.GC_INIT_WITH_MASK)
-    return np.isin(m, [cv2.GC_FGD, cv2.GC_PR_FGD]).astype(np.uint8)
+chars = [load(p) for p in srcs]
+masks = [(c[..., 3] > 128).astype(np.uint8) for c in chars]
+
+
+def bbox(alpha):
+    ys, xs = np.where(alpha > 0)
+    return int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
+
+
+def save_crop(name, rgba):
+    x0, y0, x1, y1 = bbox(rgba[..., 3])
+    Image.fromarray(rgba[y0:y1, x0:x1]).save(os.path.join(out_dir, f"{name}.png"))
+    return {"x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0}
 
 
 def largest(fg):
@@ -44,64 +69,14 @@ def largest(fg):
     return fg
 
 
-def keep_touching(fg, seeds):
-    """Pertahankan semua komponen yang menyentuh salah satu kotak seed (y0,y1,x0,x1)."""
-    n, lab, _, _ = cv2.connectedComponentsWithStats(fg)
-    keep = set()
-    for (y0, y1, x0, x1) in seeds:
-        keep |= set(np.unique(lab[y0:y1, x0:x1])) - {0}
-    return np.isin(lab, list(keep)).astype(np.uint8)
+layers = {"width": W, "height": H, "chars": {}, "strands": {}}
 
+# ---------- 1. karakter depan + dua helai rambut bawah (di atas jaket biru) ----------
+a = chars[0]
+rgb = cv2.cvtColor(a[..., :3], cv2.COLOR_RGB2BGR)
+alpha = a[..., 3]
+front_fg = masks[0]
 
-def feather(fg, close=9, blur=5):
-    fg = cv2.morphologyEx(fg, cv2.MORPH_CLOSE, np.ones((close, close), np.uint8))
-    return (cv2.GaussianBlur(fg.astype(np.float32), (blur, blur), 0) * 255).astype(np.uint8)
-
-
-# ---------- 1. gadis depan ----------
-m = np.full((H, W), cv2.GC_PR_BGD, np.uint8)
-m[alpha < 10] = cv2.GC_BGD
-box = (slice(730, H), slice(190, 1060))
-m[box][alpha[box] >= 10] = cv2.GC_PR_FGD
-m[:, 0:200] = cv2.GC_BGD
-m[0:730, :] = cv2.GC_BGD
-m[600:1000, 330:560] = cv2.GC_BGD      # wajah pria topi
-m[760:1200, 1080:W] = cv2.GC_BGD       # kepala pria zirah
-m[1200:H, 1150:W] = cv2.GC_BGD         # badan pria zirah
-red = (rgb[..., 2] > 140) & (rgb[..., 1] < 90) & (rgb[..., 0] < 90)
-m[(red) & (np.arange(W)[None, :] < 420)] = cv2.GC_BGD   # gaun merah (kiri)
-m[900:1050, 620:820] = cv2.GC_FGD      # wajah
-m[1250:1900, 450:950] = cv2.GC_FGD     # jaket
-m[760:880, 620:900] = cv2.GC_FGD       # puncak rambut
-light = rgb.min(axis=2) > 200
-fur = np.zeros((H, W), bool); fur[950:1200, 930:W] = True
-m[light & fur] = cv2.GC_BGD            # bulu kerah pria zirah (putih) di dekat rambut kanan
-m[1700:H, 0:320] = cv2.GC_BGD          # rok gadis merah (kiri bawah)
-# rompi biru pria bertopi: warnanya sama dengan jaket, jadi dikeluarkan dengan poligon tegas
-VEST = np.array([[150, 960], [600, 960], [600, 1105], [545, 1225], [350, 1300], [230, 1390], [150, 1450]], np.int32)
-vest_mask = np.zeros((H, W), np.uint8)
-cv2.fillPoly(vest_mask, [VEST], 1)
-m[vest_mask > 0] = cv2.GC_BGD
-m[1250:1480, 900:985] = cv2.GC_FGD     # lengan kanan dekat bulu kerah
-m[1400:1500, 280:430] = cv2.GC_FGD     # lengan kiri
-m[1060:1130, 660:770] = cv2.GC_FGD     # leher
-m[1120:1200, 560:860] = cv2.GC_FGD     # kerah jaket
-manual_mask = os.path.join(out_dir, "front-mask.png")
-if os.path.exists(manual_mask):
-    # Mask manual (putih = gadis depan) menggantikan GrabCut; ukuran harus sama dengan gambar sumber.
-    print("memakai mask manual:", manual_mask)
-    mm = np.asarray(Image.open(manual_mask).convert("L"))
-    front_fg = (mm > 128).astype(np.uint8)
-else:
-    front_fg = keep_touching(grabcut(m), [(900, 1050, 620, 820), (1250, 1900, 450, 950), (760, 880, 620, 900)])
-front_fg = cv2.morphologyEx(front_fg, cv2.MORPH_CLOSE, np.ones((15, 15), np.uint8))
-if not os.path.exists(manual_mask):
-    front_fg[vest_mask > 0] = 0
-front_fg = cv2.erode(front_fg, np.ones((3, 3), np.uint8))
-cv2.imwrite(os.path.join(out_dir, "..", "..", "tmp_front_mask.png"), front_fg * 255)
-front_mask = feather(front_fg)
-
-# ---------- 2. helai rambut bawah (di atas jaket biru) ----------
 STRANDS = {
     "hair-left": (520, 1060, 650, 1235),
     "hair-right": (840, 990, 1060, 1255),
@@ -109,9 +84,7 @@ STRANDS = {
 strand_masks = {}
 for name, (x0, y0, x1, y1) in STRANDS.items():
     region = (slice(y0, y1), slice(x0, x1))
-    crop = rgb[region].astype(int)
-    mx = crop.max(axis=2)
-    dark = (mx < 95) & (front_fg[region] > 0)
+    dark = (rgb[region].max(axis=2) < 95) & (front_fg[region] > 0)
     sm = np.zeros((H, W), np.uint8)
     sm[region] = dark.astype(np.uint8)
     sm = cv2.morphologyEx(sm, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
@@ -122,35 +95,36 @@ for name, (x0, y0, x1, y1) in STRANDS.items():
     strand_masks[name] = np.maximum(soft, sm * 255)
     print(name, "px:", int((sm > 0).sum()))
 
-# ---------- 3. tulis lapisan ----------
-layers = {"width": W, "height": H, "strands": {}}
-
-# front tanpa helai: tambal area helai dengan warna jaket sekitar
-front_rgb = rgb.copy()
+# karakter depan tanpa helai: isi area helai dengan apa yang ada di sampingnya (secara horizontal),
+# utamakan jaket biru kalau ada dekat; alpha ikut piksel sumber. Area dibatasi ke kotak helai supaya
+# rambut di luar kotak tidak tersentuh. Dengan begitu helai yang bergoyang tidak meninggalkan lubang.
 hole = np.zeros((H, W), np.uint8)
 for name, sm in strand_masks.items():
-    hole |= cv2.dilate((sm > 100).astype(np.uint8), np.ones((7, 7), np.uint8))
-# isi lubang helai dengan warna jaket terdekat secara horizontal (hindari warna rambut)
+    x0, y0, x1, y1 = STRANDS[name]
+    box = np.zeros((H, W), np.uint8)
+    box[y0 + 3:y1, x0:x1] = 1  # 3 baris teratas dibiarkan asli: tepi atas helai menempel tanpa garis
+    hole |= cv2.dilate((sm > 100).astype(np.uint8), np.ones((7, 7), np.uint8)) & box
 blueish = (rgb[..., 0] > 140) & (rgb[..., 2] < 110) & (rgb[..., 1] < 140)  # biru jaket (BGR)
-ys_h, xs_h = np.where(hole > 0)
-for y, x in zip(ys_h, xs_h):
-    picked = None
+front_rgb = rgb.copy()
+front_alpha = alpha.astype(np.float32).copy()
+for y, x in zip(*np.where(hole > 0)):
+    near = blue = None
     for d in range(1, 160):
-        for xx in (x + d, x - d):
-            if 0 <= xx < W and hole[y, xx] == 0 and blueish[y, xx] and alpha[y, xx] > 200:
-                picked = rgb[y, xx]; break
-        if picked is not None: break
-    if picked is None:
-        picked = np.array([200, 60, 20])  # biru jaket (BGR) sebagai cadangan
-    front_rgb[y, x] = picked
+        for xx in (x - d, x + d):
+            if 0 <= xx < W and hole[y, xx] == 0:
+                if near is None:
+                    near = (xx, d)
+                if blue is None and blueish[y, xx] and alpha[y, xx] > 200:
+                    blue = xx
+        if blue is not None or (near is not None and d > near[1] + 40):
+            break
+    src = blue if blue is not None else (near[0] if near is not None else x)
+    front_rgb[y, x] = rgb[y, src]
+    front_alpha[y, x] = alpha[y, src]
 soft = cv2.GaussianBlur(front_rgb, (0, 0), 3)
 front_rgb[hole > 0] = soft[hole > 0]
-front_alpha = np.minimum(alpha, front_mask).astype(np.float32)
-for sm in strand_masks.values():
-    front_alpha[sm >= 255] = 0   # buang hanya bagian inti helai; tepi lembut helai menimpa front
 front_png = np.dstack([cv2.cvtColor(front_rgb, cv2.COLOR_BGR2RGB), front_alpha.astype(np.uint8)])
-# helai rambut tetap tampak di front di area yang BUKAN jaket (mis. di atas y0) -> sudah dibatasi kotak
-Image.fromarray(front_png).save(os.path.join(out_dir, "front.png"))
+layers["front"] = save_crop("front", front_png)
 
 for name, sm in strand_masks.items():
     ys, xs = np.where(sm > 0)
@@ -159,24 +133,86 @@ for name, sm in strand_masks.items():
     Image.fromarray(crop).save(os.path.join(out_dir, f"{name}.png"))
     layers["strands"][name] = {"x": int(x0), "y": int(y0), "w": int(x1 - x0), "h": int(y1 - y0)}
 
-# back plate: tambal cincin di sekitar tepi gadis + buramkan bagian dalamnya
-fgbin = (front_mask > 128).astype(np.uint8)
-# tambal pita DI DALAM tepi gadis (2..30 px ke dalam): di posisi diam tertutup penuh,
-# saat lapisan belakang bergeser beberapa px yang tersingkap adalah tambalan, bukan piksel gadis
-ring = cv2.erode(fgbin, np.ones((5, 5), np.uint8)) & (1 - cv2.erode(fgbin, np.ones((61, 61), np.uint8)))
-back_rgb = cv2.inpaint(rgb, ring, 9, cv2.INPAINT_TELEA)
-inner = cv2.erode(fgbin, np.ones((61, 61), np.uint8)).astype(bool)
-blurred = cv2.GaussianBlur(back_rgb, (0, 0), 25)
-back_rgb[inner] = blurred[inner]
-Image.fromarray(np.dstack([cv2.cvtColor(back_rgb, cv2.COLOR_BGR2RGB), alpha])).save(os.path.join(out_dir, "back.png"))
+# ---------- 2. karakter 2..7: tambal bagian yang tertutup karakter di depannya ----------
+band_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * BAND + 1, 2 * BAND + 1))
+for i in range(1, 7):
+    c = chars[i]
+    own = masks[i]
+    covered = np.zeros((H, W), np.uint8)  # area karakter yang lebih depan (digambar di atasnya)
+    for j in range(i):
+        covered |= (chars[j][..., 3] > 8).astype(np.uint8)
+    near = cv2.dilate(own, band_kernel)
+    ext = (near > 0) & (covered > 0) & (c[..., 3] < 250)
+    c_rgb = cv2.cvtColor(c[..., :3], cv2.COLOR_RGB2BGR)
+    fill = cv2.inpaint(c_rgb, (ext & (c[..., 3] < 128)).astype(np.uint8), 7, cv2.INPAINT_TELEA)
+    out_rgb = c_rgb.copy()
+    weak = ext & (c[..., 3] < 128)
+    out_rgb[weak] = fill[weak]
+    out_alpha = c[..., 3].copy()
+    out_alpha[ext] = 255  # ext selalu di dalam karakter depan, jadi di posisi diam tidak terlihat
+    rgba = np.dstack([cv2.cvtColor(out_rgb, cv2.COLOR_BGR2RGB), out_alpha])
 
-# warna kulit untuk kelopak mata: median pipi
-def sample(y0, y1, x0, x1):
+    # titik jangkar: pusat kontak dengan karakter di depannya -> karakter "keluar dari belakang" sini
+    contact = (own > 0) & (cv2.dilate(covered, np.ones((9, 9), np.uint8)) > 0)
+    if contact.sum() < 50:
+        contact = own > 0
+    ys, xs = np.where(contact)
+    info = save_crop(f"char-{i + 1}", rgba)
+    info["anchor"] = {"x": int(np.median(xs)), "y": int(np.median(ys))}
+    info["patched"] = int(ext.sum())
+    layers["chars"][f"char-{i + 1}"] = info
+    print(f"char-{i + 1}", info)
+
+# ---------- 3. kelopak mata karakter 1 ----------
+# Poligon = area yang ditutup kelopak (pivot di sisi atas); lash = garis bulu mata saat terpejam.
+# Mask = poligon dikurangi piksel rambut (abu-biru gelap, saturasi rendah) supaya kelopak tak menutupi poni.
+# coverLash: bulu mata atas (hampir hitam) ikut tertutup, jadi saat terpejam hanya ada satu garis bulu mata.
+EYES = {
+    "left": {
+        "points": "610,958 618,935 635,918 655,910 664,915 664,962 652,969 632,972 616,966",
+        "pivotY": 910,
+        "coverLash": False,  # bulu mata atas tersembunyi poni; garis hitam di sini milik rambut
+        "lash": "M612,960 C625,974 648,974 662,964",
+        "skin": (972, 982, 625, 655),  # kotak sampel kulit tepat di bawah mata (y0, y1, x0, x1)
+    },
+    "right": {
+        "points": "743,908 752,898 770,893 790,893 806,899 818,908 828,918 826,925 814,940 796,948 774,951 754,948 744,940",
+        "pivotY": 893,
+        "coverLash": True,
+        "lash": "M744,938 C768,953 802,950 824,927",
+        "skin": (956, 966, 760, 800),
+    },
+}
+argb = a[..., :3].astype(int)
+slate = (argb.max(2) < 140) & ((argb.max(2) - argb.min(2)) < 50)
+black = argb.max(2) < 60
+eye_mask = np.zeros((H, W), np.uint8)
+layers["eyes"] = {}
+for side, e in EYES.items():
+    pts = np.array([[int(v) for v in q.split(",")] for q in e["points"].split()], np.int32)
+    poly = np.zeros((H, W), np.uint8)
+    cv2.fillPoly(poly, [pts], 1)
+    hair_px = slate & ~black if e["coverLash"] else slate
+    m = ((poly > 0) & ~hair_px).astype(np.uint8)
+    ff = m.copy()
+    cv2.floodFill(ff, np.zeros((H + 2, W + 2), np.uint8), (0, 0), 1)
+    m |= ((ff == 0) & (poly > 0)).astype(np.uint8)  # isi bagian gelap iris yang tertutup
+    m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
+    m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))) & poly
+    eye_mask |= m
+    y0, y1, x0, x1 = e["skin"]
     px = a[y0:y1, x0:x1, :3].reshape(-1, 3)
-    return "#%02X%02X%02X" % tuple(np.median(px, axis=0).astype(int))
-layers["skin"] = sample(985, 1005, 680, 700)
-layers["skinLeftEye"] = sample(982, 996, 640, 664)
-layers["skinRightEye"] = sample(966, 980, 764, 790)
+    layers["eyes"][side] = {
+        "points": e["points"],
+        "pivotY": e["pivotY"],
+        "lash": e["lash"],
+        "skin": "#%02X%02X%02X" % tuple(np.median(px, axis=0).astype(int)),
+    }
+eye_mask = cv2.dilate(eye_mask, np.ones((5, 5), np.uint8))  # sedikit lebih lebar agar garis bulu mata utuh
+eye_alpha = (cv2.GaussianBlur(eye_mask.astype(np.float32), (3, 3), 0) * 255).astype(np.uint8)
+eye_rgba = np.dstack([np.full((H, W, 3), 255, np.uint8), eye_alpha])
+layers["eyeMask"] = save_crop("eyes-mask", eye_rgba)
+
 with open(os.path.join(out_dir, "layers.json"), "w") as f:
     json.dump(layers, f, indent=2)
 print(json.dumps(layers))

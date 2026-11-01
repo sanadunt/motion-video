@@ -58,6 +58,129 @@ npx remotion still IsekaiJuicer-Logo out/logo-transparent.png --props='{"backgro
 python3 scripts/sfx/isekai_juicer_sfx.py   # regenerasi SFX kalau ingin ubah karakternya
 ```
 
+## CrewReveal (Characters)
+
+Ilustrasi grup 7 karakter (PNG datar) yang dihidupkan dari cutout manual per karakter.
+Gadis jaket biru (karakter 1) pop-in duluan, lalu karakter 2..7 bergantian keluar dari belakang
+karakter yang sudah ada. Idle: napas, goyang kecil per karakter dengan paralaks, dua helai rambut
+bergoyang, kedip di frame 70 & 150, kilau di permata pedang dan jepit rambut, layar TV berpendar.
+
+| Komposisi | Ukuran | Frame | Keterangan |
+| --- | --- | --- | --- |
+| `CrewReveal-Portrait` / `-Landscape` / `-Square` | 1080x1920 / 1920x1080 / 1080x1080 | 285 | fase `full` = in + idle + out |
+| `CrewRevealIn-Portrait` | 1080x1920 | 60 | masuk, dimainkan sekali |
+| `CrewRevealIdle-Portrait` | 1080x1920 | 180 | loop mulus (frame 180 == frame 0) |
+| `CrewRevealOut-Portrait` | 1080x1920 | 45 | "in" diputar balik: 7 hilang dulu, gadis depan terakhir |
+
+Kode: `src/Characters/CrewReveal.tsx`. Tata letak lapisan dibaca dari `public/crew/layers.json`.
+
+### Lapisan (`scripts/layers/crew_layers.py`)
+
+Masukan: 7 PNG transparan hasil potong manual, ukuran & posisi sama dengan ilustrasi asli
+(di laptop: `../magz-1.png` .. `../magz-7.png`, 2604x3683, tidak ikut di-commit). Nomor = urutan muncul =
+urutan kedalaman (1 paling depan). Skrip hanya membaca file itu, lalu menulis ke `public/crew/`:
+
+- `front.png` — karakter 1 tanpa dua helai rambut bawah; di bawah helai diisi jaket/rambut di sampingnya
+- `hair-left.png`, `hair-right.png` — helai rambut yang bergoyang
+- `char-2.png` .. `char-7.png` — karakter lain; bagian yang tertutup karakter di depannya ditambal 40 px
+  supaya saat lapisan bergerak yang tersingkap adalah tambalan, bukan lubang
+- `eyes-mask.png` — area mata tanpa poni, kelopak kedip hanya digambar di sini
+- `layers.json` — kotak tiap lapisan (ruang 1414x2000), titik jangkar "muncul", kelopak, warna kulit
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install opencv-python-headless pillow numpy
+.venv/bin/python scripts/layers/crew_layers.py ../magz-{1,2,3,4,5,6,7}.png
+```
+
+Koordinat kotak helai rambut dan poligon mata di skrip khusus untuk ilustrasi ini.
+
+### Props
+
+| Prop | Default | Fungsi |
+| --- | --- | --- |
+| `phase` | `"full"` | `"in"`, `"idle"`, `"out"`, atau `"full"` |
+| `bgTop`, `bgBottom` | `#1B1F4B`, `#0B0A1E` | gradasi latar |
+| `glowColor` | `#5B4DD6` | cahaya di belakang grup |
+| `skinColor`, `skinColorRight` | `#FCEEEF` | warna kelopak mata kiri / kanan (kulit di bawah mata) |
+| `fitMode` | `"contain"` | `contain` = seluruh ilustrasi terlihat, `cover` = isi penuh frame (tepi terpotong) |
+| `motionAmount` | `1` | kekuatan gerak idle (0 = diam kecuali kedip) |
+| `particles` | `true` | partikel cahaya di latar |
+
+```bash
+npx remotion render CrewReveal-Portrait out/crew-reveal-portrait.mp4 --codec=h264
+npx remotion render CrewRevealIdle-Portrait out/crew-reveal-idle-portrait.mp4 --codec=h264
+npx remotion render CrewReveal-Portrait out/crew-cover.mp4 --codec=h264 --props='{"fitMode":"cover"}'
+```
+
+### Di web dengan `@remotion/player`
+
+Keadaan akhir "in" sama dengan frame 0 "idle", dan frame terakhir "idle" bersambung ke frame 0-nya,
+jadi satu `<Player>` cukup: mainkan In sekali, ganti ke Idle yang di-loop, lalu Out saat keluar.
+
+```tsx
+import { Player, PlayerRef } from "@remotion/player"; // npm i @remotion/player@4.0.536
+import { useEffect, useRef, useState } from "react";
+import {
+  CrewReveal,
+  CREW_IDLE_FRAMES,
+  CREW_IN_FRAMES,
+  CREW_OUT_FRAMES,
+  CrewPhase,
+} from "./Characters/CrewReveal";
+
+const DURATION = { in: CREW_IN_FRAMES, idle: CREW_IDLE_FRAMES, out: CREW_OUT_FRAMES };
+
+export const CrewHero: React.FC<{ leaving: boolean; onGone?: () => void }> = ({ leaving, onGone }) => {
+  const ref = useRef<PlayerRef>(null);
+  const [phase, setPhase] = useState<Exclude<CrewPhase, "full">>("in");
+
+  useEffect(() => {
+    if (leaving) setPhase("out");
+  }, [leaving]);
+
+  useEffect(() => {
+    const p = ref.current;
+    if (!p) return;
+    p.seekTo(0);
+    p.play();
+    const onEnded = () => (phase === "in" ? setPhase("idle") : phase === "out" ? onGone?.() : undefined);
+    p.addEventListener("ended", onEnded);
+    return () => p.removeEventListener("ended", onEnded);
+  }, [phase, onGone]);
+
+  return (
+    <Player
+      ref={ref}
+      component={CrewReveal}
+      inputProps={{
+        phase,
+        bgTop: "#1B1F4B",
+        bgBottom: "#0B0A1E",
+        glowColor: "#5B4DD6",
+        skinColor: "#FCEEEF",
+        skinColorRight: "#FCEEEF",
+        fitMode: "contain",
+        motionAmount: 1,
+        particles: true,
+      }}
+      durationInFrames={DURATION[phase]}
+      compositionWidth={1080}
+      compositionHeight={1920}
+      fps={30}
+      loop={phase === "idle"}
+      autoPlay
+      controls={false}
+      style={{ width: "100%" }}
+    />
+  );
+};
+```
+
+Salin `public/crew/` ke folder statis web-mu (Player memakai `staticFile()`, jadi file harus
+tersedia di `/crew/...`). Komponen juga meng-import `public/crew/layers.json` lewat path relatif
+`../../public/crew/layers.json`; sesuaikan path import itu kalau struktur folder web-mu berbeda. Untuk transparansi di atas halaman, set `bgTop`/`bgBottom` ke `transparent`
+dan `particles: false`.
+
 ## Auto caption (`CaptionedVideo`)
 
 Komposisi `CaptionedVideo` memutar video dari `public/` dan menampilkan caption animasi gaya TikTok
@@ -108,6 +231,8 @@ Folder `out/` di-ignore secara default; hasil berikut ditambahkan dengan `git ad
 - `out/kakashi-chidori-captioned.mp4` — render `CaptionedVideo` untuk `public/kakashi-chidori.mp4`
 - `out/isekai-juicer-{landscape,portrait,square}.mp4` — motion logo Isekai Juicer
 - `out/isekai-juicer-logo.png`, `out/isekai-juicer-logo-transparent.png`, `out/isekai-juicer-emblem-transparent.png` — logo statis
+- `out/crew-reveal-{portrait,landscape}.mp4` — CrewReveal fase full
+- `out/crew-reveal-{in,idle,out}-portrait.mp4` — CrewReveal per fase (idle bisa di-loop)
 
 ## Remotion Agent Skills
 
