@@ -56,6 +56,11 @@ export type CrewRevealProps = {
   motionAmount: number;
   /** Tampilkan partikel */
   particles: boolean;
+  /**
+   * Pudar ke transparan di bagian bawah (0..1 dari tinggi frame, 0 = mati). Untuk render
+   * transparan: tepi bawah ilustrasi yang terpotong melebur ke latar halaman.
+   */
+  fadeBottom?: number;
 };
 
 const IMG_W = layout.width;
@@ -209,6 +214,7 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
   fitMode,
   motionAmount,
   particles,
+  fadeBottom = 0,
 }) => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
@@ -284,6 +290,10 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
 
   const eyeBox = layout.eyeMask;
   const lidColor = { left: skinColor, right: skinColorRight } as const;
+  const fadeMask =
+    fadeBottom > 0
+      ? `linear-gradient(180deg, #000 ${(1 - fadeBottom) * 100}%, transparent 100%)`
+      : undefined;
 
   return (
     <AbsoluteFill style={{ backgroundColor: bgBottom, overflow: "hidden" }}>
@@ -324,7 +334,14 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
       ) : null}
 
       {/* panggung dalam koordinat gambar */}
-      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
+      <AbsoluteFill
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          WebkitMaskImage: fadeMask,
+          maskImage: fadeMask,
+        }}
+      >
         <div
           style={{
             width: stageW,

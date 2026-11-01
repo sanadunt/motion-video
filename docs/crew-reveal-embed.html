@@ -1,0 +1,61 @@
+<!doctype html>
+<!--
+  Demo + snippet CrewReveal untuk web (video transparan, cocok untuk mode gelap & terang).
+  Buka file ini langsung di browser untuk mencoba; tombol di kanan atas mengganti tema.
+
+  Yang dipakai di web:
+    out/crew-reveal-web-hevc.mov  HEVC + alpha (Safari macOS/iOS)
+    out/crew-reveal-web.webm      VP9 + alpha  (Chrome, Edge, Firefox, Android)
+  Isi video: In 0–2 s, lalu Idle 2–8 s. Script di bawah memutar In sekali lalu me-loop Idle.
+  Di webmu: salin kedua video ke folder statis (mis. /media/) dan ganti src di <source>.
+-->
+<html lang="id" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CrewReveal Embed</title>
+    <style>
+      :root[data-theme="dark"] { --bg: #0a0a0a; --fg: #f5f5f5; }
+      :root[data-theme="light"] { --bg: #fafafa; --fg: #111111; }
+      body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; }
+      .demo { max-width: 480px; margin: 0 auto; padding: 48px 16px; }
+      #theme { position: fixed; top: 16px; right: 16px; }
+
+      /* ---- snippet ---- */
+      .crew-hero__video { display: block; width: 100%; height: auto; aspect-ratio: 900 / 1272; }
+    </style>
+  </head>
+  <body>
+    <button id="theme" type="button">Ganti tema</button>
+    <main class="demo">
+      <!-- ---- snippet ---- -->
+      <video class="crew-hero__video" muted playsinline preload="auto" aria-label="Kru DirektoriGim">
+        <source src="../out/crew-reveal-web-hevc.mov" type='video/quicktime; codecs="hvc1"' />
+        <source src="../out/crew-reveal-web.webm" type="video/webm" />
+      </video>
+    </main>
+
+    <script>
+      // ---- snippet ----
+      (() => {
+        const IDLE_START = 2; // detik: akhir In = awal Idle
+        const v = document.querySelector(".crew-hero__video");
+        if (!v) return;
+        // Tanpa autoplay (hemat daya iOS) atau prefers-reduced-motion: tampilkan pose diam.
+        const settle = () => {
+          const go = () => { v.pause(); v.currentTime = IDLE_START; };
+          if (v.readyState >= 1) go(); else v.addEventListener("loadedmetadata", go, { once: true });
+        };
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return settle();
+        // Frame terakhir Idle bersambung mulus ke detik 2 (ada keyframe di sana).
+        v.addEventListener("ended", () => { v.currentTime = IDLE_START; v.play().catch(settle); });
+        v.play().catch(settle);
+      })();
+
+      document.getElementById("theme").addEventListener("click", () => {
+        const r = document.documentElement;
+        r.dataset.theme = r.dataset.theme === "dark" ? "light" : "dark";
+      });
+    </script>
+  </body>
+</html>

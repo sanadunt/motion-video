@@ -71,6 +71,7 @@ bergoyang, kedip di frame 70 & 150, kilau di permata pedang dan jepit rambut, la
 | `CrewRevealIn-Portrait` | 1080x1920 | 60 | masuk, dimainkan sekali |
 | `CrewRevealIdle-Portrait` | 1080x1920 | 180 | loop mulus (frame 180 == frame 0) |
 | `CrewRevealOut-Portrait` | 1080x1920 | 45 | "in" diputar balik: 7 hilang dulu, gadis depan terakhir |
+| `CrewReveal-Web` | 900x1272 | 240 | latar transparan, rasio ilustrasi asli, in + idle, bawah memudar (untuk web) |
 
 Kode: `src/Characters/CrewReveal.tsx`. Tata letak lapisan dibaca dari `public/crew/layers.json`.
 
@@ -105,6 +106,7 @@ Koordinat kotak helai rambut dan poligon mata di skrip khusus untuk ilustrasi in
 | `fitMode` | `"contain"` | `contain` = seluruh ilustrasi terlihat, `cover` = isi penuh frame (tepi terpotong) |
 | `motionAmount` | `1` | kekuatan gerak idle (0 = diam kecuali kedip) |
 | `particles` | `true` | partikel cahaya di latar |
+| `fadeBottom` | `0` | pudar ke transparan di bagian bawah (0..1 dari tinggi frame); `CrewReveal-Web` memakai `0.1` |
 
 ```bash
 npx remotion render CrewReveal-Portrait out/crew-reveal-portrait.mp4 --codec=h264
@@ -112,7 +114,34 @@ npx remotion render CrewRevealIdle-Portrait out/crew-reveal-idle-portrait.mp4 --
 npx remotion render CrewReveal-Portrait out/crew-cover.mp4 --codec=h264 --props='{"fitMode":"cover"}'
 ```
 
-### Di web dengan `@remotion/player`
+### Di web sebagai video transparan (disarankan untuk web statis)
+
+`CrewReveal-Web` dirender ke dua file dengan alpha. Latarnya transparan, jadi satu video cocok untuk
+tema gelap dan terang. Isinya In (0–2 s) lalu Idle (2–8 s); keyframe ada di detik 2.
+
+| File | Codec | Untuk |
+| --- | --- | --- |
+| `out/crew-reveal-web.webm` | VP9 + alpha | Chrome, Edge, Firefox, Android |
+| `out/crew-reveal-web-hevc.mov` | HEVC + alpha | Safari macOS & iOS |
+
+```bash
+S=$(mktemp -d)
+npx remotion render CrewReveal-Web $S/master.mov --codec=prores --prores-profile=4444 \
+  --pixel-format=yuva444p10le --image-format=png
+ffmpeg -i $S/master.mov -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 32 -deadline good -cpu-used 2 \
+  -row-mt 1 -force_key_frames 0,2 -g 240 -an out/crew-reveal-web.webm
+# HEVC alpha butuh encoder VideoToolbox (macOS)
+ffmpeg -i $S/master.mov -c:v hevc_videotoolbox -alpha_quality 0.8 -q:v 55 -tag:v hvc1 \
+  -force_key_frames 0,2 -g 240 -an out/crew-reveal-web-hevc.mov
+```
+
+Snippet HTML/CSS/JS ada di `docs/crew-reveal-embed.html` (sekaligus demo dengan tombol ganti tema).
+Urutan `<source>` penting: HEVC ditandai `video/quicktime`, yang hanya diklaim Safari, jadi Chrome
+tidak mengambil file HEVC (alpha HEVC belum tentu tampil di sana) dan memakai WebM. Script-nya
+memutar In sekali, me-loop Idle dengan melompat ke detik 2 saat `ended`, dan menampilkan pose diam
+kalau autoplay ditolak (mode hemat daya iOS) atau `prefers-reduced-motion` aktif.
+
+### Di web dengan `@remotion/player` (untuk web React)
 
 Keadaan akhir "in" sama dengan frame 0 "idle", dan frame terakhir "idle" bersambung ke frame 0-nya,
 jadi satu `<Player>` cukup: mainkan In sekali, ganti ke Idle yang di-loop, lalu Out saat keluar.
@@ -233,6 +262,7 @@ Folder `out/` di-ignore secara default; hasil berikut ditambahkan dengan `git ad
 - `out/isekai-juicer-logo.png`, `out/isekai-juicer-logo-transparent.png`, `out/isekai-juicer-emblem-transparent.png` — logo statis
 - `out/crew-reveal-{portrait,landscape}.mp4` — CrewReveal fase full
 - `out/crew-reveal-{in,idle,out}-portrait.mp4` — CrewReveal per fase (idle bisa di-loop)
+- `out/crew-reveal-web.webm`, `out/crew-reveal-web-hevc.mov` — CrewReveal transparan untuk web
 
 ## Remotion Agent Skills
 

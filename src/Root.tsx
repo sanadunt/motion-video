@@ -157,6 +157,27 @@ export const RemotionRoot: React.FC = () => {
             particles: true,
           }}
         />
+        {/* Untuk web: latar transparan, rasio gambar asli, In + Idle (web me-loop bagian Idle) */}
+        <Composition
+          id="CrewReveal-Web"
+          component={CrewReveal}
+          durationInFrames={CREW_IN_FRAMES + CREW_IDLE_FRAMES}
+          fps={30}
+          width={900}
+          height={1272}
+          defaultProps={{
+            phase: "full",
+            bgTop: "transparent",
+            bgBottom: "transparent",
+            glowColor: "transparent",
+            skinColor: "#FCEEEF",
+            skinColorRight: "#FCEEEF",
+            fitMode: "contain",
+            motionAmount: 1,
+            particles: false,
+            fadeBottom: 0.1,
+          }}
+        />
       </Folder>
       <Folder name="Captions">
         <Composition
