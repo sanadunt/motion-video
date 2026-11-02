@@ -63,7 +63,9 @@ python3 scripts/sfx/isekai_juicer_sfx.py   # regenerasi SFX kalau ingin ubah kar
 Ilustrasi grup 7 karakter (PNG datar) yang dihidupkan dari cutout manual per karakter.
 Gadis jaket biru (karakter 1) pop-in duluan, lalu karakter 2..7 bergantian keluar dari belakang
 karakter yang sudah ada. Idle: napas, goyang kecil per karakter dengan paralaks, dua helai rambut
-bergoyang, kedip di frame 70 & 150, kilau di permata pedang dan jepit rambut, layar TV berpendar.
+bergoyang, kilau di permata pedang dan jepit rambut, layar TV berpendar. Semua karakter berkedip
+dengan jadwal sendiri-sendiri (karakter 3 kedip ganda); kepala TV (karakter 6) "berkedip" dengan
+memipihkan huruf J dan A di layarnya. Jadwalnya di `BLINK_AT` (frame fase idle).
 
 | Komposisi | Ukuran | Frame | Keterangan |
 | --- | --- | --- | --- |
@@ -85,7 +87,9 @@ urutan kedalaman (1 paling depan). Skrip hanya membaca file itu, lalu menulis ke
 - `hair-left.png`, `hair-right.png` — helai rambut yang bergoyang
 - `char-2.png` .. `char-7.png` — karakter lain; bagian yang tertutup karakter di depannya ditambal 40 px
   supaya saat lapisan bergerak yang tersingkap adalah tambalan, bukan lubang
-- `eyes-mask.png` — area mata tanpa poni, kelopak kedip hanya digambar di sini
+- `eyes-mask.png` — area mata karakter 1 tanpa poni, kelopak kedip hanya digambar di sini
+- `blink-char-{2,3,4,5,7}.png` — area kelopak karakter lain (bingkai kacamata karakter 4 tetap di atas)
+- `tv-j.png`, `tv-a.png` — huruf di layar TV; layar di `char-6.png` ditambal di baliknya
 - `layers.json` — kotak tiap lapisan (ruang 1414x2000), titik jangkar "muncul", kelopak, warna kulit
 
 ```bash
@@ -93,7 +97,7 @@ python3 -m venv .venv && .venv/bin/pip install opencv-python-headless pillow num
 .venv/bin/python scripts/layers/crew_layers.py scripts/layers/crew-source/magz-{1,2,3,4,5,6,7}.png
 ```
 
-Koordinat kotak helai rambut dan poligon mata di skrip khusus untuk ilustrasi ini.
+Koordinat kotak helai rambut, poligon mata (`EYES`, `BLINKS`) dan huruf TV di skrip khusus untuk ilustrasi ini.
 
 ### Props
 

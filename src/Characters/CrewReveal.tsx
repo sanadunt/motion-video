@@ -7,6 +7,8 @@
  *   front.png         karakter 1 (gadis jaket biru) tanpa dua helai rambut bawah
  *   hair-left/right   helai rambut bawah yang bergoyang
  *   eyes-mask.png     area mata tanpa poni: kelopak kedip hanya digambar di sini
+ *   blink-char-N.png  area kelopak karakter 2, 3, 4, 5, 7
+ *   tv-j/tv-a.png     huruf di layar TV karakter 6 (memipih saat "berkedip")
  *
  * Fase:
  *   in   (IN_FRAMES)   gadis depan pop-in, lalu karakter 2..7 bergantian keluar dari belakang
@@ -193,6 +195,76 @@ const Sparkle: React.FC<{
   </g>
 );
 
+// Kedip per lapisan: frame mulai (di fase idle, tiap kedip 8 frame). Disebar supaya tidak serempak;
+// karakter 3 kedip ganda. Karakter 6 (TV): huruf di layar yang "berkedip".
+const BLINK_AT = {
+  front: [70, 150],
+  "char-2": [22, 118],
+  "char-3": [46, 132, 141],
+  "char-4": [95, 160],
+  "char-5": [8, 104],
+  "char-6": [58, 162],
+  "char-7": [34, 124],
+} as const;
+
+type Box = { x: number; y: number; w: number; h: number };
+type LidEye = {
+  points: string;
+  pivotY: number;
+  lash: string;
+  lashColor: string;
+  lashWidth: number;
+  color: string;
+};
+
+/** Kelopak: poligon warna kulit menutup dari atas (pivotY), hanya di dalam mask (tanpa rambut/kacamata). */
+const Lids: React.FC<{
+  box: Box;
+  mask: string;
+  eyes: LidEye[];
+  blink: number;
+  left: number;
+  top: number;
+}> = ({ box, mask, eyes, blink, left, top }) =>
+  blink > 0 ? (
+    <div
+      style={{
+        position: "absolute",
+        left,
+        top,
+        width: box.w,
+        height: box.h,
+        WebkitMaskImage: `url(${staticFile(mask)})`,
+        maskImage: `url(${staticFile(mask)})`,
+        WebkitMaskSize: "100% 100%",
+        maskSize: "100% 100%",
+      }}
+    >
+      <svg
+        width={box.w}
+        height={box.h}
+        viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`}
+        style={{ display: "block" }}
+      >
+        {eyes.map((e) => (
+          <g
+            key={e.points}
+            transform={`translate(0 ${e.pivotY}) scale(1 ${blink}) translate(0 ${-e.pivotY})`}
+          >
+            <polygon points={e.points} fill={e.color} />
+            <path
+              d={e.lash}
+              fill="none"
+              stroke={e.lashColor}
+              strokeWidth={e.lashWidth}
+              strokeLinecap="round"
+            />
+          </g>
+        ))}
+      </svg>
+    </div>
+  ) : null;
+
 const Overlay: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <svg
     width={IMG_W}
@@ -261,7 +333,7 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
   const hairIdle = (ph: number) => 2.4 * k * Math.sin(TWO_PI * u * 3 + ph); // 3 siklus (2 s)
   const glowPulse = 0.85 + 0.15 * Math.sin(TWO_PI * u * 2);
   const tvIdle = 0.08 * k * (0.5 + 0.5 * Math.sin(TWO_PI * u * 4));
-  // kedip di frame 70 dan 150 (tutup 3 frame, tahan 1, buka 3)
+  // kedip: tutup 3 frame, tahan 1, buka 3 (jadwal per lapisan di BLINK_AT)
   const blinkAt = (start: number) => {
     const d = idleT - start;
     if (d < 0 || d > 7) return 0;
@@ -269,7 +341,9 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
     if (d === 4) return 1;
     return Math.max(0, (7 - d) / 3);
   };
-  const blink = inIdle ? Math.max(blinkAt(70), blinkAt(150)) : 0;
+  const blinkOf = (id: keyof typeof BLINK_AT) =>
+    inIdle ? Math.max(...BLINK_AT[id].map(blinkAt)) : 0;
+  const blink = blinkOf("front");
   // kilau idle di permata & jepit (bergantian)
   const sparkleIdle = (start: number) => {
     const d = idleT - start;
@@ -368,6 +442,11 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
               .map(({ c, s }) => {
                 const bob = 4 * k * wave(u, c.cycles, c.phase);
                 const lean = 0.008 * k * wave(u, c.cycles, c.phase + 1.4);
+                const lids =
+                  c.id in layout.blinks
+                    ? layout.blinks[c.id as keyof typeof layout.blinks]
+                    : null;
+                const charBlink = blinkOf(c.id);
                 return (
                   <div
                     key={c.id}
@@ -395,6 +474,36 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
                         src={staticFile(`crew/${c.id}.png`)}
                         style={{ width: c.w, height: c.h, display: "block" }}
                       />
+                      {lids ? (
+                        <Lids
+                          box={lids.mask}
+                          mask={`crew/blink-${c.id}.png`}
+                          eyes={lids.eyes.map((e) => ({ ...e, color: e.skin }))}
+                          blink={charBlink}
+                          left={lids.mask.x - c.x}
+                          top={lids.mask.y - c.y}
+                        />
+                      ) : null}
+                      {c.id === "char-6"
+                        ? // huruf J & A di layar TV "berkedip": memipih jadi garis
+                          (["tv-j", "tv-a"] as const).map((id) => {
+                            const g = layout.tvGlyphs[id];
+                            return (
+                              <Img
+                                key={id}
+                                src={staticFile(`crew/${id}.png`)}
+                                style={{
+                                  position: "absolute",
+                                  left: g.x - c.x,
+                                  top: g.y - c.y,
+                                  width: g.w,
+                                  height: g.h,
+                                  scale: `1 ${1 - 0.85 * charBlink}`,
+                                }}
+                              />
+                            );
+                          })
+                        : null}
                     </div>
                     {c.id === "char-6" ? (
                       // layar TV menyala
@@ -471,47 +580,19 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
                 );
               })}
               {/* kelopak mata: menutup dari atas, hanya di area mata (mask tanpa poni) */}
-              {blink > 0 ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    left: eyeBox.x,
-                    top: eyeBox.y,
-                    width: eyeBox.w,
-                    height: eyeBox.h,
-                    WebkitMaskImage: `url(${staticFile("crew/eyes-mask.png")})`,
-                    maskImage: `url(${staticFile("crew/eyes-mask.png")})`,
-                    WebkitMaskSize: "100% 100%",
-                    maskSize: "100% 100%",
-                  }}
-                >
-                  <svg
-                    width={eyeBox.w}
-                    height={eyeBox.h}
-                    viewBox={`${eyeBox.x} ${eyeBox.y} ${eyeBox.w} ${eyeBox.h}`}
-                    style={{ display: "block" }}
-                  >
-                    {(["left", "right"] as const).map((side) => {
-                      const e = layout.eyes[side];
-                      return (
-                        <g
-                          key={side}
-                          transform={`translate(0 ${e.pivotY}) scale(1 ${blink}) translate(0 ${-e.pivotY})`}
-                        >
-                          <polygon points={e.points} fill={lidColor[side]} />
-                          <path
-                            d={e.lash}
-                            fill="none"
-                            stroke="#1A1424"
-                            strokeWidth={5}
-                            strokeLinecap="round"
-                          />
-                        </g>
-                      );
-                    })}
-                  </svg>
-                </div>
-              ) : null}
+              <Lids
+                box={eyeBox}
+                mask="crew/eyes-mask.png"
+                eyes={(["left", "right"] as const).map((side) => ({
+                  ...layout.eyes[side],
+                  lashColor: "#1A1424",
+                  lashWidth: 5,
+                  color: lidColor[side],
+                }))}
+                blink={blink}
+                left={eyeBox.x}
+                top={eyeBox.y}
+              />
               <Overlay>
                 <Sparkle x={CLIP.x} y={CLIP.y} k={clipSparkle} size={30} />
               </Overlay>

@@ -11,6 +11,8 @@ Keluaran di public/crew/ (semua koordinat dalam ruang gambar 1414x2000):
   char-2.png..char-7.png karakter lain; bagian yang tertutup karakter di depannya ditambal selebar
                         BAND px supaya saat lapisan bergerak yang tersingkap adalah tambalan, bukan lubang
   eyes-mask.png         area mata karakter 1 (tanpa rambut di depannya): kelopak kedip hanya digambar di sini
+  blink-char-N.png      area kelopak karakter 2, 3, 4, 5, 7
+  tv-j.png, tv-a.png    huruf di layar TV karakter 6 (layar di char-6.png sudah ditambal di baliknya)
   layers.json           ukuran, kotak tiap lapisan, titik jangkar "muncul", kelopak, warna kulit
 
 File cutout tidak pernah ditimpa; skrip hanya membaca.
@@ -133,6 +135,31 @@ for name, sm in strand_masks.items():
     Image.fromarray(crop).save(os.path.join(out_dir, f"{name}.png"))
     layers["strands"][name] = {"x": int(x0), "y": int(y0), "w": int(x1 - x0), "h": int(y1 - y0)}
 
+# ---------- 2a. huruf J dan A di layar TV (karakter 6) jadi lapisan sendiri ----------
+# Huruf diambil dari layar (warna putih / merah + garis tepinya), layar di belakangnya ditambal (inpaint)
+# supaya huruf bisa memipih jadi garis saat "berkedip" tanpa meninggalkan bekas.
+TV_GLYPHS = {
+    "tv-j": ("566,180 616,162 628,228 606,250 570,246", lambda p: p.min(2) > 170),
+    "tv-a": ("596,282 626,272 652,342 634,352 590,358",
+             lambda p: (p[..., 0] > 140) & (p[..., 1] < 120) & (p[..., 2] < 120)),
+}
+tv = chars[5]
+tv_orig = tv.copy()
+tv_hole = np.zeros((H, W), np.uint8)
+layers["tvGlyphs"] = {}
+for name, (pts_s, is_glyph) in TV_GLYPHS.items():
+    pts = np.array([[int(v) for v in q.split(",")] for q in pts_s.split()], np.int32)
+    poly = np.zeros((H, W), np.uint8)
+    cv2.fillPoly(poly, [pts], 1)
+    g = (is_glyph(tv_orig[..., :3].astype(int)) & (poly > 0)).astype(np.uint8)
+    g = largest(cv2.morphologyEx(g, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8)))
+    g = cv2.dilate(g, np.ones((5, 5), np.uint8)) & poly  # garis tepi gelap & antialias ikut
+    soft = np.minimum(cv2.GaussianBlur(g.astype(np.float32), (3, 3), 0) * 255, tv_orig[..., 3])
+    layers["tvGlyphs"][name] = save_crop(name, np.dstack([tv_orig[..., :3], soft.astype(np.uint8)]))
+    tv_hole |= cv2.dilate(g, np.ones((5, 5), np.uint8))
+tv_bgr = cv2.inpaint(cv2.cvtColor(tv_orig[..., :3], cv2.COLOR_RGB2BGR), tv_hole, 9, cv2.INPAINT_TELEA)
+tv[..., :3] = cv2.cvtColor(tv_bgr, cv2.COLOR_BGR2RGB)
+
 # ---------- 2. karakter 2..7: tambal bagian yang tertutup karakter di depannya ----------
 band_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * BAND + 1, 2 * BAND + 1))
 for i in range(1, 7):
@@ -212,6 +239,70 @@ eye_mask = cv2.dilate(eye_mask, np.ones((5, 5), np.uint8))  # sedikit lebih leba
 eye_alpha = (cv2.GaussianBlur(eye_mask.astype(np.float32), (3, 3), 0) * 255).astype(np.uint8)
 eye_rgba = np.dstack([np.full((H, W, 3), 255, np.uint8), eye_alpha])
 layers["eyeMask"] = save_crop("eyes-mask", eye_rgba)
+
+# ---------- 4. kelopak mata karakter 2..7 ----------
+# Sama seperti karakter 1: poligon ditutup warna kulit dari atas (pivotY), lalu garis "lash" saat terpejam.
+# Mask = poligon (diperlebar 2 px) dikurangi piksel yang harus tetap terlihat di atas kelopak:
+#   keep  garis yang memotong mata (bingkai kacamata), tebal 3 px
+# Rambut/topi tidak dikecualikan lewat warna (iris gelap warnanya mirip); tepi atas poligon mengikuti tepinya.
+# Karakter 6 (kepala TV) tidak punya mata: huruf J dan A di layarnya dipisah (lihat bagian 2a) dan
+# "berkedip" dengan memipih jadi garis.
+BLINKS = {
+    "char-2": [
+        {"points": "1034,966 1044,960 1054,956 1068,953 1086,953 1098,957 1101,968 1092,977 1076,981 1058,980 1044,973",
+         "lash": "M1037,967 C1054,981 1084,983 1099,967", "skin": (984, 990, 1055, 1080)},
+        {"points": "1142,952 1148,942 1160,935 1172,934 1177,938 1177,953 1168,960 1154,962 1145,959",
+         "lash": "M1143,953 C1150,962 1166,963 1176,950", "skin": (966, 972, 1148, 1165)},
+    ],
+    "char-3": [
+        {"points": "394,786 398,782 404,781 410,783 418,786 424,790 428,795 422,801 410,802 399,798",
+         "lash": "M397,791 C404,799 418,801 426,794", "lashWidth": 2.5, "skin": (802, 808, 400, 420)},
+        {"points": "472,797 480,793 490,790 500,786 507,783 515,790 518,801 508,808 494,810 480,808",
+         "lash": "M475,798 C484,808 504,810 515,800", "lashWidth": 2.5, "skin": (812, 818, 482, 500)},
+    ],
+    "char-4": [
+        {"points": "896,532 910,521 924,511 938,510 950,514 946,526 936,535 924,539 910,538",
+         "lash": "M897,533 C910,540 925,540 933,535", "lashWidth": 3, "skin": (540, 546, 915, 926),
+         "keep": "927,495 929,514 933,526 937,537 945,547"},
+    ],
+    "char-5": [
+        {"points": "1054,231 1062,225 1076,222 1092,222 1102,227 1105,233 1098,240 1082,243 1066,242",
+         "lash": "M1057,233 C1069,241 1089,242 1102,234", "lashWidth": 2.5, "skin": (245, 251, 1065, 1090)},
+        {"points": "1124,246 1128,241 1136,240 1143,243 1144,249 1141,256 1134,258 1127,255",
+         "lash": "M1126,248 C1131,255 1139,256 1143,250", "lashWidth": 2.5, "skin": (259, 264, 1126, 1138)},
+    ],
+    "char-7": [
+        {"points": "248,566 256,555 264,550 276,551 290,553 305,556 320,563 314,578 302,592 288,602 272,605 260,603 250,594 246,580",
+         "lash": "M250,568 C262,592 296,598 318,566", "skin": (608, 618, 262, 292)},
+    ],
+}
+layers["blinks"] = {}
+for cid, eyes in BLINKS.items():
+    c = chars[int(cid.split("-")[1]) - 1]
+    m = np.zeros((H, W), np.uint8)
+    out_eyes = []
+    for e in eyes:
+        pts = np.array([[int(v) for v in q.split(",")] for q in e["points"].split()], np.int32)
+        poly = np.zeros((H, W), np.uint8)
+        cv2.fillPoly(poly, [pts], 1)
+        poly = cv2.dilate(poly, np.ones((5, 5), np.uint8))
+        if "keep" in e:
+            kp = np.array([[int(v) for v in q.split(",")] for q in e["keep"].split()], np.int32)
+            cv2.polylines(poly, [kp], False, 0, 3)
+        m |= poly
+        y0, y1, x0, x1 = e["skin"]
+        skin = np.median(c[y0:y1, x0:x1, :3].reshape(-1, 3), axis=0).astype(int)
+        out_eyes.append({
+            "points": e["points"],
+            "pivotY": int(pts[:, 1].min()),
+            "lash": e["lash"],
+            "lashColor": e.get("lashColor", "#1A1424"),
+            "lashWidth": e.get("lashWidth", 4),
+            "skin": "#%02X%02X%02X" % tuple(skin),
+        })
+    m_alpha = (cv2.GaussianBlur(m.astype(np.float32), (3, 3), 0) * 255).astype(np.uint8)
+    info = save_crop(f"blink-{cid}", np.dstack([np.full((H, W, 3), 255, np.uint8), m_alpha]))
+    layers["blinks"][cid] = {"mask": info, "eyes": out_eyes}
 
 with open(os.path.join(out_dir, "layers.json"), "w") as f:
     json.dump(layers, f, indent=2)
