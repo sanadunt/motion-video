@@ -137,7 +137,7 @@ for name, sm in strand_masks.items():
 
 # ---------- 2a. huruf J dan A di layar TV (karakter 6) jadi lapisan sendiri ----------
 # Huruf diambil dari layar (warna putih / merah + garis tepinya), layar di belakangnya ditambal (inpaint)
-# supaya huruf bisa memipih jadi garis saat "berkedip" tanpa meninggalkan bekas.
+# supaya huruf bisa kena glitch (irisan bergeser, pecahan warna) tanpa meninggalkan bekas.
 TV_GLYPHS = {
     "tv-j": ("566,180 616,162 628,228 606,250 570,246", lambda p: p.min(2) > 170),
     "tv-a": ("596,282 626,272 652,342 634,352 590,358",
@@ -245,8 +245,7 @@ layers["eyeMask"] = save_crop("eyes-mask", eye_rgba)
 # Mask = poligon (diperlebar 2 px) dikurangi piksel yang harus tetap terlihat di atas kelopak:
 #   keep  garis yang memotong mata (bingkai kacamata), tebal 3 px
 # Rambut/topi tidak dikecualikan lewat warna (iris gelap warnanya mirip); tepi atas poligon mengikuti tepinya.
-# Karakter 6 (kepala TV) tidak punya mata: huruf J dan A di layarnya dipisah (lihat bagian 2a) dan
-# "berkedip" dengan memipih jadi garis.
+# Karakter 6 (kepala TV) tidak punya mata: huruf J dan A di layarnya dipisah (lihat bagian 2a) untuk glitch.
 BLINKS = {
     "char-2": [
         {"points": "1034,966 1044,960 1054,956 1068,953 1086,953 1098,957 1101,968 1092,977 1076,981 1058,980 1044,973",

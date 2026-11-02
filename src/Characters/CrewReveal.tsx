@@ -8,7 +8,7 @@
  *   hair-left/right   helai rambut bawah yang bergoyang
  *   eyes-mask.png     area mata tanpa poni: kelopak kedip hanya digambar di sini
  *   blink-char-N.png  area kelopak karakter 2, 3, 4, 5, 7
- *   tv-j/tv-a.png     huruf di layar TV karakter 6 (memipih saat "berkedip")
+ *   tv-j/tv-a.png     huruf di layar TV karakter 6 (kena glitch)
  *
  * Fase:
  *   in   (IN_FRAMES)   gadis depan pop-in, lalu karakter 2..7 bergantian keluar dari belakang
@@ -143,10 +143,6 @@ const inState = (t: number, fps: number) => {
   const bg = interpolate(t, [0, 20], [0, 1], clamp);
   const hairSwing = (1 - frontPop) * -8;
   const tvT = t - CHARS[4].start - 4;
-  const tvFlicker =
-    tvT > 0 && tvT < 22
-      ? Math.max(0, Math.sin(tvT * 2.1) * Math.sin(tvT * 0.9)) * 0.5
-      : 0;
   const sparkle = spring({
     frame: t - 44,
     fps,
@@ -159,7 +155,10 @@ const inState = (t: number, fps: number) => {
     camera,
     bg,
     hairSwing,
-    tvFlicker,
+    tvFlashT: tvT, // frame sejak layar TV menyala (lihat tvFlash)
+    // TV "menyala" dengan glitch singkat
+    tvGlitch: tvT >= 2 && tvT < 10 ? 1 : 0,
+    tvSeed: t,
     sparkle: sparkle < 1 ? sparkle : Math.max(0, 1 - (t - 50) / 9),
   };
 };
@@ -173,7 +172,9 @@ const settled = (): InState => ({
   camera: 1,
   bg: 1,
   hairSwing: 0,
-  tvFlicker: 0,
+  tvFlashT: -1,
+  tvGlitch: 0,
+  tvSeed: 0,
   sparkle: 0,
 });
 
@@ -196,16 +197,93 @@ const Sparkle: React.FC<{
 );
 
 // Kedip per lapisan: frame mulai (di fase idle, tiap kedip 8 frame). Disebar supaya tidak serempak;
-// karakter 3 kedip ganda. Karakter 6 (TV): huruf di layar yang "berkedip".
-const BLINK_AT = {
+// karakter 3 kedip ganda. Karakter 6 (TV) tidak berkedip, tapi glitch + kilap (lihat TV_*).
+const BLINK_AT: Record<string, readonly number[]> = {
   front: [70, 150],
   "char-2": [22, 118],
   "char-3": [46, 132, 141],
   "char-4": [95, 160],
   "char-5": [8, 104],
-  "char-6": [58, 162],
   "char-7": [34, 124],
-} as const;
+};
+
+// Layar TV karakter 6 (koordinat gambar)
+const TV_SCREEN = "482,175 750,90 790,350 525,417"; // kaca layar
+const TV_GLITCH_AT = [58, 162]; // frame idle, tiap glitch 8 frame
+const TV_GLITCH_FRAMES = 8;
+const TV_FLASH_AT = 96; // frame idle: layar berkilat lagi seperti saat menyala di fase "in"
+const TV_BAND_FRAMES = 14; // kilatan terang turun dari atas ke bawah kaca
+
+/** Kilatan layar TV d frame setelah mulai: berkedip-kedip ~22 frame. */
+const tvFlash = (d: number) =>
+  d > 0 && d < 22
+    ? Math.max(0, Math.sin(d * 2.1) * Math.sin(d * 0.9)) * 0.5
+    : 0;
+
+/** Huruf di layar TV. Saat glitch: dipotong 3 irisan yang bergeser + pecahan warna cyan/merah. */
+const TvGlyph: React.FC<{
+  id: "tv-j" | "tv-a";
+  left: number;
+  top: number;
+  g: number;
+  seed: number;
+  salt: number;
+}> = ({ id, left, top, g, seed, salt }) => {
+  const box = layout.tvGlyphs[id];
+  const src = staticFile(`crew/${id}.png`);
+  if (g === 0) {
+    return (
+      <Img
+        src={src}
+        style={{ position: "absolute", left, top, width: box.w, height: box.h }}
+      />
+    );
+  }
+  const a = 0.2 + 0.25 * hash(seed, salt + 1);
+  const cuts = [0, a, Math.min(0.92, a + 0.2 + 0.3 * hash(seed, salt + 2)), 1];
+  const split = 3 + 6 * g;
+  const PAD = 40; // ruang untuk irisan & pecahan warna yang bergeser ke samping
+  return (
+    <>
+      {[0, 1, 2].map((s) => (
+        <div
+          key={s}
+          style={{
+            position: "absolute",
+            left: left - PAD,
+            top,
+            width: box.w + 2 * PAD,
+            height: box.h,
+            clipPath: `inset(${cuts[s] * 100}% 0 ${(1 - cuts[s + 1]) * 100}% 0)`,
+            translate: `${(hash(seed, salt + 10 + s) - 0.5) * 24 * g}px 0`,
+          }}
+        >
+          {(
+            [
+              [-split, "url(#crew-tv-cyan)", 0.85],
+              [split, "url(#crew-tv-red)", 0.85],
+              [0, undefined, 1],
+            ] as const
+          ).map(([dx, filter, opacity], i) => (
+            <Img
+              key={i}
+              src={src}
+              style={{
+                position: "absolute",
+                left: PAD + dx,
+                top: 0,
+                width: box.w,
+                height: box.h,
+                filter,
+                opacity,
+              }}
+            />
+          ))}
+        </div>
+      ))}
+    </>
+  );
+};
 
 type Box = { x: number; y: number; w: number; h: number };
 type LidEye = {
@@ -341,9 +419,23 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
     if (d === 4) return 1;
     return Math.max(0, (7 - d) / 3);
   };
-  const blinkOf = (id: keyof typeof BLINK_AT) =>
-    inIdle ? Math.max(...BLINK_AT[id].map(blinkAt)) : 0;
+  const blinkOf = (id: string) =>
+    inIdle && BLINK_AT[id] ? Math.max(...BLINK_AT[id].map(blinkAt)) : 0;
   const blink = blinkOf("front");
+  // TV: glitch acak per frame (deterministik) + kilatan layar (pendar & pita terang turun)
+  const tvGlitchOn =
+    st.tvGlitch > 0 ||
+    (inIdle &&
+      TV_GLITCH_AT.some((s) => idleT >= s && idleT < s + TV_GLITCH_FRAMES));
+  const tvSeed = inIdle ? 500 + idleT : st.tvSeed;
+  const tvG =
+    tvGlitchOn && hash(tvSeed, 9) > 0.2 ? 0.4 + 0.6 * hash(tvSeed, 7) : 0;
+  const tvFlashT = inIdle ? idleT - TV_FLASH_AT : st.tvFlashT;
+  const tvFlicker = tvFlash(tvFlashT);
+  const bandQ =
+    tvFlashT >= 0 && tvFlashT <= TV_BAND_FRAMES
+      ? Easing.inOut(Easing.quad)(tvFlashT / TV_BAND_FRAMES)
+      : -1;
   // kilau idle di permata & jepit (bergantian)
   const sparkleIdle = (start: number) => {
     const d = idleT - start;
@@ -484,26 +576,96 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
                           top={lids.mask.y - c.y}
                         />
                       ) : null}
-                      {c.id === "char-6"
-                        ? // huruf J & A di layar TV "berkedip": memipih jadi garis
-                          (["tv-j", "tv-a"] as const).map((id) => {
-                            const g = layout.tvGlyphs[id];
-                            return (
-                              <Img
-                                key={id}
-                                src={staticFile(`crew/${id}.png`)}
-                                style={{
-                                  position: "absolute",
-                                  left: g.x - c.x,
-                                  top: g.y - c.y,
-                                  width: g.w,
-                                  height: g.h,
-                                  scale: `1 ${1 - 0.85 * charBlink}`,
-                                }}
-                              />
-                            );
-                          })
-                        : null}
+                      {c.id === "char-6" ? (
+                        <>
+                          {(["tv-j", "tv-a"] as const).map((id, i) => (
+                            <TvGlyph
+                              key={id}
+                              id={id}
+                              left={layout.tvGlyphs[id].x - c.x}
+                              top={layout.tvGlyphs[id].y - c.y}
+                              g={tvG}
+                              seed={tvSeed}
+                              salt={i * 20}
+                            />
+                          ))}
+                          <svg
+                            width={c.w}
+                            height={c.h}
+                            viewBox={`${c.x} ${c.y} ${c.w} ${c.h}`}
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              overflow: "visible",
+                            }}
+                          >
+                            <defs>
+                              <filter
+                                id="crew-tv-cyan"
+                                colorInterpolationFilters="sRGB"
+                              >
+                                <feFlood floodColor="#29E6FF" />
+                                <feComposite in2="SourceAlpha" operator="in" />
+                              </filter>
+                              <filter
+                                id="crew-tv-red"
+                                colorInterpolationFilters="sRGB"
+                              >
+                                <feFlood floodColor="#FF3B5C" />
+                                <feComposite in2="SourceAlpha" operator="in" />
+                              </filter>
+                              <clipPath id="crew-tv-screen">
+                                <polygon points={TV_SCREEN} />
+                              </clipPath>
+                              <linearGradient
+                                id="crew-tv-band"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1"
+                              >
+                                <stop
+                                  offset="0"
+                                  stopColor="#DCEBFF"
+                                  stopOpacity={0}
+                                />
+                                <stop
+                                  offset="0.6"
+                                  stopColor="#DCEBFF"
+                                  stopOpacity={0.55}
+                                />
+                                <stop
+                                  offset="1"
+                                  stopColor="#FFFFFF"
+                                  stopOpacity={0}
+                                />
+                              </linearGradient>
+                            </defs>
+                            <g clipPath="url(#crew-tv-screen)">
+                              {bandQ >= 0 ? (
+                                <rect
+                                  x={470}
+                                  y={20 + bandQ * 420}
+                                  width={330}
+                                  height={90}
+                                  fill="url(#crew-tv-band)"
+                                  opacity={Math.sin(bandQ * Math.PI)}
+                                />
+                              ) : null}
+                              {tvG > 0 ? (
+                                <rect
+                                  x={470}
+                                  y={90 + hash(tvSeed, 3) * 320}
+                                  width={330}
+                                  height={4 + 10 * hash(tvSeed, 4)}
+                                  fill="#BFE3FF"
+                                  opacity={0.35 * tvG}
+                                />
+                              ) : null}
+                            </g>
+                          </svg>
+                        </>
+                      ) : null}
                     </div>
                     {c.id === "char-6" ? (
                       // layar TV menyala
@@ -518,7 +680,7 @@ export const CrewReveal: React.FC<CrewRevealProps> = ({
                           borderRadius: 24,
                           background:
                             "radial-gradient(circle at 50% 45%, rgba(190,220,255,0.95) 0%, rgba(120,160,255,0.5) 45%, transparent 75%)",
-                          opacity: st.tvFlicker + tvIdle,
+                          opacity: tvFlicker + tvIdle,
                           mixBlendMode: "screen",
                         }}
                       />

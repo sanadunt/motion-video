@@ -64,8 +64,11 @@ Ilustrasi grup 7 karakter (PNG datar) yang dihidupkan dari cutout manual per kar
 Gadis jaket biru (karakter 1) pop-in duluan, lalu karakter 2..7 bergantian keluar dari belakang
 karakter yang sudah ada. Idle: napas, goyang kecil per karakter dengan paralaks, dua helai rambut
 bergoyang, kilau di permata pedang dan jepit rambut, layar TV berpendar. Semua karakter berkedip
-dengan jadwal sendiri-sendiri (karakter 3 kedip ganda); kepala TV (karakter 6) "berkedip" dengan
-memipihkan huruf J dan A di layarnya. Jadwalnya di `BLINK_AT` (frame fase idle).
+dengan jadwal sendiri-sendiri (karakter 3 kedip ganda), jadwalnya di `BLINK_AT` (frame fase idle).
+Kepala TV (karakter 6) tidak berkedip: huruf J dan A di layarnya kena glitch (pecahan warna
+cyan/merah, irisan bergeser, garis scan) saat TV muncul dan dua kali per loop idle (`TV_GLITCH_AT`).
+Layarnya berkilat seperti saat menyala (pita terang turun dari atas ke bawah kaca, lalu layar
+berpendar) di fase in dan sekali per loop idle (`TV_FLASH_AT`).
 
 | Komposisi | Ukuran | Frame | Keterangan |
 | --- | --- | --- | --- |
@@ -89,7 +92,7 @@ urutan kedalaman (1 paling depan). Skrip hanya membaca file itu, lalu menulis ke
   supaya saat lapisan bergerak yang tersingkap adalah tambalan, bukan lubang
 - `eyes-mask.png` — area mata karakter 1 tanpa poni, kelopak kedip hanya digambar di sini
 - `blink-char-{2,3,4,5,7}.png` — area kelopak karakter lain (bingkai kacamata karakter 4 tetap di atas)
-- `tv-j.png`, `tv-a.png` — huruf di layar TV; layar di `char-6.png` ditambal di baliknya
+- `tv-j.png`, `tv-a.png` — huruf di layar TV (untuk glitch); layar di `char-6.png` ditambal di baliknya
 - `layers.json` — kotak tiap lapisan (ruang 1414x2000), titik jangkar "muncul", kelopak, warna kulit
 
 ```bash
