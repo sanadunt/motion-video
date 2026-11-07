@@ -9,3 +9,6 @@ out
 # whisper.cpp build + model + temp audio
 whisper.cpp
 tmp
+
+# motion-studio: still/contact sheet sementara
+out/review/
