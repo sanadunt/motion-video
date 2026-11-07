@@ -10,6 +10,11 @@ const FONTS = [
   {family: 'Montserrat', file: 'fonts/Montserrat-ExtraBold.woff2', weight: '800'},
   {family: 'Inter', file: 'fonts/Inter-Regular.woff2', weight: '400'},
   {family: 'Inter', file: 'fonts/Inter-SemiBold.woff2', weight: '600'},
+  // Analog horror / arsip (RipperTape)
+  {family: 'Special Elite', file: 'fonts/SpecialElite-Regular.woff2', weight: '400'},
+  {family: 'Courier Prime', file: 'fonts/CourierPrime-Regular.woff2', weight: '400'},
+  {family: 'Courier Prime', file: 'fonts/CourierPrime-Bold.woff2', weight: '700'},
+  {family: 'EB Garamond', file: 'fonts/EBGaramond-Medium.woff2', weight: '500'},
 ] as const;
 
 let loaded: Promise<void[]> | null = null;

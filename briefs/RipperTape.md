@@ -104,7 +104,10 @@ Lapisan efek (semua deterministik dari frame, pakai `random(seed)` dan `@remotio
 | 4050 | W4 bisikan tengah, sendirian, gain 0,8 | vo/ripper/w4-masih.wav |
 | 4125 | klik stop | sfx/tape-stop |
 
-Target loudness −14 LUFS, puncak < −1 dBTP. Bisikan jangan sampai lebih keras dari narator kecuali di 1335.
+Target loudness −14 LUFS, puncak < −1 dBTP. Bisikan jangan sampai lebih keras dari narator kecuali di 3366.
+Klip VO di `public/vo/ripper/` sudah dinormalkan (loudnorm): narator −15 LUFS, w1/w2 −19, w3 −12, w4 −14, TP −1,5. Mentahan AI Studio (−25 LUFS) disimpan di `out/review/vo-orig/` (tidak di-commit).
+Setelah render, mix akhir dinormalkan sekali lagi tanpa render ulang:
+`ffmpeg -i out/RipperTape-Portrait.mp4 -c:v copy -af loudnorm=I=-14:TP=-1.5:LRA=11 -c:a aac -b:a 192k out/x.mp4` (hasil −14,4 LUFS, TP −1,3).
 
 ## CHECKS
 - Still wajib: 18, 120, 900, 1500, 2610, 2700, 2900, 3367 (sosok), 3500, 4005, 4080.
@@ -115,6 +118,7 @@ Target loudness −14 LUFS, puncak < −1 dBTP. Bisikan jangan sampai lebih kera
 
 ## DECISIONS
 - DECISION: Format portrait, durasi **138 dtk** mengikuti VO asli (narator total 125,6 s, 38 s di antaranya jeda). Target awal 60 dtk tidak tercapai tanpa memotong jeda, dan jeda itu bagian dari nada arsip. Alternatif: pangkas jeda dengan ffmpeg (narator ±95 s) lalu geser beat; atau potong ke 2 klip (hook + surat) untuk versi teaser 60 dtk.
+- DECISION: Sosok di puncak adalah siluet SVG backlit di ambang pintu, diblur 2,5 px dan di-skew acak per frame supaya tidak terbaca sebagai ikon; pintu berkedip deterministik sepanjang video agar ruang tidak kosong. Alternatif: foto/cutout sosok nyata di `public/`.
 - DECISION: Suara dari pustaka gratis AI Studio: narator Neno, bisikan Inggris Tavi, bisikan Indonesia Bodi. Pustaka 2.000+ suara dan filter bahasa butuh kunci berbayar.
 - DECISION: Ada narator (tenang, pelan) plus 2 lapis bisikan. Alternatif: tanpa narator, hanya teks + bisikan.
 - DECISION: Dibingkai sebagai "kaset arsip" tanpa menyebut stasiun atau institusi nyata, supaya tidak meniru seri analog horror yang ada dan tidak meniru lembaga sungguhan.

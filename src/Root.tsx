@@ -1,4 +1,10 @@
 import { Composition, Folder, Still } from "remotion";
+import { FormatVariants } from "./lib/studio";
+import {
+  RipperTape,
+  ripperTapeDefaults,
+  ripperTapeSchema,
+} from "./Videos/RipperTape";
 import {
   CaptionedVideo,
   calculateCaptionedVideoMetadata,
@@ -340,6 +346,14 @@ export const RemotionRoot: React.FC = () => {
           width={1200}
           height={1200}
           defaultProps={{ background: true, showText: true }}
+        />
+      </Folder>
+      <Folder name="Videos">
+        <FormatVariants
+          id="RipperTape"
+          component={RipperTape}
+          schema={ripperTapeSchema}
+          defaultProps={ripperTapeDefaults}
         />
       </Folder>
     </>
