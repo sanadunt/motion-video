@@ -6,6 +6,11 @@ import {
   ripperTapeSchema,
 } from "./Videos/RipperTape";
 import {
+  RipperStoryboard,
+  ripperStoryboardDefaults,
+  ripperStoryboardSchema,
+} from "./Videos/RipperStoryboard";
+import {
   CaptionedVideo,
   calculateCaptionedVideoMetadata,
 } from "./CaptionedVideo";
@@ -354,6 +359,13 @@ export const RemotionRoot: React.FC = () => {
           component={RipperTape}
           schema={ripperTapeSchema}
           defaultProps={ripperTapeDefaults}
+        />
+        <FormatVariants
+          id="RipperStoryboard"
+          component={RipperStoryboard}
+          schema={ripperStoryboardSchema}
+          defaultProps={ripperStoryboardDefaults}
+          formats={["Portrait"]}
         />
       </Folder>
     </>

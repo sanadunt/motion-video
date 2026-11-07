@@ -15,6 +15,9 @@ const FONTS = [
   {family: 'Courier Prime', file: 'fonts/CourierPrime-Regular.woff2', weight: '400'},
   {family: 'Courier Prime', file: 'fonts/CourierPrime-Bold.woff2', weight: '700'},
   {family: 'EB Garamond', file: 'fonts/EBGaramond-Medium.woff2', weight: '500'},
+  {family: 'Homemade Apple', file: 'fonts/HomemadeApple-Regular.woff2', weight: '400'},
+  {family: 'IM Fell English', file: 'fonts/IMFellEnglish-Regular.woff2', weight: '400'},
+  {family: 'IM Fell English', file: 'fonts/IMFellEnglish-Italic.woff2', weight: '400', style: 'italic'},
 ] as const;
 
 let loaded: Promise<void[]> | null = null;
@@ -24,7 +27,12 @@ export const ensureFonts = () => {
   if (!loaded) {
     loaded = Promise.all(
       FONTS.map((f) =>
-        loadFont({family: f.family, url: staticFile(f.file), weight: f.weight}),
+        loadFont({
+          family: f.family,
+          url: staticFile(f.file),
+          weight: f.weight,
+          style: 'style' in f ? f.style : undefined,
+        }),
       ),
     );
   }
