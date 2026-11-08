@@ -10,6 +10,7 @@ import {z} from 'zod';
 import {zColor} from '@remotion/zod-types';
 import {EASE, ensureFonts, mix, progress, sec, useLayout} from '../lib/studio';
 import {CameraRig, FilmGrade, PAL} from '../lib/scenes';
+import captions from './ripper-captions.json';
 import {BoardScene, CHALK_TEXT, DoorScene, FileScene, LETTER_LINES, LetterScene, StreetScene, WallScene, boardGeometry, clamp01} from '../lib/scenes/sets';
 
 ensureFonts();
@@ -51,7 +52,7 @@ const B = {
   paperIn: 75.5,
   writeStart: 77.0,
   writeEnd: 86.0,
-  fromHell: 86.6,
+  fromHell: 87.6,
   silence: 89.6,
   vo5: 91.1,
   feet: 100.5,
@@ -215,6 +216,46 @@ export const RipperTape: React.FC<RipperTapeProps> = ({grain, handheld, whisperG
 
       {shot.node && sceneBlack < 1 && <FilmGrade frame={frame} width={width} height={height} grain={grain} vignette={0.75} flicker={0.4} warm={0.55} />}
 
+      {/* caption per frasa: strip mesin tik di atas zona UI platform */}
+      {(() => {
+        const cap = captions.find((c) => t >= c.start && t < c.end + 0.2);
+        if (!cap || sceneBlack >= 1) return null;
+        const chars = Math.min(cap.text.length, Math.floor((t - cap.start) * fps / 1.2));
+        const fade = t > cap.end ? 1 - (t - cap.end) / 0.2 : 1;
+        const fs = L.px(L.pick({portrait: 36, landscape: 34, square: 34}));
+        return (
+          <div
+            style={{
+              position: 'absolute',
+              left: L.safe,
+              right: L.safe,
+              top: L.height * L.pick({portrait: 0.74, landscape: 0.82, square: 0.79}),
+              display: 'flex',
+              justifyContent: 'center',
+              opacity: fade,
+            }}
+          >
+            <div
+              style={{
+                maxWidth: L.contentWidth * L.pick({portrait: 0.9, landscape: 0.6, square: 0.86}),
+                padding: `${L.px(12)}px ${L.px(22)}px`,
+                background: 'rgba(8,6,5,0.74)',
+                borderLeft: `${L.px(4)}px solid ${PAL.string}`,
+                fontFamily: '"Special Elite", "Courier Prime", monospace',
+                fontSize: fs,
+                lineHeight: 1.3,
+                letterSpacing: L.px(1),
+                color: PAL.paper,
+                textAlign: 'center',
+                textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+              }}
+            >
+              {cap.text.slice(0, chars)}
+              {chars < cap.text.length ? '▮' : ''}
+            </div>
+          </div>
+        );
+      })()}
       {sceneBlack > 0 && <AbsoluteFill style={{backgroundColor: '#000', opacity: sceneBlack}} />}
 
       {inStatic && (
