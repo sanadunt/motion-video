@@ -1,5 +1,9 @@
 # RipperTape v2 — Storyboard (7 style frame)
 
+> Status 8 Nov 2026: disetujui user, dianimasikan di `src/Videos/RipperTape.tsx`.
+> Perubahan saat animasi: kotak → paket kertas cokelat bertali berlabel "Mr Lusk" (tanpa gore);
+> puncak = cut ke wide 4 frame saat daun pintu bergeser dan celah cahaya terbuka; snap kamera ke "From hell".
+
 Dirender dari `RipperStoryboard-Portrait` (prop `scene` 1–7), 1080×1920, grade final sudah dipasang.
 Contact sheet: `out/review/RipperStoryboard-Portrait/storyboard-contact.png`. Per frame: `scene-1.png` … `scene-7.png`.
 Arsitektur dan peta narasi → set: `docs/RipperTape-v2-arsitektur.md`.

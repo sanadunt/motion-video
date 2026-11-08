@@ -148,6 +148,14 @@ Untuk caption otomatis (whisper.cpp, glosarium), lihat `README.md`. Pemasangan k
 ## Lingkungan render
 
 - **Default: lokal di Mac user.** ffmpeg/ffprobe ada di `/opt/homebrew/bin`. Perintah di atas langsung bisa dipakai.
+- **Aturan render (8 Nov 2026, keputusan user, laptop M1 8 core):**
+  - Komposisi tetap 1080p, tapi **render di 720p** dengan `--width=720 --height=1280` (`--scale` ditolak karena tinggi tidak bulat). Still cek pakai `--scale=0.5`. 1080p hanya kalau user minta, dan hanya sekali di akhir.
+  - **`--concurrency=2` dan `nice -n 15`** untuk semua render penuh, supaya laptop tetap bisa dipakai. Jangan pernah 4 pekerja.
+  - **Per langkah, bukan sekaligus:** render video per adegan (`--frames=a-b`) ke `out/chunks/<Nama>-<nn>.mp4`, satu per satu, lalu `ffmpeg concat`. Audio dirender sekali terpisah (`--codec=wav` atau `aac`) lalu di-mux, supaya tidak ada sambungan audio. Revisi hanya merender ulang chunk yang terdampak.
+  - **Benchmark dulu:** 30 frame dari adegan terberat. Kalau > 12 detik di 720p dengan 2 pekerja, jangan render penuh; optimasi dulu.
+  - **Tekstur**: tidak boleh `feTurbulence`/filter SVG per frame di komponen video. Pakai PNG tile yang dibakar sekali di `public/textures/` (background CSS + blend mode). Grain = tile digeser acak per frame. Hindari `filter: blur()` pada elemen besar; bakar ke PNG juga.
+  - **Progres**: tidak ada monitor tiap 30 detik. Satu notifikasi saat selesai; cek manual maksimal sekali per chunk.
+  - Bersihkan `out/review/bench`, `out/review/cuts` setelah dipakai. Sarankan user mengecualikan `out/` dari Spotlight.
 - **Sandbox dengan jaringan terbatas** (misalnya sesi cloud): Remotion mungkin gagal mengunduh Chrome Headless Shell.
   Cari browser yang sudah terpasang (misalnya `find / -name headless_shell -o -name chrome-headless-shell 2>/dev/null`)
   lalu tambahkan `--browser-executable=<path>`. Jangan menyimpan path ini ke `remotion.config.ts`

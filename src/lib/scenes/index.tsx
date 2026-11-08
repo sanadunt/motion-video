@@ -8,8 +8,9 @@
  *  - FilmGrade     : grain per frame, vignette, split-tone, debu, kedip
  *  - Paper, Pin, RedString, Stamp, Tape : properti set
  */
-import React from 'react';
-import {AbsoluteFill, random} from 'remotion';
+import React, {useEffect} from 'react';
+import {AbsoluteFill, continueRender, delayRender, random, staticFile} from 'remotion';
+import {TEXTURES, type TexName} from './TextureBake';
 
 /* ---------- warna rumah (analog horror arsip) ---------- */
 export const PAL = {
@@ -44,32 +45,54 @@ export const smoothNoise = (seed: string, frame: number, period = 12) => {
   return a + (b - a) * e; // 0..1
 };
 
+/** Tahan render sampai gambar tekstur termuat (sekali per URL per tab). */
+const loadedTextures = new Set<string>();
+const useTexturePreload = (url: string) => {
+  const [handle] = React.useState(() => (loadedTextures.has(url) ? null : delayRender(`texture ${url}`)));
+  useEffect(() => {
+    if (handle === null) return;
+    const img = new Image();
+    const done = () => {
+      loadedTextures.add(url);
+      continueRender(handle);
+    };
+    img.onload = done;
+    img.onerror = done;
+    img.src = url;
+  }, [handle, url]);
+};
+
 export const NoiseFill: React.FC<{
-  id: string;
-  baseFrequency: number | string;
-  octaves?: number;
-  seed?: number;
+  tex: TexName;
   opacity?: number;
   blend?: React.CSSProperties['mixBlendMode'];
-  contrast?: number;
+  /** ukuran tile px (hanya tekstur tile); default 512 */
+  tileSize?: number;
+  /** geser posisi latar, px */
+  offset?: [number, number];
   style?: React.CSSProperties;
-}> = ({id, baseFrequency, octaves = 3, seed = 1, opacity = 0.25, blend = 'multiply', contrast = 1, style}) => (
-  <svg
-    style={{position: 'absolute', inset: 0, width: '100%', height: '100%', mixBlendMode: blend, opacity, ...style}}
-    preserveAspectRatio="none"
-  >
-    <filter id={id} x="0" y="0" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency={String(baseFrequency)} numOctaves={octaves} seed={seed} stitchTiles="stitch" />
-      <feColorMatrix type="saturate" values="0" />
-      <feComponentTransfer>
-        <feFuncR type="linear" slope={contrast} intercept={(1 - contrast) / 2} />
-        <feFuncG type="linear" slope={contrast} intercept={(1 - contrast) / 2} />
-        <feFuncB type="linear" slope={contrast} intercept={(1 - contrast) / 2} />
-      </feComponentTransfer>
-    </filter>
-    <rect width="100%" height="100%" filter={`url(#${id})`} />
-  </svg>
-);
+}> = ({tex, opacity = 0.25, blend = 'multiply', tileSize = 512, offset, style}) => {
+  const t = TEXTURES[tex];
+  const url = staticFile(`textures/${tex}.${t.tile ? 'png' : 'jpg'}`);
+  useTexturePreload(url);
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        // eslint-disable-next-line @remotion/no-background-image -- gambar ditunggu lewat delayRender di useTexturePreload
+        backgroundImage: `url(${url})`,
+        backgroundSize: t.tile ? `${tileSize}px ${tileSize}px` : '100% 100%',
+        backgroundRepeat: t.tile ? 'repeat' : 'no-repeat',
+        backgroundPosition: offset ? `${offset[0]}px ${offset[1]}px` : '0 0',
+        mixBlendMode: blend,
+        opacity,
+        pointerEvents: 'none',
+        ...style,
+      }}
+    />
+  );
+};
 
 /* ---------- kamera ---------- */
 export const CameraRig: React.FC<{
@@ -140,7 +163,7 @@ export const FilmGrade: React.FC<{
         }}
       />
       {/* grain per frame */}
-      <NoiseFill id={`grain-${frame % 7}`} baseFrequency={0.95} octaves={2} seed={frame % 997} opacity={0.08 + grain * 0.14} blend="overlay" contrast={1.6} />
+      <NoiseFill tex={frame % 2 ? 'grain2' : 'grain'} offset={[Math.floor(random(`gx-${frame}`) * 512), Math.floor(random(`gy-${frame}`) * 512)]} opacity={0.08 + grain * 0.14} blend="overlay" />
       {/* debu */}
       {specks.map((s, i) =>
         s ? (
@@ -198,8 +221,8 @@ export const Paper: React.FC<{
       ...style,
     }}
   >
-    <NoiseFill id={`paper-${seed}`} baseFrequency={0.7} octaves={3} seed={seed} opacity={0.22} blend="multiply" contrast={1.2} />
-    <NoiseFill id={`stain-${seed}`} baseFrequency={0.012} octaves={2} seed={seed + 50} opacity={0.35} blend="multiply" contrast={1.1} />
+    <NoiseFill tex="paper" offset={[(seed * 97) % 512, (seed * 53) % 512]} opacity={0.22} blend="multiply" />
+    <NoiseFill tex="stain" opacity={0.35} blend="multiply" style={{backgroundSize: '170% 170%', backgroundPosition: `${(seed * 37) % 70}% ${(seed * 71) % 70}%`}} />
     <div style={{position: 'absolute', inset: 0}}>{children}</div>
   </div>
 );

@@ -11,6 +11,11 @@ import {
   ripperStoryboardSchema,
 } from "./Videos/RipperStoryboard";
 import {
+  TextureBake,
+  textureBakeDefaults,
+  textureBakeSchema,
+} from "./lib/scenes/TextureBake";
+import {
   CaptionedVideo,
   calculateCaptionedVideoMetadata,
 } from "./CaptionedVideo";
@@ -366,6 +371,24 @@ export const RemotionRoot: React.FC = () => {
           schema={ripperStoryboardSchema}
           defaultProps={ripperStoryboardDefaults}
           formats={["Portrait"]}
+        />
+      </Folder>
+      <Folder name="Utils">
+        <Still
+          id="TextureBake-Full"
+          component={TextureBake}
+          schema={textureBakeSchema}
+          width={1080}
+          height={1920}
+          defaultProps={textureBakeDefaults}
+        />
+        <Still
+          id="TextureBake-Tile"
+          component={TextureBake}
+          schema={textureBakeSchema}
+          width={512}
+          height={512}
+          defaultProps={textureBakeDefaults}
         />
       </Folder>
     </>

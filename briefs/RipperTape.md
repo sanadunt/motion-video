@@ -1,5 +1,10 @@
 # RipperTape (Videos)
 
+> **v2 (8 Nov 2026):** v1 berbasis teks ditolak. v2 berbasis adegan: 7 set dari `src/lib/scenes/sets.tsx`
+> (papan bukti, berkas polisi, jalan berkabut, dinding kapur, surat, pintu, papan "?"), kamera per adegan,
+> bisikan jadi ambience. Peta narasi → set dan gerak per adegan: `docs/RipperTape-v2-arsitektur.md`,
+> `briefs/RipperTape.storyboard.md`. Beat VO di bawah tetap berlaku; bagian LOOK/LAYOUT/SOUND v1 digantikan.
+
 ## GOAL
 Penonton merasa sedang menonton kaset arsip yang seharusnya tidak mereka tonton: cerita Jack the Ripper diceritakan tenang, lalu kaset itu sendiri "menjawab". Horornya dari yang tidak terlihat dan dari hening, bukan dari darah.
 Dipakai di: TikTok / Reels / Shorts, satu video utuh. Bisa jadi seri "ARSIP" bernomor.
