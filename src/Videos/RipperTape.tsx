@@ -37,9 +37,9 @@ const B = {
   vo1: 1.0,
   board1End: 12.8,
   vo2: 13.0,
-  sheet2: 30.0,
-  sheet3: 38.0,
-  sheet4: 40.0,
+  sheet2: 34.0,
+  sheet3: 38.7,
+  sheet4: 40.7,
   fileEnd: 42.0,
   vo3: 42.3,
   streetEnd: 48.8,
@@ -52,7 +52,7 @@ const B = {
   paperIn: 75.5,
   writeStart: 77.0,
   writeEnd: 86.0,
-  fromHell: 87.6,
+  fromHell: 88.5,
   silence: 89.6,
   vo5: 91.1,
   feet: 100.5,
@@ -106,7 +106,7 @@ export const RipperTape: React.FC<RipperTapeProps> = ({grain, handheld, whisperG
       const y =
         active === 0
           ? interpolate(lt, [0, 4, 12, 17], [L.px(90), L.px(60), -L.px(40), -L.px(150)], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})
-          : interpolate(lt, [0, 0.5, 8], [-L.px(420), L.px(60), -L.px(120)], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          : interpolate(lt, [0, 0.5, 4], [-L.px(150), L.px(60), -L.px(60)], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
       return {node: <FileScene L={L} frame={lf} active={active} t={lt} />, zoom: 1.12, x: 0, y};
     }
 

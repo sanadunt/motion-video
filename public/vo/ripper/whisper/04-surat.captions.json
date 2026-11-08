@@ -1,0 +1,212 @@
+[
+  {
+    "text": "Sebuah",
+    "startMs": 270,
+    "endMs": 1770,
+    "timestampMs": 800,
+    "confidence": 0.0196383
+  },
+  {
+    "text": " kotak",
+    "startMs": 1770,
+    "endMs": 3520,
+    "timestampMs": 4240,
+    "confidence": 0.611629
+  },
+  {
+    "text": " kecil,",
+    "startMs": 3520,
+    "endMs": 5030,
+    "timestampMs": 4560,
+    "confidence": 0.926318
+  },
+  {
+    "text": " tiba",
+    "startMs": 5030,
+    "endMs": 5940,
+    "timestampMs": 5580,
+    "confidence": 0.5957
+  },
+  {
+    "text": " di",
+    "startMs": 5940,
+    "endMs": 6310,
+    "timestampMs": 7340,
+    "confidence": 0.699975
+  },
+  {
+    "text": " meja",
+    "startMs": 6310,
+    "endMs": 7080,
+    "timestampMs": 7500,
+    "confidence": 0.827098
+  },
+  {
+    "text": " George",
+    "startMs": 7080,
+    "endMs": 8310,
+    "timestampMs": 7720,
+    "confidence": 0.958272
+  },
+  {
+    "text": " Lask.",
+    "startMs": 8310,
+    "endMs": 9000,
+    "timestampMs": 8040,
+    "confidence": 0.44276
+  },
+  {
+    "text": " Di",
+    "startMs": 9000,
+    "endMs": 9930,
+    "timestampMs": 10160,
+    "confidence": 0.312236
+  },
+  {
+    "text": " dalamnya,",
+    "startMs": 9930,
+    "endMs": 11340,
+    "timestampMs": 10360,
+    "confidence": 0.351268
+  },
+  {
+    "text": " separuh",
+    "startMs": 11340,
+    "endMs": 12570,
+    "timestampMs": 11820,
+    "confidence": 0.726774
+  },
+  {
+    "text": " ginjal",
+    "startMs": 12570,
+    "endMs": 13650,
+    "timestampMs": 12780,
+    "confidence": 0.12327
+  },
+  {
+    "text": " manusia",
+    "startMs": 13650,
+    "endMs": 15240,
+    "timestampMs": 13660,
+    "confidence": 0.950936
+  },
+  {
+    "text": " dan",
+    "startMs": 15240,
+    "endMs": 15600,
+    "timestampMs": 15440,
+    "confidence": 0.619785
+  },
+  {
+    "text": " sepucuk",
+    "startMs": 15600,
+    "endMs": 16970,
+    "timestampMs": 15680,
+    "confidence": 0.971757
+  },
+  {
+    "text": " surat.",
+    "startMs": 16970,
+    "endMs": 18000,
+    "timestampMs": 16520,
+    "confidence": 0.668173
+  },
+  {
+    "text": " Surat",
+    "startMs": 18000,
+    "endMs": 18640,
+    "timestampMs": 18800,
+    "confidence": 0.924018
+  },
+  {
+    "text": " itu",
+    "startMs": 18640,
+    "endMs": 18900,
+    "timestampMs": 19320,
+    "confidence": 0.979669
+  },
+  {
+    "text": " tidak",
+    "startMs": 18900,
+    "endMs": 19530,
+    "timestampMs": 19700,
+    "confidence": 0.970478
+  },
+  {
+    "text": " punya",
+    "startMs": 19530,
+    "endMs": 20040,
+    "timestampMs": 20060,
+    "confidence": 0.99708
+  },
+  {
+    "text": " alamat",
+    "startMs": 20040,
+    "endMs": 20780,
+    "timestampMs": 20440,
+    "confidence": 0.947918
+  },
+  {
+    "text": " pengirim.",
+    "startMs": 20780,
+    "endMs": 22000,
+    "timestampMs": 20940,
+    "confidence": 0.718162
+  },
+  {
+    "text": " Hanya",
+    "startMs": 22000,
+    "endMs": 22820,
+    "timestampMs": 22760,
+    "confidence": 0.496946
+  },
+  {
+    "text": " dua",
+    "startMs": 22820,
+    "endMs": 23330,
+    "timestampMs": 23180,
+    "confidence": 0.847477
+  },
+  {
+    "text": " kata",
+    "startMs": 23330,
+    "endMs": 23970,
+    "timestampMs": 23440,
+    "confidence": 0.935704
+  },
+  {
+    "text": " di",
+    "startMs": 23970,
+    "endMs": 24290,
+    "timestampMs": 24000,
+    "confidence": 0.959454
+  },
+  {
+    "text": " bagian",
+    "startMs": 24290,
+    "endMs": 25260,
+    "timestampMs": 24240,
+    "confidence": 0.922839
+  },
+  {
+    "text": " atas.",
+    "startMs": 25260,
+    "endMs": 26000,
+    "timestampMs": 24700,
+    "confidence": 0.922225
+  },
+  {
+    "text": " ...from",
+    "startMs": 26340,
+    "endMs": 27450,
+    "timestampMs": 26500,
+    "confidence": 0.103393
+  },
+  {
+    "text": " hell.",
+    "startMs": 27450,
+    "endMs": 28000,
+    "timestampMs": 27100,
+    "confidence": 0.745053
+  }
+]

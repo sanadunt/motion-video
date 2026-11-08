@@ -1,0 +1,205 @@
+[
+  {
+    "text": "31",
+    "startMs": 370,
+    "endMs": 1100,
+    "timestampMs": 1280,
+    "confidence": 0.200336
+  },
+  {
+    "text": " Agustus,",
+    "startMs": 1100,
+    "endMs": 2890,
+    "timestampMs": 1580,
+    "confidence": 0.477305
+  },
+  {
+    "text": " 1888",
+    "startMs": 2890,
+    "endMs": 5870,
+    "timestampMs": 5460,
+    "confidence": 0.325632
+  },
+  {
+    "text": " Pukul",
+    "startMs": 5870,
+    "endMs": 6760,
+    "timestampMs": 6640,
+    "confidence": 0.103107
+  },
+  {
+    "text": " 340",
+    "startMs": 6760,
+    "endMs": 8280,
+    "timestampMs": 7460,
+    "confidence": 0.407582
+  },
+  {
+    "text": " pagi,",
+    "startMs": 8280,
+    "endMs": 9080,
+    "timestampMs": 8520,
+    "confidence": 0.554802
+  },
+  {
+    "text": " Baksro,",
+    "startMs": 9080,
+    "endMs": 11070,
+    "timestampMs": 9720,
+    "confidence": 0.342659
+  },
+  {
+    "text": " London",
+    "startMs": 11070,
+    "endMs": 11890,
+    "timestampMs": 11320,
+    "confidence": 0.86442
+  },
+  {
+    "text": " Timur,",
+    "startMs": 11890,
+    "endMs": 13180,
+    "timestampMs": 11760,
+    "confidence": 0.872144
+  },
+  {
+    "text": " Mary",
+    "startMs": 13180,
+    "endMs": 13620,
+    "timestampMs": 13580,
+    "confidence": 0.654428
+  },
+  {
+    "text": " and",
+    "startMs": 13620,
+    "endMs": 14030,
+    "timestampMs": 14200,
+    "confidence": 0.372011
+  },
+  {
+    "text": " Nichols,",
+    "startMs": 14030,
+    "endMs": 15400,
+    "timestampMs": 14480,
+    "confidence": 0.807929
+  },
+  {
+    "text": " 8",
+    "startMs": 15400,
+    "endMs": 16180,
+    "timestampMs": 16580,
+    "confidence": 0.419357
+  },
+  {
+    "text": " hari",
+    "startMs": 16180,
+    "endMs": 16540,
+    "timestampMs": 16920,
+    "confidence": 0.702398
+  },
+  {
+    "text": " kemudian,",
+    "startMs": 16540,
+    "endMs": 18310,
+    "timestampMs": 17060,
+    "confidence": 0.932342
+  },
+  {
+    "text": " Any",
+    "startMs": 18310,
+    "endMs": 18480,
+    "timestampMs": 18540,
+    "confidence": 0.453351
+  },
+  {
+    "text": " Chapman.",
+    "startMs": 18480,
+    "endMs": 19600,
+    "timestampMs": 18900,
+    "confidence": 0.957271
+  },
+  {
+    "text": " Lalu",
+    "startMs": 19600,
+    "endMs": 20190,
+    "timestampMs": 20300,
+    "confidence": 0.845069
+  },
+  {
+    "text": " dalam",
+    "startMs": 20190,
+    "endMs": 20840,
+    "timestampMs": 21060,
+    "confidence": 0.943432
+  },
+  {
+    "text": " satu",
+    "startMs": 20840,
+    "endMs": 21080,
+    "timestampMs": 21440,
+    "confidence": 0.908808
+  },
+  {
+    "text": " malam",
+    "startMs": 21080,
+    "endMs": 21650,
+    "timestampMs": 21680,
+    "confidence": 0.937787
+  },
+  {
+    "text": " yang",
+    "startMs": 21650,
+    "endMs": 22110,
+    "timestampMs": 21960,
+    "confidence": 0.996194
+  },
+  {
+    "text": " sama,",
+    "startMs": 22110,
+    "endMs": 22960,
+    "timestampMs": 22340,
+    "confidence": 0.994763
+  },
+  {
+    "text": " 2",
+    "startMs": 22960,
+    "endMs": 23140,
+    "timestampMs": 23280,
+    "confidence": 0.580309
+  },
+  {
+    "text": " sekaligus,",
+    "startMs": 23140,
+    "endMs": 24910,
+    "timestampMs": 23760,
+    "confidence": 0.837467
+  },
+  {
+    "text": " Elizabeth",
+    "startMs": 24910,
+    "endMs": 25460,
+    "timestampMs": 25260,
+    "confidence": 0.748334
+  },
+  {
+    "text": " Stride,",
+    "startMs": 25460,
+    "endMs": 26770,
+    "timestampMs": 25740,
+    "confidence": 0.867423
+  },
+  {
+    "text": " Catherine",
+    "startMs": 26770,
+    "endMs": 27780,
+    "timestampMs": 27160,
+    "confidence": 0.454635
+  },
+  {
+    "text": " Idaos,",
+    "startMs": 27780,
+    "endMs": 28700,
+    "timestampMs": 27720,
+    "confidence": 0.263769
+  }
+]

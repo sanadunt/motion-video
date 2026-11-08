@@ -1,0 +1,149 @@
+[
+  {
+    "text": "Sembilan",
+    "startMs": 260,
+    "endMs": 1200,
+    "timestampMs": 440,
+    "confidence": 0.281419
+  },
+  {
+    "text": " november",
+    "startMs": 1200,
+    "endMs": 2180,
+    "timestampMs": 1380,
+    "confidence": 0.349486
+  },
+  {
+    "text": " Miller's",
+    "startMs": 2180,
+    "endMs": 3600,
+    "timestampMs": 3660,
+    "confidence": 0.883202
+  },
+  {
+    "text": " Court",
+    "startMs": 3600,
+    "endMs": 4500,
+    "timestampMs": 4220,
+    "confidence": 0.809104
+  },
+  {
+    "text": " Mary",
+    "startMs": 4500,
+    "endMs": 5800,
+    "timestampMs": 6020,
+    "confidence": 0.926179
+  },
+  {
+    "text": " Jane",
+    "startMs": 5800,
+    "endMs": 6420,
+    "timestampMs": 6540,
+    "confidence": 0.9513
+  },
+  {
+    "text": " Kelly",
+    "startMs": 6420,
+    "endMs": 7620,
+    "timestampMs": 7240,
+    "confidence": 0.580662
+  },
+  {
+    "text": " Yang",
+    "startMs": 7620,
+    "endMs": 8680,
+    "timestampMs": 8880,
+    "confidence": 0.810754
+  },
+  {
+    "text": " terakhir",
+    "startMs": 8680,
+    "endMs": 9980,
+    "timestampMs": 9280,
+    "confidence": 0.966012
+  },
+  {
+    "text": " tidak",
+    "startMs": 9980,
+    "endMs": 10930,
+    "timestampMs": 11140,
+    "confidence": 0.774012
+  },
+  {
+    "text": " ditemukan",
+    "startMs": 10930,
+    "endMs": 11830,
+    "timestampMs": 11420,
+    "confidence": 0.603878
+  },
+  {
+    "text": " di",
+    "startMs": 11830,
+    "endMs": 12110,
+    "timestampMs": 12180,
+    "confidence": 0.90709
+  },
+  {
+    "text": " jalan",
+    "startMs": 12110,
+    "endMs": 12780,
+    "timestampMs": 12180,
+    "confidence": 0.905799
+  },
+  {
+    "text": " Dia",
+    "startMs": 12780,
+    "endMs": 14950,
+    "timestampMs": 14380,
+    "confidence": 0.930829
+  },
+  {
+    "text": " ditemukan",
+    "startMs": 14950,
+    "endMs": 15920,
+    "timestampMs": 15080,
+    "confidence": 0.791506
+  },
+  {
+    "text": " di",
+    "startMs": 15920,
+    "endMs": 15950,
+    "timestampMs": 16060,
+    "confidence": 0.62516
+  },
+  {
+    "text": " dalam",
+    "startMs": 15950,
+    "endMs": 16380,
+    "timestampMs": 16280,
+    "confidence": 0.96025
+  },
+  {
+    "text": " kamarnya",
+    "startMs": 16380,
+    "endMs": 17090,
+    "timestampMs": 16700,
+    "confidence": 0.926295
+  },
+  {
+    "text": " sendiri",
+    "startMs": 17090,
+    "endMs": 17780,
+    "timestampMs": 17620,
+    "confidence": 0.944138
+  },
+  {
+    "text": " Mintunya",
+    "startMs": 17780,
+    "endMs": 19190,
+    "timestampMs": 19080,
+    "confidence": 0.435071
+  },
+  {
+    "text": " terkunci",
+    "startMs": 19190,
+    "endMs": 20580,
+    "timestampMs": 19840,
+    "confidence": 0.922696
+  }
+]

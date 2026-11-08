@@ -252,7 +252,7 @@ export type Sheet = {
 const DEFAULT_STARTS = [0.15, 0.3, 0.45, 0.6, 1.4, 1.8, 2.4, 2.7, 3.0];
 
 export const SHEETS: Sheet[] = [
-  {date: '31st August, 1888', time: '3.40 a.m.', place: "Buck's Row, Whitechapel", name: 'NICHOLS, Mary Ann', age: '43 years', foundBy: 'Chas. Cross, carman', note: 'No witness. No weapon found.', stamp: 'Received · H Div', seed: 4, rot: -1.8, starts: [0.4, 5.5, 8.6, 11.6, 13.2, 14.2, 15.5, 16.0, 16.6]},
+  {date: '31st August, 1888', time: '3.40 a.m.', place: "Buck's Row, Whitechapel", name: 'NICHOLS, Mary Ann', age: '43 years', foundBy: 'Chas. Cross, carman', note: 'No witness. No weapon found.', stamp: 'Received · H Div', seed: 4, rot: -1.8, starts: [1.3, 8.5, 13.6, 16.6, 17.6, 18.4, 19.4, 19.8, 20.4]},
   {date: '8th September, 1888', time: '6.00 a.m.', place: '29 Hanbury Street', name: 'CHAPMAN, Annie', age: '47 years', foundBy: 'John Davis, lodger', note: 'Same hand as Buck’s Row?', stamp: 'Received · H Div', seed: 5, rot: 1.2},
   {date: '30th September, 1888', time: '1.00 a.m.', place: "Dutfield's Yard, Berner St", name: 'STRIDE, Elizabeth', age: '44 years', foundBy: 'Louis Diemschutz', note: 'Interrupted? Second body within the hour.', stamp: 'Urgent · H Div', seed: 6, rot: -0.8},
   {date: '30th September, 1888', time: '1.45 a.m.', place: 'Mitre Square, City', name: 'EDDOWES, Catherine', age: '46 years', foundBy: 'P.C. Watkins 881', note: 'Apron piece missing. See Goulston St.', stamp: 'City Police', seed: 7, rot: 1.6},

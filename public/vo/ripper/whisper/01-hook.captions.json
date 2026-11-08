@@ -1,0 +1,79 @@
+[
+  {
+    "text": "lima",
+    "startMs": 190,
+    "endMs": 760,
+    "timestampMs": 440,
+    "confidence": 0.0452486
+  },
+  {
+    "text": " perempuan",
+    "startMs": 760,
+    "endMs": 2500,
+    "timestampMs": 1160,
+    "confidence": 0.537873
+  },
+  {
+    "text": " 11",
+    "startMs": 2500,
+    "endMs": 3750,
+    "timestampMs": 4000,
+    "confidence": 0.188465
+  },
+  {
+    "text": " minggu",
+    "startMs": 3750,
+    "endMs": 5000,
+    "timestampMs": 4160,
+    "confidence": 0.578674
+  },
+  {
+    "text": " dan",
+    "startMs": 5000,
+    "endMs": 5950,
+    "timestampMs": 6120,
+    "confidence": 0.87959
+  },
+  {
+    "text": " satu",
+    "startMs": 5950,
+    "endMs": 6750,
+    "timestampMs": 6780,
+    "confidence": 0.690306
+  },
+  {
+    "text": " surat",
+    "startMs": 6750,
+    "endMs": 8100,
+    "timestampMs": 7100,
+    "confidence": 0.686899
+  },
+  {
+    "text": " yang",
+    "startMs": 8100,
+    "endMs": 8360,
+    "timestampMs": 8260,
+    "confidence": 0.597138
+  },
+  {
+    "text": " ditulis",
+    "startMs": 8360,
+    "endMs": 8990,
+    "timestampMs": 8760,
+    "confidence": 0.872018
+  },
+  {
+    "text": " dengan",
+    "startMs": 8990,
+    "endMs": 9920,
+    "timestampMs": 9720,
+    "confidence": 0.931799
+  },
+  {
+    "text": " tintamera",
+    "startMs": 9920,
+    "endMs": 11000,
+    "timestampMs": 9980,
+    "confidence": 0.55738
+  }
+]
