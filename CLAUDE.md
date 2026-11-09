@@ -105,10 +105,14 @@ Dipakai kalau user tidak memberikan brand atau arahan lain.
 
 ## Video bernarasi (VO)
 
+- Untuk video horor, true crime, dan misteri: ikuti skill `horror-scenes` (alur 7 tahap dengan gerbang persetujuan,
+  preview murah sebelum render, SFX di setiap transisi, QA dari file final, blok `STATE` di brief untuk lanjut di sesi baru).
 - Urutan: brief → naskah per scene → **VO dulu** → beat mengikuti suara → animasi. Jangan animasi dulu baru VO.
-- Claude menulis naskah dengan baris VO siap tempel (termasuk petunjuk gaya, jeda, penekanan). User membuat VO
-  sendiri di Google AI Studio TTS, lalu menaruh WAV di `public/vo/<nn>-<scene>.wav`. Tidak ada automasi TTS.
-- Ukur durasi tiap WAV (`ffprobe`) dan pakai sebagai dasar `T`/`calculateMetadata`, jangan menebak.
+- VO dari Google AI Studio TTS. User login sendiri di panel browser; Claude mengisi style dan teks, lalu menyimpan WAV
+  ke `public/vo/<nama>/` lewat receiver lokal (alur di memory). Normalkan dengan loudnorm (narator −15 LUFS).
+- **Timing dari kata, bukan tebakan:** transkrip tiap klip dengan whisper.cpp
+  (`npx tsx scripts/transcribe.ts <file> base id`), lalu `scripts/vo-align.mjs` memetakan frasa naskah ke timestamp kata
+  menjadi `cues`. Caption, teks properti, kamera, dan SFX membaca `cues`. Jangan pakai deteksi jeda sunyi untuk timing frasa.
 
 ## Alur kerja
 
