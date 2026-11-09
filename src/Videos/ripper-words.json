@@ -1,0 +1,1066 @@
+[
+  {
+    "clip": "01-hook",
+    "i": 0,
+    "text": "lima",
+    "t": 1.44,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 1,
+    "text": "perempuan",
+    "t": 2.16,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 2,
+    "text": "sebelas",
+    "t": 5,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 3,
+    "text": "minggu",
+    "t": 5.16,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 4,
+    "text": "dan",
+    "t": 7.12,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 5,
+    "text": "satu",
+    "t": 7.78,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 6,
+    "text": "surat",
+    "t": 8.1,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 7,
+    "text": "yang",
+    "t": 9.26,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 8,
+    "text": "ditulis",
+    "t": 9.76,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 9,
+    "text": "dengan",
+    "t": 10.72,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 10,
+    "text": "tinta",
+    "t": 10.98,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 11,
+    "text": "merah",
+    "t": 11.31,
+    "anchored": false
+  },
+  {
+    "clip": "02-setup",
+    "i": 0,
+    "text": "tiga",
+    "t": 14.28,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 1,
+    "text": "puluh",
+    "t": 14.38,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 2,
+    "text": "satu",
+    "t": 15.17,
+    "anchored": false
+  },
+  {
+    "clip": "02-setup",
+    "i": 3,
+    "text": "agustus",
+    "t": 16.31,
+    "anchored": false
+  },
+  {
+    "clip": "02-setup",
+    "i": 4,
+    "text": "seribu",
+    "t": 18.46,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 5,
+    "text": "delapan",
+    "t": 18.66,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 6,
+    "text": "ratus",
+    "t": 18.85,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 7,
+    "text": "delapan",
+    "t": 19.05,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 8,
+    "text": "puluh",
+    "t": 19.25,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 9,
+    "text": "delapan",
+    "t": 19.44,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 10,
+    "text": "pukul",
+    "t": 19.64,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 11,
+    "text": "tiga",
+    "t": 20.46,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 12,
+    "text": "empat",
+    "t": 20.99,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 13,
+    "text": "puluh",
+    "t": 21.25,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 14,
+    "text": "pagi",
+    "t": 21.52,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 15,
+    "text": "bucks",
+    "t": 22.08,
+    "anchored": false
+  },
+  {
+    "clip": "02-setup",
+    "i": 16,
+    "text": "row",
+    "t": 23.17,
+    "anchored": false
+  },
+  {
+    "clip": "02-setup",
+    "i": 17,
+    "text": "london",
+    "t": 24.32,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 18,
+    "text": "timur",
+    "t": 24.76,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 19,
+    "text": "mary",
+    "t": 26.58,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 20,
+    "text": "ann",
+    "t": 26.87,
+    "anchored": false
+  },
+  {
+    "clip": "02-setup",
+    "i": 21,
+    "text": "nichols",
+    "t": 27.48,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 22,
+    "text": "delapan",
+    "t": 29.58,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 23,
+    "text": "hari",
+    "t": 29.92,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 24,
+    "text": "kemudian",
+    "t": 30.06,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 25,
+    "text": "annie",
+    "t": 30.76,
+    "anchored": false
+  },
+  {
+    "clip": "02-setup",
+    "i": 26,
+    "text": "chapman",
+    "t": 31.9,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 27,
+    "text": "lalu",
+    "t": 33.3,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 28,
+    "text": "dalam",
+    "t": 34.06,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 29,
+    "text": "satu",
+    "t": 34.44,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 30,
+    "text": "malam",
+    "t": 34.68,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 31,
+    "text": "yang",
+    "t": 34.96,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 32,
+    "text": "sama",
+    "t": 35.34,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 33,
+    "text": "dua",
+    "t": 36.28,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 34,
+    "text": "sekaligus",
+    "t": 36.76,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 35,
+    "text": "elizabeth",
+    "t": 38.26,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 36,
+    "text": "stride",
+    "t": 38.74,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 37,
+    "text": "catherine",
+    "t": 40.16,
+    "anchored": true
+  },
+  {
+    "clip": "02-setup",
+    "i": 38,
+    "text": "eddowes",
+    "t": 40.58,
+    "anchored": false
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 0,
+    "text": "di",
+    "t": 42.78,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 1,
+    "text": "goulston",
+    "t": 43.1,
+    "anchored": false
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 2,
+    "text": "street",
+    "t": 44.78,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 3,
+    "text": "di",
+    "t": 45.58,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 4,
+    "text": "atas",
+    "t": 45.76,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 5,
+    "text": "sepotong",
+    "t": 46.12,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 6,
+    "text": "celemek",
+    "t": 46.98,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 7,
+    "text": "yang",
+    "t": 47.58,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 8,
+    "text": "basah",
+    "t": 48.06,
+    "anchored": false
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 9,
+    "text": "seseorang",
+    "t": 49.44,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 10,
+    "text": "menulis",
+    "t": 50.28,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 11,
+    "text": "dengan",
+    "t": 51.06,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 12,
+    "text": "kapur",
+    "t": 51.52,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 13,
+    "text": "di",
+    "t": 52.08,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 14,
+    "text": "dinding",
+    "t": 52.36,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 15,
+    "text": "polisi",
+    "t": 53.03,
+    "anchored": false
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 16,
+    "text": "menghapusnya",
+    "t": 54.02,
+    "anchored": false
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 17,
+    "text": "sebelum",
+    "t": 56.1,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 18,
+    "text": "matahari",
+    "t": 56.44,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 19,
+    "text": "terbit",
+    "t": 56.92,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 20,
+    "text": "tidak",
+    "t": 58.2,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 21,
+    "text": "ada",
+    "t": 58.66,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 22,
+    "text": "yang",
+    "t": 59.04,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 23,
+    "text": "sempat",
+    "t": 59.22,
+    "anchored": true
+  },
+  {
+    "clip": "03-grafiti",
+    "i": 24,
+    "text": "memotretnya",
+    "t": 59.7,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 0,
+    "text": "enam",
+    "t": 61.77,
+    "anchored": false
+  },
+  {
+    "clip": "04-surat",
+    "i": 1,
+    "text": "belas",
+    "t": 62.51,
+    "anchored": false
+  },
+  {
+    "clip": "04-surat",
+    "i": 2,
+    "text": "oktober",
+    "t": 63.38,
+    "anchored": false
+  },
+  {
+    "clip": "04-surat",
+    "i": 3,
+    "text": "sebuah",
+    "t": 64.49,
+    "anchored": false
+  },
+  {
+    "clip": "04-surat",
+    "i": 4,
+    "text": "kotak",
+    "t": 65.74,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 5,
+    "text": "kecil",
+    "t": 66.45,
+    "anchored": false
+  },
+  {
+    "clip": "04-surat",
+    "i": 6,
+    "text": "tiba",
+    "t": 67.63,
+    "anchored": false
+  },
+  {
+    "clip": "04-surat",
+    "i": 7,
+    "text": "di",
+    "t": 68.84,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 8,
+    "text": "meja",
+    "t": 69,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 9,
+    "text": "george",
+    "t": 69.22,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 10,
+    "text": "lusk",
+    "t": 69.54,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 11,
+    "text": "di",
+    "t": 71.66,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 12,
+    "text": "dalamnya",
+    "t": 71.86,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 13,
+    "text": "separuh",
+    "t": 73.32,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 14,
+    "text": "ginjal",
+    "t": 74.28,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 15,
+    "text": "manusia",
+    "t": 75.16,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 16,
+    "text": "dan",
+    "t": 76.94,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 17,
+    "text": "sepucuk",
+    "t": 77.18,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 18,
+    "text": "surat",
+    "t": 78.02,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 19,
+    "text": "surat",
+    "t": 80.3,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 20,
+    "text": "itu",
+    "t": 80.82,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 21,
+    "text": "tidak",
+    "t": 81.2,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 22,
+    "text": "punya",
+    "t": 81.56,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 23,
+    "text": "alamat",
+    "t": 81.94,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 24,
+    "text": "pengirim",
+    "t": 82.44,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 25,
+    "text": "hanya",
+    "t": 84.26,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 26,
+    "text": "dua",
+    "t": 84.68,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 27,
+    "text": "kata",
+    "t": 84.94,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 28,
+    "text": "di",
+    "t": 85.5,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 29,
+    "text": "bagian",
+    "t": 85.74,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 30,
+    "text": "atas",
+    "t": 86.2,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 31,
+    "text": "from",
+    "t": 88,
+    "anchored": true
+  },
+  {
+    "clip": "04-surat",
+    "i": 32,
+    "text": "hell",
+    "t": 88.6,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 0,
+    "text": "sembilan",
+    "t": 91.54,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 1,
+    "text": "november",
+    "t": 92.48,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 2,
+    "text": "millers",
+    "t": 94.76,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 3,
+    "text": "court",
+    "t": 95.32,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 4,
+    "text": "mary",
+    "t": 97.12,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 5,
+    "text": "jane",
+    "t": 97.64,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 6,
+    "text": "kelly",
+    "t": 98.34,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 7,
+    "text": "yang",
+    "t": 99.98,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 8,
+    "text": "terakhir",
+    "t": 100.38,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 9,
+    "text": "tidak",
+    "t": 102.24,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 10,
+    "text": "ditemukan",
+    "t": 102.52,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 11,
+    "text": "di",
+    "t": 103.28,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 12,
+    "text": "jalan",
+    "t": 103.28,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 13,
+    "text": "dia",
+    "t": 105.48,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 14,
+    "text": "ditemukan",
+    "t": 106.18,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 15,
+    "text": "di",
+    "t": 107.16,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 16,
+    "text": "dalam",
+    "t": 107.38,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 17,
+    "text": "kamarnya",
+    "t": 107.8,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 18,
+    "text": "sendiri",
+    "t": 108.72,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 19,
+    "text": "pintunya",
+    "t": 110.18,
+    "anchored": true
+  },
+  {
+    "clip": "05-kelly",
+    "i": 20,
+    "text": "terkunci",
+    "t": 110.94,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 0,
+    "text": "dia",
+    "t": 114.14,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 1,
+    "text": "tidak",
+    "t": 115.04,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 2,
+    "text": "pernah",
+    "t": 115.74,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 3,
+    "text": "tertangkap",
+    "t": 115.8,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 4,
+    "text": "tidak",
+    "t": 117.78,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 5,
+    "text": "pernah",
+    "t": 118.5,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 6,
+    "text": "diidentifikasi",
+    "t": 118.8,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 7,
+    "text": "suratsuratnya",
+    "t": 121.54,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 8,
+    "text": "berhenti",
+    "t": 122.38,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 9,
+    "text": "datang",
+    "t": 122.92,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 10,
+    "text": "orangorang",
+    "t": 124.74,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 11,
+    "text": "bilang",
+    "t": 125.46,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 12,
+    "text": "dia",
+    "t": 126.18,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 13,
+    "text": "berhenti",
+    "t": 126.38,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 14,
+    "text": "tapi",
+    "t": 128.6,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 15,
+    "text": "tidak",
+    "t": 129.36,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 16,
+    "text": "ada",
+    "t": 129.62,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 17,
+    "text": "yang",
+    "t": 129.8,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 18,
+    "text": "pernah",
+    "t": 130.06,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 19,
+    "text": "bilang",
+    "t": 130.64,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 20,
+    "text": "dia",
+    "t": 131.62,
+    "anchored": true
+  },
+  {
+    "clip": "06-penutup",
+    "i": 21,
+    "text": "selesai",
+    "t": 131.88,
+    "anchored": true
+  }
+]

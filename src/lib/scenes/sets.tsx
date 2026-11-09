@@ -265,8 +265,10 @@ export const FileScene: React.FC<
     /** detik sejak lembar aktif mulai; baris diketik mengikuti ini */
     t: number;
     lamp?: number;
+    /** override waktu ketik baris untuk lembar pertama (detik relatif), diturunkan dari VO */
+    firstStarts?: number[];
   }
-> = ({L, frame, active, t, lamp = 1}) => {
+> = ({L, frame, active, t, lamp = 1, firstStarts}) => {
   const w = L.width * L.pick({portrait: 1.08, landscape: 0.56, square: 1.04});
   const h = w * 1.35;
   const x = (L.width - w) / 2 + L.px(10);
@@ -281,7 +283,7 @@ export const FileScene: React.FC<
     const slide = i === 0 ? 1 : clamp01(tt / 0.45);
     const e = 1 - Math.pow(1 - slide, 3);
     const dy = (1 - e) * L.height * 0.9;
-    const st = s.starts ?? DEFAULT_STARTS;
+    const st = (i === 0 ? firstStarts : undefined) ?? s.starts ?? DEFAULT_STARTS;
     const rows: Array<[string, string, number, boolean?]> = [
       ['Date', s.date, st[0]],
       ['Time', s.time, st[1]],

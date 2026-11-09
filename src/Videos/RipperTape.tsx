@@ -11,6 +11,7 @@ import {zColor} from '@remotion/zod-types';
 import {EASE, ensureFonts, mix, progress, sec, useLayout} from '../lib/studio';
 import {CameraRig, FilmGrade, PAL} from '../lib/scenes';
 import captions from './ripper-captions.json';
+import vowords from './ripper-words.json';
 import {BoardScene, CHALK_TEXT, DoorScene, FileScene, LETTER_LINES, LetterScene, StreetScene, WallScene, boardGeometry, clamp01} from '../lib/scenes/sets';
 
 ensureFonts();
@@ -31,39 +32,67 @@ export const ripperTapeDefaults: RipperTapeProps = {
   durationInSeconds: 138,
 };
 
-/** BEATS (detik global). */
+/**
+ * Satu sumber timing: awal frasa dari ripper-captions.json dan waktu kata dari ripper-words.json
+ * (keduanya dibuat scripts/vo-align.mjs dari whisper + jeda sunyi). Waktu kata whisper rata-rata
+ * 0,2 dtk setelah kata mulai terdengar, jadi pemicu visual per kata dikurangi WORD_LEAD.
+ */
+const WORD_LEAD = 0.2;
+const cue = (prefix: string) => {
+  const c = captions.find((x) => x.text.startsWith(prefix));
+  if (!c) throw new Error(`cue tidak ditemukan: ${prefix}`);
+  return c.start;
+};
+const word = (clip: string, text: string, nth = 0) => {
+  const w = vowords.filter((x) => x.clip === clip && x.text === text)[nth];
+  if (!w) throw new Error(`kata tidak ditemukan: ${clip}/${text}`);
+  return w.t - WORD_LEAD;
+};
+
+/** BEATS (detik global). Batas adegan tetap; pemicu di dalam adegan diturunkan dari VO. */
 const B = {
   leader: 0.6,
   vo1: 1.0,
+  boardPush: cue('Dan satu surat') + 0.5,
+  merah: word('01-hook', 'merah'),
   board1End: 12.8,
   vo2: 13.0,
-  sheet2: 34.0,
-  sheet3: 38.7,
-  sheet4: 40.7,
+  sheet2: cue('Delapan hari kemudian'),
+  sheet3: cue('Elizabeth Stride'),
+  sheet4: cue('Catherine Eddowes'),
   fileEnd: 42.0,
   vo3: 42.3,
-  streetEnd: 48.8,
-  chalkIn: 48.8,
-  chalkDone: 52.2,
-  erase: 52.8,
+  streetEnd: cue('seseorang menulis') - 0.3,
+  chalkIn: word('03-grafiti', 'menulis'),
+  chalkDone: word('03-grafiti', 'menulis') + 3.2,
+  erase: cue('Polisi menghapusnya') + 0.5,
   wallEnd: 61.2,
   letterStart: 61.4,
   vo4: 61.5,
-  paperIn: 75.5,
-  writeStart: 77.0,
-  writeEnd: 86.0,
-  fromHell: 88.5,
+  stainFrom: word('04-surat', 'kotak'),
+  stainTo: word('04-surat', 'ginjal') + 1.0,
+  paperIn: cue('dan sepucuk surat'),
+  writeStart: cue('dan sepucuk surat') + 1.0,
+  writeEnd: cue('From Hell') - 0.8,
+  fromHell: cue('From Hell'),
   silence: 89.6,
   vo5: 91.1,
-  feet: 100.5,
+  feet: cue('Dia ditemukan') + 1.0,
+  leak: word('05-kelly', 'pintunya') - 2.0,
   peak: 112.2,
   vo6: 113.5,
-  qCard: 128.5,
+  qCard: cue('Tapi tidak ada') + 0.2,
   endCard: 133.5,
   lampOff: 134.5,
   w4: 135.0,
   stop: 137.5,
 };
+/** Baris formulir lembar Nichols (detik relatif awal adegan berkas): diketik saat diucapkan. */
+const SHEET1_STARTS = (() => {
+  const rel = (s: number) => s - B.board1End;
+  const name = rel(cue('Mary Ann Nichols'));
+  return [rel(cue('Tiga puluh satu')), rel(cue('Pukul')), rel(cue("Buck's Row")), name, name + 0.6, name + 1.1, name + 1.6, name + 1.9, name + 2.2];
+})();
 const VO = {vo1: 11.2, vo2: 28.52, vo3: 18.4, vo4: 27.72, vo5: 20.56, vo6: 19.16, w3: 2.04, w4: 1.92};
 const CHALK_LEN = CHALK_TEXT.join('').length;
 
@@ -87,7 +116,7 @@ export const RipperTape: React.FC<RipperTapeProps> = ({grain, handheld, whisperG
       const lf = frame - F(B.leader);
       const lamp = progress(frame, F(B.leader), F(0.9), EASE.out);
       const slow = mix(progress(frame, F(B.leader), F(B.board1End - B.leader), EASE.inOut), 1.0, 1.08);
-      const push = progress(frame, F(8.6), F(3.4), EASE.inOut);
+      const push = progress(frame, F(B.boardPush), F(Math.max(1.5, B.merah - B.boardPush)), EASE.inOut);
       const {envelope} = boardGeometry(L);
       const ex = envelope.x + envelope.w / 2;
       const ey = envelope.y + envelope.h / 2;
@@ -107,7 +136,7 @@ export const RipperTape: React.FC<RipperTapeProps> = ({grain, handheld, whisperG
         active === 0
           ? interpolate(lt, [0, 4, 12, 17], [L.px(90), L.px(60), -L.px(40), -L.px(150)], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})
           : interpolate(lt, [0, 0.5, 4], [-L.px(150), L.px(60), -L.px(60)], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-      return {node: <FileScene L={L} frame={lf} active={active} t={lt} />, zoom: 1.12, x: 0, y};
+      return {node: <FileScene L={L} frame={lf} active={active} t={lt} firstStarts={SHEET1_STARTS} />, zoom: 1.12, x: 0, y};
     }
 
     if (t < B.streetEnd) {
@@ -136,7 +165,7 @@ export const RipperTape: React.FC<RipperTapeProps> = ({grain, handheld, whisperG
       const header = progress(frame, F(B.fromHell), F(0.6), EASE.out);
       const candle = interpolate(t, [B.letterStart, 84, B.silence], [0.3, 0.45, 1.0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
       const boxPush = mix(progress(frame, F(B.letterStart), F(B.paperIn - B.letterStart), EASE.inOut), 1.05, 1.35);
-      const stain = progress(frame, F(67), F(8), EASE.inOut);
+      const stain = progress(frame, F(B.stainFrom), F(B.stainTo - B.stainFrom), EASE.inOut);
       const fs = L.px(L.pick({portrait: 40, landscape: 36, square: 36}));
       const follow = -Math.min(L.px(560), Math.max(0, written - 5) * fs * 1.65 * 0.75);
       const snap = progress(frame, F(B.fromHell), F(0.35), EASE.out);
@@ -152,7 +181,7 @@ export const RipperTape: React.FC<RipperTapeProps> = ({grain, handheld, whisperG
       const lf = frame - F(B.vo5);
       const push = progress(frame, F(B.vo5), F(B.peak - B.vo5), EASE.inOut);
       const feet = mix(progress(frame, F(B.feet), F(0.5), EASE.inOut), 0, L.px(34));
-      const leakBoost = progress(frame, F(108), F(4), EASE.in) * 0.25;
+      const leakBoost = progress(frame, F(B.leak), F(B.peak - B.leak), EASE.in) * 0.25;
       const crack = inPeak ? (frame - peakF + 1) / 4 : 0;
       const black = frame >= peakF + 10 ? 1 : 0;
       const kx = L.width * 0.5;
@@ -289,7 +318,7 @@ export const RipperTape: React.FC<RipperTapeProps> = ({grain, handheld, whisperG
       {[B.sheet2, B.sheet3, B.sheet4, B.paperIn].map((a) => (
         <Clip key={`ps-${a}`} src="sfx/ripper/amb/paper-slide.wav" at={a} vol={0.6} />
       ))}
-      {[49.0, 49.6, 50.3, 50.9, 51.5, 52.0].map((a) => (
+      {[0.1, 0.7, 1.4, 2.0, 2.6, 3.1].map((d) => B.chalkIn + d).map((a) => (
         <Clip key={`ck-${a}`} src="sfx/ripper/amb/chalk-tick.wav" at={a} vol={0.6} />
       ))}
       {/* bisikan ambience: jarang, jauh, pelan */}
