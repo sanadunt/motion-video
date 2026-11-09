@@ -33,7 +33,16 @@ def mat(name, hexc):
 # ---------- material ----------
 face = bpy.data.materials.new('face'); face.use_nodes = True
 nt = face.node_tree; bsdf = nt.nodes['Principled BSDF']; bsdf.inputs['Roughness'].default_value = 1.0
-tex = nt.nodes.new('ShaderNodeTexImage'); tex.image = bpy.data.images.load(os.environ.get('FACE_ATLAS', os.path.join(D, 'face_atlas.png')))
+tex = nt.nodes.new('ShaderNodeTexImage')
+if not os.environ.get('FACE_SEQ'):
+    tex.image = bpy.data.images.load(os.environ.get('FACE_ATLAS', os.path.join(D, 'face_atlas.png')))
+SEQ = os.environ.get('FACE_SEQ')   # folder f_0001.png ... dari rip_face.py: wajah video sebagai tekstur bergerak
+if SEQ:
+    seq_files = sorted(f for f in os.listdir(SEQ) if f.startswith('f_') and f.endswith('.png'))
+    tex.image = bpy.data.images.load(os.path.join(SEQ, seq_files[0])); tex.image.source = 'SEQUENCE'
+    iu = tex.image_user; iu.frame_duration = len(seq_files); iu.frame_start = 1
+    iu.frame_offset = int(os.environ.get('SEQ_OFFSET', 0)); iu.use_auto_refresh = True; iu.use_cyclic = True
+    CELLS = 1
 if CELLS is None: CELLS = max(1, tex.image.size[0] // tex.image.size[1])   # sel persegi berjajar ke kanan
 # nama ekspresi -> indeks sel (layout 8 dari face_atlas.py; layout 4 lama dipetakan ke yang terdekat)
 CI = (dict(rest=0, blink=1, A=2, O=3, E=4, smile=5, scared=6, creepy=7) if CELLS >= 8 else
@@ -43,7 +52,8 @@ tex.interpolation = 'Closest'; tex.extension = 'CLIP'
 uvn = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping')
 nt.links.new(uvn.outputs['UV'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], tex.inputs['Vector'])
 nt.links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
-M = dict(skin=mat('skin', '#b07a5a'), hair=mat('hair', '#2a1c18'), shirt=mat('shirt', '#4a5248'),
+# SKIN_HEX: warna kulit sisi kepala, ambil dari meta.json rip_face.py supaya menyatu dengan wajah hasil rip
+M = dict(skin=mat('skin', os.environ.get('SKIN_HEX', '#b07a5a')), hair=mat('hair', '#2a1c18'), shirt=mat('shirt', '#4a5248'),
          pants=mat('pants', '#2e3038'), shoes=mat('shoes', '#1a1614'))
 ORDER = ['skin', 'face', 'hair', 'shirt', 'pants', 'shoes']
 body.data.materials.clear()

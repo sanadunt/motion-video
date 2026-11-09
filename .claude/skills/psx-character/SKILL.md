@@ -13,6 +13,7 @@ Contoh hasil dan riwayat uji: `/Users/mac/Magz Motion/motion-starters/reverse/Ci
 - `scripts/psx_char.py`: skrip Blender utama (impor .glb, material, atlas wajah, rig, animasi, lorong, kabut, jitter, kamera, render).
 - `scripts/face_atlas.py`: atlas contoh 8 ekspresi 32×32 (`--cells 4` untuk layout lama) dan **template kosong** untuk digambar user (`--template --size 64`). Tanpa dependensi.
 - `scripts/lipsync.py`: timing kata whisper → bentuk mulut per frame (`EXPR_JSON` untuk `psx_char.py`). Opsi `--audio` menutup mulut saat hening.
+- `scripts/rip_face.py`: video wajah → atlas 8 ekspresi + urutan wajah per frame, otomatis dan sudah dipixelize (butuh venv face-tools, lihat bagian "Rip wajah dari video").
 - `scripts/psx_post.sh`: frame → MP4 PS1 (15 gambar/dtk, perbesar nearest, 48 warna + dither), opsional VO ikut (`AUDIO=`, `AUDIO_OFFSET=`).
 - `assets/psx_male_base_mesh.glb`: base mesh pria CC0 (Orange Juice Games), rig 24 tulang gaya Rigify. Lisensi di `assets/psx_male_base_mesh.LICENSE.md`.
 - `assets/face_atlas_8.png` (atlas 8 ekspresi), `assets/face_atlas_template_64.png` (template kosong 8 sel 64×64 bergaris bantu), `assets/face_atlas_example.png` (layout 4 lama).
@@ -23,6 +24,23 @@ Contoh hasil dan riwayat uji: `/Users/mac/Magz Motion/motion-starters/reverse/Ci
 | Isi | diam (mulut tertutup) | kedip | mulut A | mulut O/U | mulut E/I | senyum | takut | seram |
 
 Sel persegi berjajar ke kanan; jumlah sel dibaca otomatis dari lebar ÷ tinggi PNG. Ukuran sel 32 (paling PS1) sampai 64 (lebih detail). Pinggir sel = warna kulit sisi kepala (#b07a5a). Untuk art user: berikan `face_atlas_template_64.png` (garis bantu: mata 34%, hidung 60%, mulut 72% dari atas; titik magenta di pojok = nomor sel; garis magenta di tepi ditimpa saja). Satu sel = mata + mulut sekaligus, jadi kedip hanya terjadi saat mulut diam.
+
+## Rip wajah dari video (otomatis)
+Kalau user mengirim video wajah (mis. stok Pexels, rekaman sendiri, aktor dengan izin), langsung jalankan ini. Satu perintah menghasilkan atlas 8 ekspresi **dan** urutan wajah per frame, keduanya sudah diluruskan dan dipixelize.
+```bash
+FT="/Users/mac/Magz Motion/motion-starters/referensi/face-tools"     # venv mediapipe + model (di luar repo)
+nice -n 15 ffmpeg -i <video> -vf scale=-2:1080 -an -c:v libx264 -crf 14 "$OUT/face_1080p.mp4"   # 4K -> 1080p dulu
+nice -n 15 "$FT/.venv/bin/python" -I "$SK/scripts/rip_face.py" "$OUT/face_1080p.mp4" "$OUT/rip" --cell 64 --colors 32
+# hasil: rip/atlas_8.png, rip/seq/f_####.png (30 fps), rip/meta.json (skin_hex, sumber tiap sel), rip/preview.png
+```
+- **Pakai sebagai atlas** (bisa lip-sync): `FACE_ATLAS=$OUT/rip/atlas_8.png SKIN_HEX=<meta.skin_hex>`.
+- **Pakai sebagai wajah video** (gaya Forbidden Siren, wajah asli bergerak di kepala low-poly): `FACE_SEQ=$OUT/rip/seq SKIN_HEX=<...>` (`SEQ_OFFSET=<frame>` untuk mulai dari tengah). Atlas dan `EXPR` diabaikan di mode ini.
+- Cara kerja: MediaPipe Face Landmarker (478 titik + 52 skor ekspresi) per frame → wajah diluruskan dari 3 titik (dua mata, tengah mulut, dihaluskan ±2 frame) ke posisi atlas → supersample 4× lalu perkecil (pixelize) → palet bersama k-means 32 warna → luar oval = warna sisi kepala.
+- Pemilihan sel: skor ekspresi tertinggi per sel, dikurangi penalti kepala menoleh. Sel mulut (A, O, E, senyum) **hanya mengambil area mulut** dan menempelkannya ke frame diam; sel kedip hanya area mata. Dengan begitu mata tidak ikut menunduk saat bicara.
+- Ekspresi yang tidak ada di video ditandai `sintetis` di `meta.json`: E dari mulut A yang diremas, senyum dari sudut bibir diam yang ditarik ke atas, seram selalu digambar (mata lubang + seringai). Laporkan ke user sel mana yang asli dan mana yang sintetis. Hasil terbaik kalau video berisi orang yang bicara/berekspresi jelas menghadap kamera.
+- Batas: tangan yang menutupi wajah dan kepala menoleh jauh menurunkan kualitas (frame itu kalah skor, tapi tetap ada di urutan video). Wajah orang nyata hanya dengan izin/lisensi yang jelas.
+- Setup sekali (sudah ada di Mac ini): `uv venv --python 3.12 $FT/.venv && VIRTUAL_ENV=$FT/.venv uv pip install mediapipe` (±350 MB) dan model `https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task` (3,8 MB) ke `$FT/models/`.
+- Uji pertama (9 Nov 2026): video Pexels 19 dtk 4K → 473 frame berwajah, proses 13 dtk; 5 sel asli + 2 olahan + 1 sintetis. Contoh: `motion-starters/reverse/FaceRip/` (`psx_videoface.mp4`, `psx_ripatlas_talk.mp4`).
 
 ## Perintah
 ```bash
@@ -46,7 +64,7 @@ ANIM=walk nice -n 15 blender -b --factory-startup -P "$SK/scripts/psx_char.py" -
 
 bash "$SK/scripts/psx_post.sh" "$OUT/frames_walk" "$OUT/psx_walk.mp4"     # idle: "$OUT/frames_char"
 ```
-Variabel: `ANIM=idle|walk|talk`, `IK=1|0`, `FACE_ATLAS=<png>`, `CELLS=<n>` (biasanya otomatis), `EXPR_JSON=<expr.json dari lipsync.py>` (menimpa urutan ekspresi di mode apa pun; di `talk` juga menentukan jumlah frame), `FRAMES=<n>` (uji cepat: `FRAMES=3`).
+Variabel: `ANIM=idle|walk|talk`, `IK=1|0`, `FACE_ATLAS=<png>`, `FACE_SEQ=<folder f_####.png>`, `SEQ_OFFSET=<frame>`, `SKIN_HEX=<#rrggbb>`, `CELLS=<n>` (biasanya otomatis), `EXPR_JSON=<expr.json dari lipsync.py>` (menimpa urutan ekspresi di mode apa pun; di `talk` juga menentukan jumlah frame), `FRAMES=<n>` (uji cepat: `FRAMES=3`).
 Output: `frames_char/`, `frames_walk/`, atau `frames_talk/`, plus `psx_char.blend` / `psx_walk.blend` / `psx_talk.blend` (bisa dibuka user untuk diedit).
 
 ### Lip-sync: catatan
