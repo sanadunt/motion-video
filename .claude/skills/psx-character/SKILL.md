@@ -11,16 +11,32 @@ Contoh hasil dan riwayat uji: `/Users/mac/Magz Motion/motion-starters/reverse/Ci
 
 ## Isi skill
 - `scripts/psx_char.py`: skrip Blender utama (impor .glb, material, atlas wajah, rig, animasi, lorong, kabut, jitter, kamera, render).
-- `scripts/face_atlas.py`: generator atlas contoh 4 ekspresi 32×32 (normal, kedip, bicara, seram), tanpa dependensi.
-- `scripts/psx_post.sh`: frame → MP4 PS1 (15 gambar/dtk, perbesar nearest, 48 warna + dither).
+- `scripts/face_atlas.py`: atlas contoh 8 ekspresi 32×32 (`--cells 4` untuk layout lama) dan **template kosong** untuk digambar user (`--template --size 64`). Tanpa dependensi.
+- `scripts/lipsync.py`: timing kata whisper → bentuk mulut per frame (`EXPR_JSON` untuk `psx_char.py`). Opsi `--audio` menutup mulut saat hening.
+- `scripts/psx_post.sh`: frame → MP4 PS1 (15 gambar/dtk, perbesar nearest, 48 warna + dither), opsional VO ikut (`AUDIO=`, `AUDIO_OFFSET=`).
 - `assets/psx_male_base_mesh.glb`: base mesh pria CC0 (Orange Juice Games), rig 24 tulang gaya Rigify. Lisensi di `assets/psx_male_base_mesh.LICENSE.md`.
-- `assets/face_atlas_example.png`: atlas contoh.
+- `assets/face_atlas_8.png` (atlas 8 ekspresi), `assets/face_atlas_template_64.png` (template kosong 8 sel 64×64 bergaris bantu), `assets/face_atlas_example.png` (layout 4 lama).
+
+## Atlas wajah (layout 8 sel, kiri → kanan)
+| Sel | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Isi | diam (mulut tertutup) | kedip | mulut A | mulut O/U | mulut E/I | senyum | takut | seram |
+
+Sel persegi berjajar ke kanan; jumlah sel dibaca otomatis dari lebar ÷ tinggi PNG. Ukuran sel 32 (paling PS1) sampai 64 (lebih detail). Pinggir sel = warna kulit sisi kepala (#b07a5a). Untuk art user: berikan `face_atlas_template_64.png` (garis bantu: mata 34%, hidung 60%, mulut 72% dari atas; titik magenta di pojok = nomor sel; garis magenta di tepi ditimpa saja). Satu sel = mata + mulut sekaligus, jadi kedip hanya terjadi saat mulut diam.
 
 ## Perintah
 ```bash
 SK="/Users/mac/Magz Motion/motion-video/.claude/skills/psx-character"
 OUT="<folder kerja>"            # di luar src/ repo; mis. motion-starters/... atau out/review/<Nama>/psx
-cp "$SK/assets/face_atlas_example.png" "$OUT/face_atlas.png"   # atau atlas gambaran user
+cp "$SK/assets/face_atlas_8.png" "$OUT/face_atlas.png"   # atau atlas gambaran user
+
+# bicara dengan lip-sync dari VO (bahasa Indonesia): kata per kata dari whisper.cpp repo ini -> bentuk mulut
+M="/Users/mac/Magz Motion/motion-video"
+ffmpeg -i vo.wav -ar 16000 -ac 1 -sample_fmt s16 "$OUT/vo16.wav"
+"$M/whisper.cpp/build/bin/whisper-cli" -m "$M/whisper.cpp/ggml-base.bin" -f "$OUT/vo16.wav" -l id -ml 1 -sow -oj -of "$OUT/words" -np
+python3 -I "$SK/scripts/lipsync.py" "$OUT/words.json" "$OUT/expr.json" --audio "$OUT/vo16.wav" --offset 0.3 --set 10.6:creepy
+ANIM=talk EXPR_JSON="$OUT/expr.json" nice -n 15 blender -b --factory-startup -P "$SK/scripts/psx_char.py" -- "$OUT" "$SK/assets/psx_male_base_mesh.glb" 240 320
+AUDIO=vo.wav AUDIO_OFFSET=0.3 bash "$SK/scripts/psx_post.sh" "$OUT/frames_talk" "$OUT/psx_talk.mp4"
 
 # idle (90 frame): menoleh, kedip, bicara, lalu kepala patah ke kamera + wajah seram
 nice -n 15 blender -b --factory-startup -P "$SK/scripts/psx_char.py" -- "$OUT" "$SK/assets/psx_male_base_mesh.glb" 240 320
@@ -30,8 +46,14 @@ ANIM=walk nice -n 15 blender -b --factory-startup -P "$SK/scripts/psx_char.py" -
 
 bash "$SK/scripts/psx_post.sh" "$OUT/frames_walk" "$OUT/psx_walk.mp4"     # idle: "$OUT/frames_char"
 ```
-Variabel: `ANIM=walk|idle`, `IK=1|0`, `FACE_ATLAS=<png>`, `CELLS=<jumlah ekspresi>`, `FRAMES=<n>` (uji cepat: `FRAMES=3`).
-Output: `frames_char/` atau `frames_walk/`, `psx_char.blend` / `psx_walk.blend` (bisa dibuka user untuk diedit).
+Variabel: `ANIM=idle|walk|talk`, `IK=1|0`, `FACE_ATLAS=<png>`, `CELLS=<n>` (biasanya otomatis), `EXPR_JSON=<expr.json dari lipsync.py>` (menimpa urutan ekspresi di mode apa pun; di `talk` juga menentukan jumlah frame), `FRAMES=<n>` (uji cepat: `FRAMES=3`).
+Output: `frames_char/`, `frames_walk/`, atau `frames_talk/`, plus `psx_char.blend` / `psx_walk.blend` / `psx_talk.blend` (bisa dibuka user untuk diedit).
+
+### Lip-sync: catatan
+- Whisper `-ml 1 -sow` memberi timing per kata, tapi durasi kata sering ikut jeda: **selalu pakai `--audio`** (WAV 16-bit) supaya mulut tertutup saat hening. Pada uji VO RipperTape 12 dtk, 137 frame mulut "terbuka palsu" ditutup oleh opsi ini.
+- `--offset` = detik VO mulai di dalam shot; samakan dengan `AUDIO_OFFSET`. `--set 10.6:creepy` mengganti wajah mulai detik itu (nama: rest, blink, A, O, E, smile, scared, creepy).
+- Aturan: a → A, o/u → O, e/i → E, m/b/p → mulut rapat, angka → E-A; dibagi rata dalam durasi kata; minimal tahan 2 frame. Cocok untuk bahasa Indonesia yang vokalnya jelas.
+- Cek hasil: crop area mulut dari beberapa frame pergantian (`select=eq(n\,X)`), bandingkan dengan kata di detik itu.
 
 ## Alur kerja per permintaan
 1. **Uji 3 frame dulu** (`FRAMES=3`), lihat 1 frame. Baru render penuh. Ini menangkap salah arah atau tekstur hilang dalam 3 dtk, bukan 3 menit.
@@ -56,10 +78,11 @@ Output: `frames_char/` atau `frames_walk/`, `psx_char.blend` / `psx_walk.blend` 
 - `bpy.ops.mesh.subdivide` dalam loop: **deselect semua dulu** tiap iterasi. Kalau tidak, bidang lama ikut dipecah berulang sampai jutaan polygon dan Blender crash (render 9 dtk jadi crash 5 menit).
 - Blender 5: `action.fcurves` sudah tidak ada. Pakai `bpy_extras.anim_utils.action_get_channelbag_for_slot(action, slot).fcurves`. `bpy_prop_collection` tidak bisa dijumlahkan dengan `+`; bungkus `list()`.
 - Sudut pole IK harus dinilai di frame saat **kaki itu sedang mengayun** (lutut menekuk). Kalau dinilai saat kaki lurus, lutut melenceng ke samping.
+- UV wajah: v = 0 di bawah (dagu), v = 1 di atas. Menaikkan `fz0` menaikkan posisi mata/mulut di wajah. Sekarang `fz0 = zmin + 10%` supaya mulut tidak terpotong garis rahang (pernah salah arah: menurunkan `fz0` justru menurunkan mulut).
 - Pengukuran tulang: pakai ruang armature (`pose_bone.tail`), jangan `rig.matrix_world` setelah mengubah transform tanpa depsgraph yang jelas.
 - `ffmpeg` sekarang stable 9.0.2 (tanpa `drawtext`, `-vsync` diganti `-fps_mode`). Jangan `brew upgrade` tanpa `--dry-run` (pernah merusak ffmpeg).
 
 ## Aturan mesin dan biaya
 - Satu proses Blender sekaligus, selalu `nice -n 15`. Resolusi kerja 240×320 (vertikal); jangan render besar lalu dikecilkan.
-- Biaya terukur di sesi pembuatan: atlas + kepala ±28 rb token, efek PSX ±19 rb, base mesh ±38 rb, jalan ±19 rb, IK ±13 rb. Dengan skill ini, pemakaian ulang cukup salin + ubah parameter (perkiraan beberapa ribu token per shot).
+- Biaya terukur di sesi pembuatan: atlas + kepala ±28 rb token, efek PSX ±19 rb, base mesh ±38 rb, jalan ±19 rb, IK ±13 rb, lip-sync + atlas 8 sel ±31 rb. Render bicara 12 dtk (370 frame): ±26 dtk. Dengan skill ini, pemakaian ulang cukup salin + ubah parameter (perkiraan beberapa ribu token per shot).
 - Aset pihak ketiga: hanya CC0/MIT/izin jelas; catat sumber dan lisensi di samping file. Foto wajah orang hanya dengan izin pemiliknya.

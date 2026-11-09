@@ -10,7 +10,7 @@ from mathutils import Vector, Euler
 args = sys.argv[sys.argv.index('--') + 1:]
 D, GLB = args[0], args[1]
 RES = (int(args[2]), int(args[3])) if len(args) >= 4 else (240, 320)
-CELLS = int(os.environ.get('CELLS', 4))   # jumlah ekspresi di atlas (sel berjajar ke kanan)
+CELLS = int(os.environ['CELLS']) if 'CELLS' in os.environ else None   # None = otomatis dari lebar/tinggi atlas
 FOG = '#1c201c'
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
@@ -34,6 +34,11 @@ def mat(name, hexc):
 face = bpy.data.materials.new('face'); face.use_nodes = True
 nt = face.node_tree; bsdf = nt.nodes['Principled BSDF']; bsdf.inputs['Roughness'].default_value = 1.0
 tex = nt.nodes.new('ShaderNodeTexImage'); tex.image = bpy.data.images.load(os.environ.get('FACE_ATLAS', os.path.join(D, 'face_atlas.png')))
+if CELLS is None: CELLS = max(1, tex.image.size[0] // tex.image.size[1])   # sel persegi berjajar ke kanan
+# nama ekspresi -> indeks sel (layout 8 dari face_atlas.py; layout 4 lama dipetakan ke yang terdekat)
+CI = (dict(rest=0, blink=1, A=2, O=3, E=4, smile=5, scared=6, creepy=7) if CELLS >= 8 else
+      dict(rest=0, blink=1, A=2, O=2, E=2, smile=0, scared=2, creepy=min(3, CELLS - 1)))
+print('atlas', tex.image.size[:], 'cells', CELLS)
 tex.interpolation = 'Closest'; tex.extension = 'CLIP'
 uvn = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping')
 nt.links.new(uvn.outputs['UV'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], tex.inputs['Vector'])
@@ -65,7 +70,7 @@ zmin, zmax = min(hz), max(hz); xmin, xmax = min(hx), max(hx)
 print('head faces', len(head_polys), 'z', round(zmin, 3), round(zmax, 3), 'x', round(xmin, 3), round(xmax, 3))
 bm = bmesh.new(); bm.from_mesh(me); bm.normal_update(); uvl = bm.loops.layers.uv.verify()
 dom = {p.index: dominant(p) for p in me.polygons}
-fz0, fz1 = zmin + (zmax - zmin) * 0.02, zmin + (zmax - zmin) * 0.80   # wajah: dagu sampai alis
+fz0, fz1 = zmin + (zmax - zmin) * 0.10, zmin + (zmax - zmin) * 0.80   # wajah: atlas dimulai sedikit di atas dagu supaya mulut tidak kena garis rahang
 xc, xw = (xmin + xmax) / 2, (xmax - xmin) / 2 * 0.86
 fx0, fx1 = xc - xw, xc + xw
 for f in bm.faces:
@@ -133,7 +138,9 @@ def axis_for(bone, tip, want):
     pb[bone].rotation_euler = keep
     return best[1], best[2]
 
-SNAP = 66 if ANIM != 'walk' else 118          # frame kepala patah ke kamera + wajah seram
+SNAP = {'walk': 118, 'talk': 10 ** 6}.get(ANIM, 66)   # frame kepala patah ke kamera + wajah seram (talk: tidak ada)
+import json
+LIP = json.load(open(os.environ['EXPR_JSON'])) if os.environ.get('EXPR_JSON') else None   # dari lipsync.py
 if ANIM == 'walk':
     # ---- jalan mendekati kamera, berhenti, lalu kepala patah ke kamera ----
     FWD = Vector((0, -1, 0)); CYC = 30; WALK_END = 108
@@ -219,7 +226,17 @@ if ANIM == 'walk':
     for side, sgn in (('L', 1), ('R', -1)):
         for f, a in ((1, 0), (SNAP - 2, 0), (SNAP, 6), (150, 5)):
             pb['shoulder.' + side].rotation_euler = (math.radians(sgn * a), 0, 0); pb['shoulder.' + side].keyframe_insert('rotation_euler', frame=f)
-    EXPR = [(1, 0), (40, 1), (44, 0), (85, 1), (89, 0), (110, 2), (113, 0), (115, 2), (SNAP, 3)]
+    EXPR = [(1, CI['rest']), (40, CI['blink']), (44, CI['rest']), (85, CI['blink']), (89, CI['rest']), (110, CI['A']), (113, CI['rest']), (115, CI['E']), (SNAP, CI['creepy'])]
+elif ANIM == 'talk':
+    # ---- bicara ke kamera: kepala bergoyang pelan, napas, mulut dari lipsync.py ----
+    TOTAL = LIP['frames'] if LIP else int(os.environ.get('FRAMES', 150))
+    for s in ('L', 'R'):
+        for f in (1, TOTAL): pb['upper_arm.' + s].keyframe_insert('rotation_euler', frame=f)
+    for k, f in enumerate(range(1, TOTAL + 45, 45)):          # goyang kepala kecil, pola tetap
+        head_turn(min(f, TOTAL), (-5, 4, -2, 6, -4, 3)[k % 6], (2, -1, 3, 0, 1, -2)[k % 6])
+    for k, f in enumerate(range(1, TOTAL + 50, 50)):
+        s_ = 1.0 if k % 2 == 0 else 1.022; pb['spine.001'].scale = (s_, 1, s_); pb['spine.001'].keyframe_insert('scale', frame=min(f, TOTAL))
+    EXPR = [(1, CI['rest'])]
 else:
     for s in ('L', 'R'):
         for f in (1, 90): pb['upper_arm.' + s].keyframe_insert('rotation_euler', frame=f)
@@ -229,7 +246,10 @@ else:
     for side, sgn in (('L', 1), ('R', -1)):  # bahu terangkat saat menoleh patah
         for f, a in ((1, 0), (64, 0), (66, 6), (90, 5)):
             pb['shoulder.' + side].rotation_euler = (math.radians(sgn * a), 0, 0); pb['shoulder.' + side].keyframe_insert('rotation_euler', frame=f)
-    EXPR = [(1, 0), (25, 1), (29, 0), (37, 2), (41, 0), (45, 2), (49, 0), (53, 2), (57, 0), (66, 3)]
+    EXPR = [(1, CI['rest']), (25, CI['blink']), (29, CI['rest']), (37, CI['A']), (41, CI['rest']), (45, CI['A']), (49, CI['rest']), (53, CI['A']), (57, CI['rest']), (66, CI['creepy'])]
+if LIP:
+    if LIP.get('cells', CELLS) != CELLS: print('PERINGATAN: EXPR_JSON dibuat untuk', LIP.get('cells'), 'sel, atlas punya', CELLS)
+    EXPR = [(f, min(c, CELLS - 1)) for f, c in LIP['expr']]
 for f, e in EXPR:
     mp.inputs['Location'].default_value[0] = e / CELLS
     mp.inputs['Location'].keyframe_insert('default_value', index=0, frame=f)
@@ -279,7 +299,13 @@ sc.world = bpy.data.worlds.new('w'); sc.world.use_nodes = True
 sc.world.node_tree.nodes['Background'].inputs['Color'].default_value = lin(FOG)
 
 cam = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); cam.data.lens = 50; sc.collection.objects.link(cam); sc.camera = cam
-if ANIM == 'walk':
+if ANIM == 'talk':
+    look = Vector((0, 0, 1.78)); cam.data.lens = 55
+    for k, f in enumerate(range(1, TOTAL + 60, 60)):        # close-up, handheld pelan
+        cam.location = (0.08 + (-0.02, 0.015, -0.01)[k % 3], -0.95, 1.82 + (0.0, 0.008, -0.006)[k % 3])
+        cam.rotation_euler = (look - cam.location).to_track_quat('-Z', 'Y').to_euler()
+        cam.keyframe_insert('location', frame=min(f, TOTAL)); cam.keyframe_insert('rotation_euler', frame=min(f, TOTAL))
+elif ANIM == 'walk':
     # lensa lebar melihat lorong; saat kepala patah: zoom mendadak ke wajah
     look = Vector((0, 2.2, 1.2))
     for f, dx, dz in ((1, 0.0, 0.0), (40, -0.03, 0.01), (80, -0.05, -0.005), (SNAP - 1, -0.04, 0.008)):
@@ -331,8 +357,8 @@ for o in sc.objects:
 sc.render.engine = 'BLENDER_EEVEE'; sc.eevee.taa_render_samples = 1; sc.render.filter_size = 0.0
 sc.render.resolution_x, sc.render.resolution_y = RES; sc.render.resolution_percentage = 100
 sc.view_settings.view_transform = 'Standard'; sc.render.image_settings.file_format = 'PNG'
-sc.render.fps = 30; sc.frame_start, sc.frame_end = 1, int(os.environ.get('FRAMES', 150 if ANIM == 'walk' else 90))
-sc.render.filepath = os.path.join(D, 'frames_walk' if ANIM == 'walk' else 'frames_char', 'f_')
-bpy.ops.wm.save_as_mainfile(filepath=os.path.join(D, 'psx_walk.blend' if ANIM == 'walk' else 'psx_char.blend'))
+sc.render.fps = 30; sc.frame_start, sc.frame_end = 1, int(os.environ.get('FRAMES', TOTAL if ANIM == 'talk' else (150 if ANIM == 'walk' else 90)))
+sc.render.filepath = os.path.join(D, {'walk': 'frames_walk', 'talk': 'frames_talk'}.get(ANIM, 'frames_char'), 'f_')
+bpy.ops.wm.save_as_mainfile(filepath=os.path.join(D, {'walk': 'psx_walk.blend', 'talk': 'psx_talk.blend'}.get(ANIM, 'psx_char.blend')))
 bpy.ops.render.render(animation=True)
 print('rendered', sc.frame_end, 'frames')
