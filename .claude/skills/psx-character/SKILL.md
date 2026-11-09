@@ -9,6 +9,35 @@ Alur teruji (9 Nov 2026, Blender 5.2, MacBook M1): base mesh CC0 → material ot
 
 Contoh hasil dan riwayat uji: `/Users/mac/Magz Motion/motion-starters/reverse/CicakDinding/uji-gaya/` (`psx_walk.mp4`, `psx_char.mp4`, `psx/README.md`, `PERBANDINGAN.md`).
 
+## RESEP YANG DISETUJUI USER (9 Nov 2026): video wajah → karakter PSX berekspresi
+Hasil acuan: `/Users/mac/Magz Motion/motion-starters/reverse/FaceRip/psx_atlas_idle.mp4` dan `psx_atlas_talk.mp4` (user: "udah oke banget"). Jalankan urutan ini apa adanya, baru ubah kalau diminta.
+```bash
+SK="/Users/mac/Magz Motion/motion-video/.claude/skills/psx-character"
+FT="/Users/mac/Magz Motion/motion-starters/referensi/face-tools"      # venv mediapipe + model landmark & segmentasi
+OUT="<folder kerja di luar repo, mis. motion-starters/reverse/<Nama>>"; mkdir -p "$OUT"
+# 1. video wajah -> 1080p
+nice -n 15 ffmpeg -i <video> -vf scale=-2:1080 -an -c:v libx264 -crf 14 "$OUT/face_1080p.mp4"
+# 2. rip: atlas_wide_8.png (8 FOTO ekspresi asli + rambut), skin_tile.png, meta.json (skin_hex, hair_hex, nose_check)
+nice -n 15 "$FT/.venv/bin/python" -I "$SK/scripts/rip_face.py" "$OUT/face_1080p.mp4" "$OUT/rip" --cell 64 --colors 32
+# 3. cek still 4 sudut dulu (ANIM=turn), tunjukkan ke user sebelum animasi
+cd "$OUT" && HEAD_MAP=front FACE_ATLAS="$OUT/rip/atlas_wide_8.png" SKIN_HEX="<skin_hex>" HAIR_HEX="<hair_hex>" \
+  SKIN_TILE="$OUT/rip/skin_tile.png" ANIM=turn nice -n 15 blender -b --factory-startup -P "$SK/scripts/psx_char.py" -- "$OUT" "$SK/assets/psx_male_base_mesh.glb" 240 320
+# 4. animasi: idle (menoleh, kedip, patah ke kamera + seram) dan/atau bicara dengan lip-sync VO
+#    (ganti ANIM=turn jadi ANIM=idle, atau ANIM=talk EXPR_JSON="$OUT/expr.json" dari lipsync.py; lihat bagian Lip-sync)
+bash "$SK/scripts/psx_post.sh" "$OUT/frames_char" "$OUT/psx_idle.mp4"                     # +faststart otomatis
+AUDIO=vo.wav AUDIO_OFFSET=0.3 bash "$SK/scripts/psx_post.sh" "$OUT/frames_talk" "$OUT/psx_talk.mp4"
+```
+Tulis setiap variabel env langsung di depan perintah dengan kutip (path ada spasi). `SKIN_HEX`/`HAIR_HEX` dibaca dari `rip/meta.json`.
+
+**QA wajib sebelum melapor** (user pernah menemukan cacat yang terlewat):
+1. `meta.json`: sel mana yang asli/lemah/sintetis; `nose_check` ≈ 0.
+2. Lihat `atlas_wide_8.png` diperbesar: 8 wajah utuh, tidak ada lubang, tangan tidak menutupi wajah.
+3. Still 4 sudut (`ANIM=turn`): wajah hanya di depan, samping/belakang rambut, tidak ada goresan, dagu tidak bergaris gelap.
+4. MP4 final: ukur kecerahan **area kepala** tiap frame (`crop=<kotak kepala>,signalstats`, tidak boleh ada frame < 70% rata-rata), lalu lihat lembar semua frame (`tile`). Jangan pakai rata-rata seluruh layar.
+5. Urutan atom MP4 `ftyp, moov, ..., mdat` (faststart), supaya tidak hitam di pemutar.
+
+Preferensi user yang sudah pasti: wajah **hanya di depan** (stretch sedikit ke atas/samping), belakang = rambut asli; ekspresi dari **foto diam**, bukan video penuh; still dulu baru animasi; gaya PS1 (240×320, 15 gambar/dtk, 48 warna + dither).
+
 ## Isi skill
 - `scripts/psx_char.py`: skrip Blender utama (impor .glb, material, atlas wajah, rig, animasi, lorong, kabut, jitter, kamera, render).
 - `scripts/face_atlas.py`: atlas contoh 8 ekspresi 32×32 (`--cells 4` untuk layout lama) dan **template kosong** untuk digambar user (`--template --size 64`). Tanpa dependensi.
@@ -55,6 +84,7 @@ HEAD_MAP=front FACE_ATLAS=$OUT/rip/wide.png SKIN_HEX=<meta.skin_hex> HAIR_HEX=<m
 - Crop cerdas = **segmentasi per piksel** MediaPipe `selfie_multiclass_256x256.tflite` (Apache-2.0, 16 MB, di `face-tools/models/`): latar → warna rambut, baju → kulit, kulit wajah dan rambut tidak pernah disentuh. Jangan menyaring latar dengan warna (pernah membuat lubang hitam di tengah wajah).
 - **Animasi front** (disetujui user): `HEAD_MAP=front FACE_SEQ=$OUT/rip/seq_wide` (urutan potongan lebar per frame, segmentasi per frame, palet tetap dari frame diam) dengan `ANIM=idle` atau `ANIM=talk SEQ_OFFSET=<frame>`. Contoh: `motion-starters/reverse/FaceRip/psx_front_anim.mp4`. Tangan/lengan di atas dagu (kelas kulit badan) otomatis diganti warna rambut. Sisi rahang/bawah dagu = kulit (bukan rambut, supaya tidak ada garis gelap seperti tali helm).
 - Path dengan spasi ("Magz Motion"): jangan menyimpan variabel env dalam satu string lalu `env $VAR`. Nilainya terpotong dan skrip diam-diam kembali ke atlas default. Tulis tiap `VAR="..."` langsung di depan perintah.
+- **Atlas ekspresi FOTO (disarankan, permintaan user):** `atlas_wide_8.png` dari `rip_face.py` = 8 frame asli utuh (potongan lebar + rambut, segmentasi), seram digambar di frame diam. Pakai `HEAD_MAP=front FACE_ATLAS=$OUT/rip/atlas_wide_8.png` dengan `ANIM=idle` atau `ANIM=talk EXPR_JSON=...` (lip-sync). User lebih suka ini daripada wajah video penuh. Contoh: `FaceRip/psx_atlas_idle.mp4`, `psx_atlas_talk.mp4`.
 - `FRONT_LIMIT` (default -0.3): sisi kepala dengan normal.y di atas angka ini jadi rambut. Lebih besar = foto lebih jauh ke samping, tapi sisi yang sejajar arah proyeksi menghasilkan goresan garis.
 - Alternatif yang dicoba dan ditolak: `planar` (wajah tembus ke belakang), `cyl` (botak, belang ditarik), `cyl360` (wajah melar), `fit` + `--fit head_layout.json` (TPS ke titik Loomis; belum dinilai user, mesh ini tidak punya hidung/mata sehingga titiknya hanya proporsi).
 - Repo deteksi/crop lain yang dipertimbangkan: face-parsing BiSeNet (MIT, butuh PyTorch ±1 GB, kelas alis/bibir/mata lebih detail); InsightFace (model non-komersial, hindari).
@@ -118,6 +148,8 @@ Output: `frames_char/`, `frames_walk/`, atau `frames_talk/`, plus `psx_char.blen
 - Rip wajah: elips/pita tetap tidak cukup untuk mulut. Kalau bentuk mulut berbeda, bibir frame diam mengintip di sampingnya ("mulut dobel"). Topeng harus gabungan poligon bibir kedua frame.
 - Base mesh glTF dengan verteks terpisah per sisi: shading halus tidak bekerja sampai verteks digabung (`remove_doubles`). Cek: jumlah verteks turun drastis.
 - Cek visual wajib setelah rip: zoom area mulut tiap sel (`crop` + `scale ... flags=neighbor`) dan render kepala dari 3 sudut (depan, menoleh kiri, menoleh kanan). Pernah 2× melapor "sudah beres" padahal user masih melihat mulut dobel dan sambungan; crop pertama juga sempat meleset ke dahi, jadi pastikan crop benar-benar mengenai mulut.
+- MP4 dari ffmpeg default menaruh indeks `moov` di akhir file: pemutar app/browser kadang menampilkan layar hitam. `psx_post.sh` sudah memakai `-movflags +faststart -g 30`. Setiap ffmpeg lain yang menghasilkan MP4 untuk user (concat, remux) juga pakai `+faststart`; cek dengan membaca urutan atom (`ftyp, moov, ..., mdat`).
+- **Kepala hitam 4 frame di tiap ganti ekspresi** (bug wajah video): indeks ekspresi tidak dibatasi ke jumlah sel, sehingga tekstur 1 sel digeser ke sel 1–2 dan membaca tepi gambar. Sudah dibetulkan (clamp + `FACE_SEQ` mengabaikan EXPR). **Cara cek yang benar:** ukur kecerahan di **area kepala** setiap frame MP4 (`crop=...,signalstats`), jangan rata-rata seluruh layar (kepala kecil, perubahan tidak terlihat), lalu lihat lembar semua frame (`tile`). Pernah lolos 2 kali karena cek seluruh layar dan crop yang meleset.
 - `cv2.remap` butuh peta float32 (float64 menghasilkan gambar rusak).
 - UV wajah: v = 0 di bawah (dagu), v = 1 di atas. Menaikkan `fz0` menaikkan posisi mata/mulut di wajah. Sekarang `fz0 = zmin + 10%` supaya mulut tidak terpotong garis rahang (pernah salah arah: menurunkan `fz0` justru menurunkan mulut).
 - Pengukuran tulang: pakai ruang armature (`pose_bone.tail`), jangan `rig.matrix_world` setelah mengubah transform tanpa depsgraph yang jelas.

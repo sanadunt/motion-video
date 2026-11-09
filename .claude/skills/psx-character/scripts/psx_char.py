@@ -338,6 +338,10 @@ else:
         for f, a in ((1, 0), (64, 0), (66, 6), (90, 5)):
             pb['shoulder.' + side].rotation_euler = (math.radians(sgn * a), 0, 0); pb['shoulder.' + side].keyframe_insert('rotation_euler', frame=f)
     EXPR = [(1, CI['rest']), (25, CI['blink']), (29, CI['rest']), (37, CI['A']), (41, CI['rest']), (45, CI['A']), (49, CI['rest']), (53, CI['A']), (57, CI['rest']), (66, CI['creepy'])]
+# Indeks ekspresi WAJIB dibatasi ke jumlah sel. Bug lama: wajah video (1 sel) tetap digeser ke sel 1-2 saat 'kedip'/'A'
+# -> tekstur membaca tepi gambar (warna rambut) -> kepala hitam 4 frame di tiap ganti ekspresi.
+EXPR = [(f_, min(e_, CELLS - 1)) for f_, e_ in EXPR]
+if SEQ: EXPR = [(1, 0)]   # wajah video: ekspresi datang dari videonya sendiri
 if LIP:
     if LIP.get('cells', CELLS) != CELLS: print('PERINGATAN: EXPR_JSON dibuat untuk', LIP.get('cells'), 'sel, atlas punya', CELLS)
     EXPR = [(f, min(c, CELLS - 1)) for f, c in LIP['expr']]

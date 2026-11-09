@@ -303,6 +303,29 @@ for f_ in range(n_out):
     if j_ not in _cache: _cache = {j_: wide_of(j_)}
     cv2.imwrite(os.path.join(OUT, 'seq_wide', f'f_{f_ + 1:04d}.png'), _cache[j_])
 print('seq_wide', n_out, 'frame')
+# atlas ekspresi FOTO (potongan lebar + rambut): satu frame asli utuh per ekspresi, tanpa tempelan -> tidak ada fitur dobel.
+# Seram = frame diam + mata lubang + seringai digambar di posisi landmark (koordinat potongan lebar).
+def wide_pts(j, idx):
+    sw_ = KS[j] if KS[j][0][0] < KS[j][1][0] else KS[j][[1, 0, 2]]
+    Mj, _ = cv2.estimateAffinePartial2D(sw_, DSTW * SW * SUP)
+    p_ = pts[j][list(idx)]; return (np.hstack([p_, np.ones((len(p_), 1))]) @ Mj.T) / SUP
+wcells = []
+for name in ORDER:
+    j_ = pick['rest'] if name == 'creepy' else pick[name]
+    im = wide_of(j_)
+    if name == 'creepy':
+        for idx in (EYE_R, EYE_L):
+            e = wide_pts(j_, idx); c_ = e.mean(0); ew = abs(e[1, 0] - e[0, 0])
+            cv2.ellipse(im, (int(c_[0]), int(c_[1])), (int(ew * 0.75), int(ew * 0.55)), 0, 0, 360, (8, 6, 8), -1)
+            cv2.circle(im, (int(c_[0]), int(c_[1])), max(1, SW // 60), (20, 20, 130), -1)
+        mc_ = wide_pts(j_, MOUTH); mw_ = abs(mc_[1, 0] - mc_[0, 0]); cm = mc_.mean(0)
+        cv2.ellipse(im, (int(cm[0]), int(cm[1])), (int(mw_ * 1.0), int(mw_ * 0.28)), 0, 0, 360, (12, 8, 10), -1)
+        for k in range(-4, 5):
+            x = int(cm[0] + k * mw_ * 0.2)
+            cv2.rectangle(im, (x - 1, int(cm[1] - mw_ * 0.16)), (x + 1, int(cm[1] - mw_ * 0.02)), (215, 220, 225), -1)
+    wcells.append(im)
+cv2.imwrite(os.path.join(OUT, 'atlas_wide_8.png'), np.hstack(wcells))
+print('atlas_wide_8.png', {n: (round(frames[pick['rest'] if n == 'creepy' else pick[n]][0], 2)) for n in ORDER})
 tq = pal[((TILE.reshape(-1, 1, 3) - pal[None]) ** 2).sum(-1).argmin(1)].reshape(TILE.shape).astype(np.uint8)
 cv2.imwrite(os.path.join(OUT, 'skin_tile.png'), tq)
 cv2.imwrite(os.path.join(OUT, 'rest.png'), cells[0])        # 1 sel (diam) untuk HEAD_MAP planar/cyl/cyl360        # SKIN_TILE untuk psx_char.py (kepala, leher, tangan)
