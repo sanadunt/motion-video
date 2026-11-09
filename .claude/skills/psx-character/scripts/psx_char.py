@@ -4,7 +4,7 @@
 # Material dibagi menurut tulang dominan tiap sisi (vertex group): kepala -> wajah/rambut/kulit,
 # badan + lengan atas -> baju, lengan bawah + tangan -> kulit, kaki -> celana, telapak -> sepatu.
 # Wajah = atlas face_atlas.png (CELLS sel berjajar), ekspresi diganti per frame via node Mapping.
-import bpy, sys, os, math, bmesh
+import bpy, sys, os, math, bmesh, json
 from mathutils import Vector, Euler
 
 args = sys.argv[sys.argv.index('--') + 1:]
@@ -20,6 +20,11 @@ for o in list(bpy.data.objects):
         bpy.data.objects.remove(o, do_unlink=True)
 rig = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
 body = next(o for o in bpy.data.objects if o.type == 'MESH')
+# glTF ini menyimpan verteks terpisah per sisi (398 dari 532 dobel): tiap sisi berdiri sendiri, shading halus tidak
+# bisa menyambung dan batas antarsisi selalu terlihat. Gabungkan dulu (bobot tulang ikut verteks yang dipertahankan).
+_bm = bmesh.new(); _bm.from_mesh(body.data); _n = len(_bm.verts)
+bmesh.ops.remove_doubles(_bm, verts=_bm.verts, dist=0.0005); _bm.to_mesh(body.data); _bm.free()
+print('verteks digabung', _n, '->', len(body.data.vertices))
 
 def lin(h):
     h = h.lstrip('#'); c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
@@ -53,7 +58,7 @@ uvn = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping')
 nt.links.new(uvn.outputs['UV'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], tex.inputs['Vector'])
 nt.links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
 # SKIN_HEX: warna kulit sisi kepala, ambil dari meta.json rip_face.py supaya menyatu dengan wajah hasil rip
-M = dict(skin=mat('skin', os.environ.get('SKIN_HEX', '#b07a5a')), hair=mat('hair', '#2a1c18'), shirt=mat('shirt', '#4a5248'),
+M = dict(skin=mat('skin', os.environ.get('SKIN_HEX', '#b07a5a')), hair=mat('hair', os.environ.get('HAIR_HEX', '#2a1c18')), shirt=mat('shirt', '#4a5248'),
          pants=mat('pants', '#2e3038'), shoes=mat('shoes', '#1a1614'))
 ORDER = ['skin', 'face', 'hair', 'shirt', 'pants', 'shoes']
 body.data.materials.clear()
@@ -83,17 +88,68 @@ dom = {p.index: dominant(p) for p in me.polygons}
 fz0, fz1 = zmin + (zmax - zmin) * 0.10, zmin + (zmax - zmin) * 0.80   # wajah: atlas dimulai sedikit di atas dagu supaya mulut tidak kena garis rahang
 xc, xw = (xmin + xmax) / 2, (xmax - xmin) / 2 * 0.86
 fx0, fx1 = xc - xw, xc + xw
+HEAD_MAP = os.environ.get('HEAD_MAP', 'decal')   # decal | planar | cyl | cyl360 | wide  (lihat SKILL.md)
+hyc = sum(me.vertices[v].co.y for p in head_polys for v in p.vertices) / max(1, sum(len(p.vertices) for p in head_polys))
+hrad = max(xmax - xmin, 1e-3) / 2
+SPAN_FIT = 2 * xw / hrad                      # sudut (radian) yang selebar wajah di proyeksi lurus -> skala depan sama
+_hv = [me.vertices[v].co for p in head_polys for v in p.vertices]
+_front = [c_ for c_ in _hv if c_.y < hyc and abs(c_.x - xc) < hrad * 0.35]
+ZC, ZT = min(_front, key=lambda c_: c_.z).z, max(_hv, key=lambda c_: c_.z).z   # dagu, ubun-ubun (ruang tekstur 'fit')
+def head_uv(co):
+    """UV wajah tanpa clamp untuk mode stretch (tekstur EXTEND menarik pinggirnya)."""
+    if HEAD_MAP == 'fit':                                    # ruang kepala: u = sudut +-90 derajat, v = dagu(0)..ubun-ubun(1)
+        return 0.5 + math.atan2(co.x - xc, -(co.y - hyc)) / math.pi, (co.z - ZC) / (ZT - ZC)
+    v = (co.z - fz0) / (fz1 - fz0)
+    if HEAD_MAP in ('planar', 'front'):
+        u = (co.x - fx0) / (fx1 - fx0)
+    else:
+        th = math.atan2(co.x - xc, -(co.y - hyc))           # 0 = depan (-Y)
+        u = 0.5 + th / (2 * math.pi if HEAD_MAP == 'cyl360' else SPAN_FIT)
+    if HEAD_MAP in ('wide', 'front'):                        # gambar lebar: wajah 50% di tengah, pusat (0.5, 0.55 dari atas)
+        u = 0.5 + (u - 0.5) * 0.5; r = 1 - v; r = 0.55 + (r - 0.55) * 0.5; v = 1 - r
+    return u, v
+if HEAD_MAP != 'decal': tex.extension = 'EXTEND'
+# ---------- ukur titik wajah di mesh (untuk crop cerdas rip_face.py --fit) ----------
+if os.environ.get('LAYOUT_OUT'):
+    hv = {v for p in head_polys for v in p.vertices}; co = [me.vertices[i].co for i in hv]
+    def cyl_uv(p):
+        th = math.atan2(p.x - xc, -(p.y - hyc)); return [0.5 + th / SPAN_FIT, (p.z - fz0) / (fz1 - fz0)]
+    # Mesh low-poly sering tidak punya hidung/mata. Yang pasti ada: dagu, ubun-ubun, lebar kepala. Fitur wajah
+    # diletakkan dengan proporsi kepala manusia (Loomis) dari dagu (0) ke ubun-ubun (1).
+    # Titik target di ruang tekstur 'fit' (u = sudut/180 derajat + 0.5, v = dagu 0 .. ubun-ubun 1), proporsi Loomis.
+    th = lambda frac: 0.5 + frac * 0.5                      # frac -1..1 = sisi kiri..kanan kepala (+-90 derajat)
+    lay = dict(chin=[0.5, 0.0], mouth=[0.5, 0.2], nose=[0.5, 0.36], eyeL=[th(-0.32), 0.5], eyeR=[th(0.32), 0.5],
+               hairline=[0.5, 0.78], cheekL=[th(-0.8), 0.42], cheekR=[th(0.8), 0.42],
+               aspect=math.pi * hrad / (ZT - ZC))   # lebar/tinggi tekstur supaya piksel persegi di kepala
+    json.dump(lay, open(os.environ['LAYOUT_OUT'], 'w'), indent=1); print('layout', lay)
+    if os.environ.get('LAYOUT_ONLY'): raise SystemExit(0)
 for f in bm.faces:
     kind = GROUP.get(dom[f.index], 'shirt')
-    if kind == 'head':
+    if kind == 'head' and HEAD_MAP == 'front' and f.normal.y > float(os.environ.get('FRONT_LIMIT', -0.3)):
+        # mode front: hanya depan + sedikit samping memakai foto; belakang = warna rambut (HAIR_HEX).
+        # Sisi rahang/bawah dagu (menghadap bawah) = kulit, bukan rambut (dulu muncul garis gelap seperti tali helm).
+        kind = 'skin' if f.calc_center_median().z < zmin + (zmax - zmin) * 0.3 else 'hair'
+    elif kind == 'head' and HEAD_MAP != 'decal':
+        kind = 'face'; uvs = [head_uv(lp.vert.co) for lp in f.loops]
+        if HEAD_MAP not in ('planar', 'front'):              # sisi yang memotong garis belakang: jangan melompat 0 -> 1
+            us = [u for u, _ in uvs]
+            if max(us) - min(us) > 0.5 and HEAD_MAP == 'cyl360':
+                uvs = [(u + 1 if u < 0.5 else u, v) for u, v in uvs]
+            elif max(us) - min(us) > 1.5:
+                hi = max(us); uvs = [(hi if u < 0.5 else u, v) for u, v in uvs]   # tarik ke satu sisi pinggir
+        for lp, (u, v) in zip(f.loops, uvs):   # clamp: tepi ditarik (EXTEND) tanpa mengambil sel tetangga di atlas
+            lp[uvl].uv = (min(max(u, 0.0), 1.0) / CELLS, min(max(v, 0.0), 1.0))
+    elif kind == 'head':
         c = f.calc_center_median()
-        if f.normal.y < -0.35 and c.z < fz1:   # lokal model: depan = -Y, kanan penonton = +X
+        # lokal model: depan = -Y, kanan penonton = +X. Area wajah sengaja lebar (sampai samping & dahi) supaya
+        # batas tekstur jatuh di bagian yang warnanya sudah = warna kulit (tepi oval dilembutkan) -> tidak ada sambungan
+        if f.normal.y < -0.15 and c.z < zmin + (zmax - zmin) * float(os.environ.get('FACE_TOP', 0.9)):   # FACE_TOP 0.8 = ada poni rambut cat
             kind = 'face'
             for lp in f.loops:
                 u = (lp.vert.co.x - fx0) / (fx1 - fx0); v = (lp.vert.co.z - fz0) / (fz1 - fz0)
                 lp[uvl].uv = (max(0, min(1, u)) / CELLS, max(0, min(1, v)))
-        elif c.z > zmin + (zmax - zmin) * 0.62 or f.normal.y > -0.25:
-            kind = 'hair'   # rambut pendek dicat di kepala (atas + belakang), gaya PS1
+        elif (c.z > zmin + (zmax - zmin) * 0.6 and f.normal.y > -0.15) or f.normal.y > 0.35:
+            kind = 'hair'   # rambut dicat hanya di atas + belakang; pelipis/samping = kulit (menyambung dari wajah)
         else:
             kind = 'skin'
     if kind == 'shirt' and f.calc_center_median().z < 0.98:
@@ -101,6 +157,23 @@ for f in bm.faces:
     f.material_index = MI[kind]
 bm.to_mesh(me); bm.free()
 print('faces per material', {k: sum(1 for p in me.polygons if p.material_index == i) for k, i in MI.items()})
+
+# ---------- kulit menyatu: shading halus (Gouraud ala PS1) + ubin kulit dari wajah video ----------
+# glTF ini membawa normal "flat" per sisi -> tiap sisi low-poly diterangi beda (garis keras di tengah wajah).
+bpy.context.view_layer.objects.active = body; body.select_set(True)
+if me.has_custom_normals: bpy.ops.mesh.customdata_custom_splitnormals_clear()
+for poly in me.polygons: poly.use_smooth = True
+TILE_IMG = os.environ.get('SKIN_TILE')   # skin_tile.png dari rip_face.py
+if TILE_IMG:
+    t = M['skin'].node_tree; b_ = t.nodes['Principled BSDF']
+    it = t.nodes.new('ShaderNodeTexImage'); it.image = bpy.data.images.load(TILE_IMG)
+    it.interpolation = 'Closest'; it.projection = 'BOX'; it.projection_blend = 0.25
+    tc = t.nodes.new('ShaderNodeTexCoord'); mpn = t.nodes.new('ShaderNodeMapping')
+    sz = float(os.environ.get('SKIN_TILE_SIZE', (xmax - xmin) * 1.15))   # 1 ubin ~ lebar wajah -> kepadatan pixel sama
+    mpn.inputs['Scale'].default_value = (1 / sz, 1 / sz, 1 / sz)
+    t.links.new(tc.outputs['Object'], mpn.inputs['Vector']); t.links.new(mpn.outputs['Vector'], it.inputs['Vector'])
+    t.links.new(it.outputs['Color'], b_.inputs['Base Color'])
+    print('ubin kulit', TILE_IMG, 'ukuran', round(sz, 3))
 
 # ---------- posisi: kaki di z=0, menghadap kamera (-Y) ----------
 # Importer glTF memberi armature rotasi quaternion 90 derajat. Dengan rotasi nol, model (depan = -Y lokal) menghadap kamera.
@@ -237,6 +310,14 @@ if ANIM == 'walk':
         for f, a in ((1, 0), (SNAP - 2, 0), (SNAP, 6), (150, 5)):
             pb['shoulder.' + side].rotation_euler = (math.radians(sgn * a), 0, 0); pb['shoulder.' + side].keyframe_insert('rotation_euler', frame=f)
     EXPR = [(1, CI['rest']), (40, CI['blink']), (44, CI['rest']), (85, CI['blink']), (89, CI['rest']), (110, CI['A']), (113, CI['rest']), (115, CI['E']), (SNAP, CI['creepy'])]
+elif ANIM == 'turn':
+    # ---- still putar: 4 frame = 4 sudut kepala (untuk membandingkan cara pemetaan wajah) ----
+    TOTAL = 4
+    for s in ('L', 'R'):
+        for f in (1, TOTAL): pb['upper_arm.' + s].keyframe_insert('rotation_euler', frame=f)
+    for f, deg in enumerate((0, -40, -80, -150), 1):
+        rig.rotation_euler = (0, 0, math.radians(deg)); rig.keyframe_insert('rotation_euler', frame=f)
+    EXPR = [(1, CI['rest'])]
 elif ANIM == 'talk':
     # ---- bicara ke kamera: kepala bergoyang pelan, napas, mulut dari lipsync.py ----
     TOTAL = LIP['frames'] if LIP else int(os.environ.get('FRAMES', 150))
@@ -302,14 +383,16 @@ def fog(m, near=1.6, far=11.0):
 for m in list(M.values()) + [face] + list(env.values()): fog(m)
 
 sun = bpy.data.objects.new('key', bpy.data.lights.new('key', 'SUN')); sun.data.energy = 2.4
+sun.data.use_shadow = False   # PS1 tidak punya bayangan real-time; bayangan 1-sampel EEVEE = bintik di permukaan halus
 sun.rotation_euler = (math.radians(55), 0, math.radians(-35)); sc.collection.objects.link(sun)
 for name, e, col, loc in (('lamp', 16, (1.0, 0.85, 0.6), (-0.45, -0.8, 1.9)), ('end', 70, (0.8, 0.9, 0.75), (-0.6, 6.0, 2.2))):
     L = bpy.data.objects.new(name, bpy.data.lights.new(name, 'POINT')); L.data.energy = e; L.data.color = col; L.location = loc; sc.collection.objects.link(L)
+    L.data.use_shadow = False
 sc.world = bpy.data.worlds.new('w'); sc.world.use_nodes = True
 sc.world.node_tree.nodes['Background'].inputs['Color'].default_value = lin(FOG)
 
 cam = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); cam.data.lens = 50; sc.collection.objects.link(cam); sc.camera = cam
-if ANIM == 'talk':
+if ANIM in ('talk', 'turn'):
     look = Vector((0, 0, 1.78)); cam.data.lens = 55
     for k, f in enumerate(range(1, TOTAL + 60, 60)):        # close-up, handheld pelan
         cam.location = (0.08 + (-0.02, 0.015, -0.01)[k % 3], -0.95, 1.82 + (0.0, 0.008, -0.006)[k % 3])
@@ -331,7 +414,7 @@ elif ANIM == 'walk':
         for kp in fc.keyframe_points:
             if kp.co.x >= SNAP - 1: kp.interpolation = 'CONSTANT' if kp.co.x < 150 else 'LINEAR'
     # lampu lorong yang berkedip (pola tetap, bukan acak)
-    fl = bpy.data.objects.new('flicker', bpy.data.lights.new('flicker', 'POINT')); fl.data.color = (0.85, 0.95, 0.8)
+    fl = bpy.data.objects.new('flicker', bpy.data.lights.new('flicker', 'POINT')); fl.data.color = (0.85, 0.95, 0.8); fl.data.use_shadow = False
     fl.location = (0.5, 2.8, 2.3); sc.collection.objects.link(fl)
     for f, e in ((1, 40), (18, 40), (19, 4), (21, 40), (52, 40), (53, 2), (54, 35), (56, 3), (58, 40), (100, 40), (101, 0), (104, 40)):
         fl.data.energy = e; fl.data.keyframe_insert('energy', frame=f)
@@ -367,8 +450,8 @@ for o in sc.objects:
 sc.render.engine = 'BLENDER_EEVEE'; sc.eevee.taa_render_samples = 1; sc.render.filter_size = 0.0
 sc.render.resolution_x, sc.render.resolution_y = RES; sc.render.resolution_percentage = 100
 sc.view_settings.view_transform = 'Standard'; sc.render.image_settings.file_format = 'PNG'
-sc.render.fps = 30; sc.frame_start, sc.frame_end = 1, int(os.environ.get('FRAMES', TOTAL if ANIM == 'talk' else (150 if ANIM == 'walk' else 90)))
-sc.render.filepath = os.path.join(D, {'walk': 'frames_walk', 'talk': 'frames_talk'}.get(ANIM, 'frames_char'), 'f_')
+sc.render.fps = 30; sc.frame_start, sc.frame_end = 1, int(os.environ.get('FRAMES', TOTAL if ANIM in ('talk', 'turn') else (150 if ANIM == 'walk' else 90)))
+sc.render.filepath = os.path.join(D, {'walk': 'frames_walk', 'talk': 'frames_talk', 'turn': 'frames_turn'}.get(ANIM, 'frames_char'), 'f_')
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(D, {'walk': 'psx_walk.blend', 'talk': 'psx_talk.blend'}.get(ANIM, 'psx_char.blend')))
 bpy.ops.render.render(animation=True)
 print('rendered', sc.frame_end, 'frames')
