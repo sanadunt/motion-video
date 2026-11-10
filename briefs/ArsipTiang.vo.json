@@ -1,0 +1,38 @@
+{
+  "name": "tiang",
+  "voDir": "public/vo/tiang/edit",
+  "whisperDir": "public/vo/tiang/whisper",
+  "_catatan": "Semua waktu = detik global. voDir menunjuk edit/ (48 kHz bersih, jeda internal dipangkas) karena timing edit/ = mix/ untuk narator dan b1; whisper juga dijalankan di edit/. 'clips' dipakai vo-align: 'at' = awal file edit/. Untuk klip makhluk (k1, b2, n7) file mix/ diawali squelch 0,30 dtk, jadi 'at' di clips = timeline.at + 0,30. 'timeline' dipakai file dengar (scripts/sfx/tiang_vo.sh dengar) dan nanti oleh komposisi: file = nama di mix/, gain dB relatif level mix/. Ubah susunan di 'timeline' lalu sesuaikan 'clips' dan jalankan ulang vo-align.",
+  "clips": [
+    {"file": "01-hook",    "at": 0.5,   "kind": "narator", "text": "Kalau kamu menghitung tiang listrik di jalan pulang… dan jumlahnya bertambah satu, jangan hitung lagi."},
+    {"file": "02-ciri",    "at": 11.19, "kind": "narator", "text": "Dari jauh, ia tampak seperti tiang telepon tua. … Dari dekat: daging busuk dan besi berkarat, menyatu. Tanpa mata. Di tempat kepala, dua pengeras suara."},
+    {"file": "03a-siaran", "at": 31.59, "kind": "narator", "text": "Pengeras suara itu bersiaran. … Potongan kata, statis, sirene."},
+    {"file": "k1-siaran",  "at": 40.3,  "kind": "ht",      "text": "Selamat malam. Jalan pulang ditutup."},
+    {"file": "03b-kenal",  "at": 44.48, "kind": "narator", "text": "Dan kadang, … suara orang yang kamu kenal."},
+    {"file": "04-pendaki", "at": 49.38, "kind": "narator", "text": "Seorang pendaki merekam jalan turun dari Bukit Karangsunyi. … Ia menghitung tiang, untuk mengusir takut."},
+    {"file": "b1-hitung",  "at": 59.43, "kind": "camcorder", "text": "Dua puluh satu. … Dua puluh dua."},
+    {"file": "b2-tambah",  "at": 64.53,  "kind": "ht",      "text": "Dua puluh tiga."},
+    {"file": "05-hilang",  "at": 68.02, "kind": "narator", "text": "Kameranya ditemukan. … Pendakinya tidak."},
+    {"file": "06-satu",    "at": 73.25, "kind": "narator", "text": "Ia hanya ada satu. … Tak ada yang tahu dari mana asalnya."},
+    {"file": "n7-tiru",    "at": 80.16,  "kind": "radio",   "text": "hitung lagi."}
+  ],
+  "timeline": [
+    {"file": "01-hook",    "at": 0.5},
+    {"file": "m1-mumble",  "at": 2.4,   "gain": -3, "dur": 8.0, "_": "bagian 1, ±−32 dB di bawah narator, bocor dari kabel"},
+    {"file": "02-ciri",    "at": 11.19},
+    {"file": "03a-siaran", "at": 31.59},
+    {"file": "m2-mumble",  "at": 37.0,  "gain": 0,  "dur": 3.0, "_": "bagian 3, di bawah statis, ±−29 dB"},
+    {"file": "k1-siaran",  "at": 40.0},
+    {"file": "03b-kenal",  "at": 44.48},
+    {"file": "04-pendaki", "at": 49.38},
+    {"file": "b1-hitung",  "at": 59.43},
+    {"file": "m1-mumble",  "at": 61.9,  "gain": 1,  "dur": 2.3, "_": "bagian 4, sesaat sebelum b2, ±−28 dB"},
+    {"file": "b2-tambah",  "at": 64.23},
+    {"file": "05-hilang",  "at": 68.02},
+    {"file": "06-satu",    "at": 73.25},
+    {"file": "n7-tiru",    "at": 79.86}
+  ],
+  "_beats": "Jarak antar file: 0,45 dtk di transisi adegan, 0,1 dtk di dalam adegan (file sudah berkepala 0,1 dan berekor 0,2 dtk). b2 selesai 66,02 → beat visual tanpa VO 1,5 + tape stop 0,5 → 05 @68,02. n7 selesai 82,25 → hening total 1,5 → jumpscare @83,75 (0,3) → hitam 0,7 → kartu kredit @84,75 s/d 92,25.",
+  "jumpscare": 83.75,
+  "end": 92.25
+}

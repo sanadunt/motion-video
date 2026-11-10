@@ -1,0 +1,16 @@
+[
+  {
+    "text": "Hitung",
+    "startMs": 330,
+    "endMs": 1180,
+    "timestampMs": 540,
+    "confidence": 0.33969
+  },
+  {
+    "text": " lagi.",
+    "startMs": 1180,
+    "endMs": 2000,
+    "timestampMs": 1020,
+    "confidence": 0.986957
+  }
+]

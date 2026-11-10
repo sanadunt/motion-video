@@ -1,0 +1,51 @@
+[
+  {
+    "text": "dan",
+    "startMs": 290,
+    "endMs": 480,
+    "timestampMs": 460,
+    "confidence": 0.487525
+  },
+  {
+    "text": " kadang",
+    "startMs": 480,
+    "endMs": 1140,
+    "timestampMs": 800,
+    "confidence": 0.988393
+  },
+  {
+    "text": " suara",
+    "startMs": 1140,
+    "endMs": 2090,
+    "timestampMs": 2240,
+    "confidence": 0.851613
+  },
+  {
+    "text": " orang",
+    "startMs": 2090,
+    "endMs": 2750,
+    "timestampMs": 2800,
+    "confidence": 0.996213
+  },
+  {
+    "text": " yang",
+    "startMs": 2750,
+    "endMs": 3330,
+    "timestampMs": 3160,
+    "confidence": 0.97646
+  },
+  {
+    "text": " kamu",
+    "startMs": 3330,
+    "endMs": 3810,
+    "timestampMs": 3620,
+    "confidence": 0.971048
+  },
+  {
+    "text": " kenal.",
+    "startMs": 3810,
+    "endMs": 4600,
+    "timestampMs": 3980,
+    "confidence": 0.978455
+  }
+]

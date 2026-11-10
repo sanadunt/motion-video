@@ -1,0 +1,79 @@
+[
+  {
+    "text": "Ia",
+    "startMs": 0,
+    "endMs": 290,
+    "timestampMs": 400,
+    "confidence": 0.355445
+  },
+  {
+    "text": " hanya",
+    "startMs": 290,
+    "endMs": 990,
+    "timestampMs": 840,
+    "confidence": 0.977349
+  },
+  {
+    "text": " ada",
+    "startMs": 990,
+    "endMs": 1410,
+    "timestampMs": 1120,
+    "confidence": 0.9926
+  },
+  {
+    "text": " satu.",
+    "startMs": 1410,
+    "endMs": 2000,
+    "timestampMs": 1640,
+    "confidence": 0.974803
+  },
+  {
+    "text": " Tak",
+    "startMs": 2000,
+    "endMs": 2370,
+    "timestampMs": 3300,
+    "confidence": 0.443085
+  },
+  {
+    "text": " ada",
+    "startMs": 2370,
+    "endMs": 3180,
+    "timestampMs": 3480,
+    "confidence": 0.972897
+  },
+  {
+    "text": " yang",
+    "startMs": 3180,
+    "endMs": 3410,
+    "timestampMs": 3640,
+    "confidence": 0.999258
+  },
+  {
+    "text": " tahu",
+    "startMs": 3410,
+    "endMs": 4000,
+    "timestampMs": 4060,
+    "confidence": 0.784743
+  },
+  {
+    "text": " dari",
+    "startMs": 4000,
+    "endMs": 4750,
+    "timestampMs": 4940,
+    "confidence": 0.692383
+  },
+  {
+    "text": " mana",
+    "startMs": 4750,
+    "endMs": 5060,
+    "timestampMs": 5300,
+    "confidence": 0.987997
+  },
+  {
+    "text": " asalnya.",
+    "startMs": 5060,
+    "endMs": 6000,
+    "timestampMs": 5660,
+    "confidence": 0.961395
+  }
+]

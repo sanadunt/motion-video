@@ -1,0 +1,23 @@
+[
+  {
+    "text": "dua",
+    "startMs": 90,
+    "endMs": 250,
+    "timestampMs": 240,
+    "confidence": 0.0277053
+  },
+  {
+    "text": " puluh",
+    "startMs": 250,
+    "endMs": 670,
+    "timestampMs": 440,
+    "confidence": 0.398479
+  },
+  {
+    "text": " tiga.",
+    "startMs": 670,
+    "endMs": 1000,
+    "timestampMs": 680,
+    "confidence": 0.888707
+  }
+]

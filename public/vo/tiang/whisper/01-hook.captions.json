@@ -1,0 +1,107 @@
+[
+  {
+    "text": "Kalo",
+    "startMs": 10,
+    "endMs": 450,
+    "timestampMs": 280,
+    "confidence": 0.279932
+  },
+  {
+    "text": " kamu",
+    "startMs": 450,
+    "endMs": 910,
+    "timestampMs": 1160,
+    "confidence": 0.84085
+  },
+  {
+    "text": " menghitung",
+    "startMs": 910,
+    "endMs": 2060,
+    "timestampMs": 1700,
+    "confidence": 0.972233
+  },
+  {
+    "text": " tiang",
+    "startMs": 2060,
+    "endMs": 2630,
+    "timestampMs": 2520,
+    "confidence": 0.920582
+  },
+  {
+    "text": " listrik",
+    "startMs": 2630,
+    "endMs": 3630,
+    "timestampMs": 3000,
+    "confidence": 0.961502
+  },
+  {
+    "text": " di",
+    "startMs": 3630,
+    "endMs": 3660,
+    "timestampMs": 3720,
+    "confidence": 0.981368
+  },
+  {
+    "text": " jalan",
+    "startMs": 3660,
+    "endMs": 4230,
+    "timestampMs": 3880,
+    "confidence": 0.852513
+  },
+  {
+    "text": " pulang,",
+    "startMs": 4230,
+    "endMs": 5550,
+    "timestampMs": 4280,
+    "confidence": 0.973027
+  },
+  {
+    "text": " dan",
+    "startMs": 5550,
+    "endMs": 5560,
+    "timestampMs": 5720,
+    "confidence": 0.823915
+  },
+  {
+    "text": " jumlahnya",
+    "startMs": 5560,
+    "endMs": 6540,
+    "timestampMs": 5960,
+    "confidence": 0.959497
+  },
+  {
+    "text": " bertambah",
+    "startMs": 6540,
+    "endMs": 7570,
+    "timestampMs": 6840,
+    "confidence": 0.983738
+  },
+  {
+    "text": " satu,",
+    "startMs": 7570,
+    "endMs": 8560,
+    "timestampMs": 7660,
+    "confidence": 0.903406
+  },
+  {
+    "text": " jangan",
+    "startMs": 8560,
+    "endMs": 8900,
+    "timestampMs": 8960,
+    "confidence": 0.950413
+  },
+  {
+    "text": " hitung",
+    "startMs": 8900,
+    "endMs": 9580,
+    "timestampMs": 9540,
+    "confidence": 0.556433
+  },
+  {
+    "text": " lagi.",
+    "startMs": 9580,
+    "endMs": 10400,
+    "timestampMs": 10020,
+    "confidence": 0.998736
+  }
+]

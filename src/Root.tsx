@@ -26,6 +26,16 @@ import {
   angkaStoryboardSchema,
 } from "./Videos/AngkaStoryboard";
 import {
+  ArsipTiang,
+  arsipTiangDefaults,
+  arsipTiangSchema,
+} from "./Videos/ArsipTiang";
+import {
+  TiangStoryboard,
+  tiangStoryboardDefaults,
+  tiangStoryboardSchema,
+} from "./Videos/TiangStoryboard";
+import {
   SiaranAngka,
   siaranAngkaDefaults,
   siaranAngkaSchema,
@@ -416,6 +426,20 @@ export const RemotionRoot: React.FC = () => {
           component={AngkaStoryboard}
           schema={angkaStoryboardSchema}
           defaultProps={angkaStoryboardDefaults}
+          formats={["Portrait"]}
+        />
+        <FormatVariants
+          id="ArsipTiang"
+          component={ArsipTiang}
+          schema={arsipTiangSchema}
+          defaultProps={arsipTiangDefaults}
+          formats={["Portrait"]}
+        />
+        <FormatVariants
+          id="ArsipTiangStoryboard"
+          component={TiangStoryboard}
+          schema={tiangStoryboardSchema}
+          defaultProps={tiangStoryboardDefaults}
           formats={["Portrait"]}
         />
       </Folder>

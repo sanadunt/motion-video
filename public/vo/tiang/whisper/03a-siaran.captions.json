@@ -1,0 +1,65 @@
+[
+  {
+    "text": "Pengeras",
+    "startMs": 290,
+    "endMs": 950,
+    "timestampMs": 420,
+    "confidence": 0.793535
+  },
+  {
+    "text": " suara",
+    "startMs": 950,
+    "endMs": 1540,
+    "timestampMs": 1200,
+    "confidence": 0.923722
+  },
+  {
+    "text": " itu",
+    "startMs": 1540,
+    "endMs": 1900,
+    "timestampMs": 1840,
+    "confidence": 0.986957
+  },
+  {
+    "text": " bersiaran.",
+    "startMs": 1900,
+    "endMs": 3400,
+    "timestampMs": 2280,
+    "confidence": 0.737684
+  },
+  {
+    "text": " Potongan",
+    "startMs": 3400,
+    "endMs": 4730,
+    "timestampMs": 4080,
+    "confidence": 0.933794
+  },
+  {
+    "text": " kata,",
+    "startMs": 4730,
+    "endMs": 5770,
+    "timestampMs": 4600,
+    "confidence": 0.975417
+  },
+  {
+    "text": " status,",
+    "startMs": 5770,
+    "endMs": 7340,
+    "timestampMs": 6300,
+    "confidence": 0.42563
+  },
+  {
+    "text": " si",
+    "startMs": 7340,
+    "endMs": 7510,
+    "timestampMs": 7640,
+    "confidence": 0.224326
+  },
+  {
+    "text": " rena.",
+    "startMs": 7510,
+    "endMs": 8360,
+    "timestampMs": 7800,
+    "confidence": 0.790478
+  }
+]

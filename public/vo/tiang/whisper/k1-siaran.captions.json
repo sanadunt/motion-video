@@ -1,0 +1,37 @@
+[
+  {
+    "text": "Selamat",
+    "startMs": 270,
+    "endMs": 740,
+    "timestampMs": 480,
+    "confidence": 0.970569
+  },
+  {
+    "text": " Malam,",
+    "startMs": 740,
+    "endMs": 1660,
+    "timestampMs": 960,
+    "confidence": 0.593481
+  },
+  {
+    "text": " Jalan",
+    "startMs": 1660,
+    "endMs": 2200,
+    "timestampMs": 2060,
+    "confidence": 0.880443
+  },
+  {
+    "text": " Pulang",
+    "startMs": 2200,
+    "endMs": 3010,
+    "timestampMs": 2580,
+    "confidence": 0.859691
+  },
+  {
+    "text": " Ditutup",
+    "startMs": 3010,
+    "endMs": 4000,
+    "timestampMs": 3200,
+    "confidence": 0.859719
+  }
+]

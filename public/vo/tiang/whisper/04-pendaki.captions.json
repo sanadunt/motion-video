@@ -1,0 +1,100 @@
+[
+  {
+    "text": "Seorang",
+    "startMs": 130,
+    "endMs": 770,
+    "timestampMs": 280,
+    "confidence": 0.582237
+  },
+  {
+    "text": " pendaki",
+    "startMs": 770,
+    "endMs": 1560,
+    "timestampMs": 1160,
+    "confidence": 0.946303
+  },
+  {
+    "text": " merekam",
+    "startMs": 1560,
+    "endMs": 2340,
+    "timestampMs": 1980,
+    "confidence": 0.59842
+  },
+  {
+    "text": " jalan",
+    "startMs": 2340,
+    "endMs": 2990,
+    "timestampMs": 2660,
+    "confidence": 0.730772
+  },
+  {
+    "text": " turun",
+    "startMs": 2990,
+    "endMs": 3500,
+    "timestampMs": 3180,
+    "confidence": 0.968852
+  },
+  {
+    "text": " dari",
+    "startMs": 3500,
+    "endMs": 3970,
+    "timestampMs": 3800,
+    "confidence": 0.930612
+  },
+  {
+    "text": " bukit",
+    "startMs": 3970,
+    "endMs": 4550,
+    "timestampMs": 4060,
+    "confidence": 0.761221
+  },
+  {
+    "text": " Karanggsunyi.",
+    "startMs": 4550,
+    "endMs": 6040,
+    "timestampMs": 4720,
+    "confidence": 0.27313
+  },
+  {
+    "text": " Ia",
+    "startMs": 6040,
+    "endMs": 6300,
+    "timestampMs": 6440,
+    "confidence": 0.798724
+  },
+  {
+    "text": " menghitung",
+    "startMs": 6300,
+    "endMs": 7400,
+    "timestampMs": 6720,
+    "confidence": 0.993634
+  },
+  {
+    "text": " tiang",
+    "startMs": 7400,
+    "endMs": 8410,
+    "timestampMs": 7360,
+    "confidence": 0.563152
+  },
+  {
+    "text": " untuk",
+    "startMs": 8410,
+    "endMs": 8570,
+    "timestampMs": 8600,
+    "confidence": 0.769699
+  },
+  {
+    "text": " mengusir",
+    "startMs": 8570,
+    "endMs": 9490,
+    "timestampMs": 8860,
+    "confidence": 0.959593
+  },
+  {
+    "text": " takut.",
+    "startMs": 9490,
+    "endMs": 10120,
+    "timestampMs": 9640,
+    "confidence": 0.981489
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "text": "Kameranya",
+    "startMs": 100,
+    "endMs": 990,
+    "timestampMs": 260,
+    "confidence": 0.818683
+  },
+  {
+    "text": " ditemukan.",
+    "startMs": 990,
+    "endMs": 2000,
+    "timestampMs": 1500,
+    "confidence": 0.7379
+  },
+  {
+    "text": " Pendakinya",
+    "startMs": 2000,
+    "endMs": 3980,
+    "timestampMs": 3480,
+    "confidence": 0.896522
+  },
+  {
+    "text": " tidak.",
+    "startMs": 3980,
+    "endMs": 5000,
+    "timestampMs": 4500,
+    "confidence": 0.966153
+  }
+]
