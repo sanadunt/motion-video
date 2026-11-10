@@ -17,7 +17,12 @@ Jangan menulis 1080, 1920, atau posisi piksel absolut di komponen. Kalau brief d
 
 ## Komposisi ulang, bukan sekadar skala
 Landscape bukan portrait yang diperlebar. Pertimbangkan per orientasi:
-- **Portrait:** tumpuk vertikal, teks lebih besar relatif terhadap lebar, maksimal 2 baris judul. Zona bawah ±20% dan sisi kanan ±12% sering tertutup UI platform (caption, tombol). Ini patokan kasar, jadi jangan taruh teks penting di sana.
+- **Portrait:** tumpuk vertikal, teks lebih besar relatif terhadap lebar, maksimal 2 baris judul. Safe zone Shorts/Reels/TikTok (guideline user, 1080×1920):
+  - Teks, angka, dan wajah hanya di **x 60–960, y 380–1540**. Area UI: atas 0–380, bawah 1540–1920 (judul + tombol), kanan 960–1080 (like/komen/share).
+  - Caption short biasa di **y 1265–1480**, dipusatkan di x 60–960 (bukan 0–1080).
+  - Short afiliasi: caption di y 1120–1200, dan kiri bawah x 60–360, y 1240–1540 dikosongkan untuk stiker "SHOP".
+  - Hook/judul di tengah atas (y ±400–760), karena frame pertama menjadi thumbnail.
+  - Cek still dengan kotak ini digambar langsung di atasnya (`ffmpeg -vf drawbox=…`). Overlay PNG transparan tidak bisa dipakai karena drawbox tidak menulis alpha.
 - **Landscape:** susun berdampingan, teks boleh lebih lebar, lower third cukup di sepertiga kiri bawah.
 - **Square:** di antara keduanya. Jaga elemen tidak terlalu rapat ke tepi atas dan bawah.
 
