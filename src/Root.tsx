@@ -11,6 +11,16 @@ import {
   ripperStoryboardSchema,
 } from "./Videos/RipperStoryboard";
 import {
+  WajahStoryboard,
+  wajahStoryboardDefaults,
+  wajahStoryboardSchema,
+} from "./Videos/WajahStoryboard";
+import {
+  WajahDiLukisan,
+  wajahDefaults,
+  wajahSchema,
+} from "./Videos/WajahDiLukisan";
+import {
   TextureBake,
   textureBakeDefaults,
   textureBakeSchema,
@@ -370,6 +380,19 @@ export const RemotionRoot: React.FC = () => {
           component={RipperStoryboard}
           schema={ripperStoryboardSchema}
           defaultProps={ripperStoryboardDefaults}
+          formats={["Portrait"]}
+        />
+        <FormatVariants
+          id="WajahDiLukisan"
+          component={WajahDiLukisan}
+          schema={wajahSchema}
+          defaultProps={wajahDefaults}
+        />
+        <FormatVariants
+          id="WajahStoryboard"
+          component={WajahStoryboard}
+          schema={wajahStoryboardSchema}
+          defaultProps={wajahStoryboardDefaults}
           formats={["Portrait"]}
         />
       </Folder>

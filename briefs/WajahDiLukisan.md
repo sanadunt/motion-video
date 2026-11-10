@@ -72,7 +72,23 @@ DECISION: Kredit sumber ditaruh di caption postingan, bukan di video (CC0 tidak 
 
 ## STATE (untuk melanjutkan di sesi baru)
 - Topik: doppelgänger / wajah di lukisan 1562, short 60 dtk portrait.
-- Tahap: **2 dari 7**. Naskah v2 (nada skeptis-menggantung, penutup berupa pertanyaan) ada di `briefs/WajahDiLukisan.naskah.md` dan menunggu persetujuan user.
+- Tahap: **6 dari 7 selesai (render final)**. User menyetujui versi 3D ("ini baru keren") dan minta Full HD. Final: `out/WajahDiLukisan-Portrait.mp4`, 1080×1920, h264 yuv420p, 30 fps, 2100 frame, 70,0 dtk, 50 MB, AAC 48 kHz, −14,0 LUFS, puncak −1,4 dBFS, faststart. Dirender dalam 6 chunk (`out/chunks/`, 2 pekerja, nice) plus audio sekali, loudnorm 2 pass; total 7,5 menit. QA 20 frame dari file final dengan overlay safe zone ada di `out/review/final-qa/sheet.png`; hening terukur −69 sampai −76 dB.
+- Storyboard disetujui user 10 Nov 2026 ("suka banget").
+- Animasi: `src/Videos/WajahDiLukisan.tsx`, komposisi `WajahDiLukisan-Portrait`, 70 dtk (2100 frame). Semua beat diturunkan dari `wajah-captions.json`/`wajah-words.json`/`WajahDiLukisan.vo.json` (objek `B`).
+- Audio mix: VO dinormalkan ke `public/vo/wajah/mix/` (narator ±−16 LUFS, bisikan ±−23), w2 diolah jadi ambience `mix/w2-amb.wav`. SFX baru (sox) di `public/sfx/wajah/`: waves, riser, under, stamp, waterrise, flicker. Sisanya dari `sfx/ripper/`.
+- Preview: `out/review/WajahDiLukisan-preview.mp4`, 360×640, frame 1704–2082 (lab mati → penutup → puncak → "itu kamu").
+- Benchmark 720p dengan 2 pekerja: galeri 8 dtk dan lab 5 dtk per 30 frame (di bawah batas 12 dtk), jadi render penuh boleh dilakukan.
+- **Safe zone (10 Nov 2026, guideline user "DIKU · Safe Zone YouTube Shorts"):** teks dan wajah hanya di x 60–960, y 380–1540; caption di y 1265–1480. Sudah diterapkan: caption (x 60–960, top 1290), label pita y 400, tiket y 1060, lukisan (bingkai y 300–1050, label y ±1070–1260, EXIT x ≤ 950), lab ditata ulang (`labGeometry`), sosok teras di dalam x 60–960, kartu label muncul hanya saat kamera mundur. Dicek dengan overlay pada 16 still beat (`out/review/safezone/`).
+- **3D PSX (10 Nov 2026, permintaan user):** tokoh memakai base mesh CC0 dari skill psx-character, dirender di Blender 5.2. Skrip dan file kerjanya ada di `/Users/mac/Magz Motion/motion-starters/reverse/WajahDiLukisan/`:
+  - `psx_lib.py`: pembuat tokoh bersama.
+  - `couple_scene.py`: pasangan galeri. Perempuan dibentuk dari mesh pria (bahu dirampingkan, rambut panjang, rok mantel); ia menoleh di kata "menoleh" dan si pria menoleh di "Itu kamu". Hasilnya PNG transparan 320×320 on-twos di `public/3d/wajah/couple/` (199 file, 12 MB).
+  - `lerici_scene.py`: adegan teras penuh 3D. Isinya lorong lengkung, langkan, laut berkilau, bulan berhalo, dan lentera. Shelley memakai wajah dari potret Curran (atlas 2 sel: diam dan seram, `face/shelley_atlas.png`). Kembaran muncul 4 frame saat kilat lentera, lalu Shelley menoleh dengan wajah seram saat hening dan kamera mendorong ke kepalanya. Hasilnya `public/3d/wajah/lerici.mp4` (270×480 diperbesar ×4, 15 gambar/dtk, 48 warna + dither, 7 MB).
+  - Kedua skrip membaca timing dari `src/Videos/wajah-*.json`. Kalau cues berubah, render ulang Blender (±30 dtk per adegan).
+- DECISION: Belum ada base mesh perempuan. Perempuan dibentuk dari mesh pria karena dari belakang sudah terbaca. Kalau perlu, ada kandidat CC0 seperti Titanium Rat lowpoly female, yang butuh izin unduh.
+- Low-res penuh: `out/review/WajahDiLukisan-lowres.mp4` (360×640, 70,1 dtk, audio −14,4 LUFS, puncak −1,4 dBFS), menunggu persetujuan user sebelum final 720p.
+- Catatan: hening sebelum puncak hanya ±0,8 dtk (sebelum "seseorang"), karena VO menyambung sampai "wajahmu". Mix akhir belum dinormalkan ke −14 LUFS (preview −17,8); itu dikerjakan di tahap 6.
+- VO sudah dibuat user di `public/vo/wajah/` (7 file). Whisper + cues dikerjakan di commit 9c2e2a7: `src/Videos/wajah-captions.json` dan `wajah-words.json`, config `briefs/WajahDiLukisan.vo.json`, tabel TIMING VO di naskah induk. Total ≈ 69,9 dtk.
+- Storyboard: `briefs/WajahDiLukisan.storyboard.md`, komposisi `WajahStoryboard-Portrait` (scene 1–6), set di `src/lib/scenes/wajah.tsx`, still di `out/review/WajahStoryboard-Portrait/`.
 - Aset wajah: 8 file CC0/PD sudah ada di `public/faces/wajah/` (kredit di `CREDITS.md`). Pemetaan: F1 bangsawan, F1+F4 pasangan lab, F5 lightbox, F6 cermin di adegan 3, F7/F8 Shelley.
 - Lembar VO siap tempel untuk user: `/Users/mac/re-motion-kit/naskah/WajahDiLukisan-VO.md`. User generate sendiri dan menaruh hasilnya di `public/vo/wajah/`.
 - Berikutnya: tahap 3, generate VO di AI Studio, simpan ke `public/vo/wajah/`, lalu whisper → `src/Videos/wajah-cues.json`.
