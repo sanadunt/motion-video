@@ -1,0 +1,16 @@
+[
+  {
+    "text": "Ampad,",
+    "startMs": 100,
+    "endMs": 1480,
+    "timestampMs": 660,
+    "confidence": 0.16913
+  },
+  {
+    "text": " anam.",
+    "startMs": 1480,
+    "endMs": 3000,
+    "timestampMs": 2420,
+    "confidence": 0.660976
+  }
+]

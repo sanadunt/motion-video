@@ -1,0 +1,142 @@
+[
+  {
+    "text": "2001",
+    "startMs": 290,
+    "endMs": 1990,
+    "timestampMs": 1400,
+    "confidence": 0.342781
+  },
+  {
+    "text": " FBI",
+    "startMs": 1990,
+    "endMs": 2410,
+    "timestampMs": 3740,
+    "confidence": 0.252609
+  },
+  {
+    "text": " menemukan",
+    "startMs": 2410,
+    "endMs": 3630,
+    "timestampMs": 4020,
+    "confidence": 0.93117
+  },
+  {
+    "text": " radio",
+    "startMs": 3630,
+    "endMs": 4310,
+    "timestampMs": 5100,
+    "confidence": 0.895089
+  },
+  {
+    "text": " gelombang",
+    "startMs": 4310,
+    "endMs": 5540,
+    "timestampMs": 5300,
+    "confidence": 0.215975
+  },
+  {
+    "text": " pentec",
+    "startMs": 5540,
+    "endMs": 6450,
+    "timestampMs": 6020,
+    "confidence": 0.287681
+  },
+  {
+    "text": " di",
+    "startMs": 6450,
+    "endMs": 6670,
+    "timestampMs": 6800,
+    "confidence": 0.923076
+  },
+  {
+    "text": " kamar",
+    "startMs": 6670,
+    "endMs": 7000,
+    "timestampMs": 7040,
+    "confidence": 0.443177
+  },
+  {
+    "text": " seorang",
+    "startMs": 7000,
+    "endMs": 7680,
+    "timestampMs": 7400,
+    "confidence": 0.881324
+  },
+  {
+    "text": " analis",
+    "startMs": 7680,
+    "endMs": 8350,
+    "timestampMs": 8200,
+    "confidence": 0.544849
+  },
+  {
+    "text": " inteligen",
+    "startMs": 8350,
+    "endMs": 9120,
+    "timestampMs": 8860,
+    "confidence": 0.146985
+  },
+  {
+    "text": " Amerika.",
+    "startMs": 9120,
+    "endMs": 10480,
+    "timestampMs": 9880,
+    "confidence": 0.708037
+  },
+  {
+    "text": " Tiga",
+    "startMs": 10480,
+    "endMs": 11760,
+    "timestampMs": 11800,
+    "confidence": 0.448154
+  },
+  {
+    "text": " malam",
+    "startMs": 11760,
+    "endMs": 12130,
+    "timestampMs": 12420,
+    "confidence": 0.923343
+  },
+  {
+    "text": " seminggu,",
+    "startMs": 12130,
+    "endMs": 13980,
+    "timestampMs": 12780,
+    "confidence": 0.648216
+  },
+  {
+    "text": " ia",
+    "startMs": 13980,
+    "endMs": 14100,
+    "timestampMs": 14240,
+    "confidence": 0.604571
+  },
+  {
+    "text": " mencetat",
+    "startMs": 14100,
+    "endMs": 15070,
+    "timestampMs": 14480,
+    "confidence": 0.974217
+  },
+  {
+    "text": " angka",
+    "startMs": 15070,
+    "endMs": 15600,
+    "timestampMs": 15360,
+    "confidence": 0.930535
+  },
+  {
+    "text": " dari",
+    "startMs": 15600,
+    "endMs": 16070,
+    "timestampMs": 16100,
+    "confidence": 0.968093
+  },
+  {
+    "text": " Cuba.",
+    "startMs": 16070,
+    "endMs": 16960,
+    "timestampMs": 16460,
+    "confidence": 0.478738
+  }
+]

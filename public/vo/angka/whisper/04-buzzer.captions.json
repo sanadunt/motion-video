@@ -1,0 +1,135 @@
+[
+  {
+    "text": "iya",
+    "startMs": 0,
+    "endMs": 450,
+    "timestampMs": 540,
+    "confidence": 0.192427
+  },
+  {
+    "text": " tertangkap,",
+    "startMs": 450,
+    "endMs": 3020,
+    "timestampMs": 1360,
+    "confidence": 0.717356
+  },
+  {
+    "text": " tapi",
+    "startMs": 3020,
+    "endMs": 3130,
+    "timestampMs": 3340,
+    "confidence": 0.788077
+  },
+  {
+    "text": " di",
+    "startMs": 3130,
+    "endMs": 3490,
+    "timestampMs": 3520,
+    "confidence": 0.484569
+  },
+  {
+    "text": " Rusia,",
+    "startMs": 3490,
+    "endMs": 4990,
+    "timestampMs": 4000,
+    "confidence": 0.639028
+  },
+  {
+    "text": " satu",
+    "startMs": 4990,
+    "endMs": 5110,
+    "timestampMs": 5480,
+    "confidence": 0.692289
+  },
+  {
+    "text": " frekuan",
+    "startMs": 5110,
+    "endMs": 5910,
+    "timestampMs": 5860,
+    "confidence": 0.546309
+  },
+  {
+    "text": " sih",
+    "startMs": 5910,
+    "endMs": 6230,
+    "timestampMs": 6440,
+    "confidence": 0.402746
+  },
+  {
+    "text": " masih",
+    "startMs": 6230,
+    "endMs": 6810,
+    "timestampMs": 7160,
+    "confidence": 0.958765
+  },
+  {
+    "text": " berdengung.",
+    "startMs": 6810,
+    "endMs": 8000,
+    "timestampMs": 7420,
+    "confidence": 0.937559
+  },
+  {
+    "text": " 40",
+    "startMs": 8000,
+    "endMs": 9120,
+    "timestampMs": 9640,
+    "confidence": 0.478342
+  },
+  {
+    "text": " tahun",
+    "startMs": 9120,
+    "endMs": 10170,
+    "timestampMs": 10460,
+    "confidence": 0.997141
+  },
+  {
+    "text": " lebih.",
+    "startMs": 10170,
+    "endMs": 11000,
+    "timestampMs": 10840,
+    "confidence": 0.955356
+  },
+  {
+    "text": " Tak",
+    "startMs": 11000,
+    "endMs": 11090,
+    "timestampMs": 12200,
+    "confidence": 0.387726
+  },
+  {
+    "text": " ada",
+    "startMs": 11090,
+    "endMs": 12030,
+    "timestampMs": 12540,
+    "confidence": 0.997581
+  },
+  {
+    "text": " yang",
+    "startMs": 12030,
+    "endMs": 12120,
+    "timestampMs": 12740,
+    "confidence": 0.997689
+  },
+  {
+    "text": " menjelaskan",
+    "startMs": 12120,
+    "endMs": 13140,
+    "timestampMs": 12880,
+    "confidence": 0.963291
+  },
+  {
+    "text": " untuk",
+    "startMs": 13140,
+    "endMs": 13680,
+    "timestampMs": 13720,
+    "confidence": 0.991257
+  },
+  {
+    "text": " apa?",
+    "startMs": 13680,
+    "endMs": 14000,
+    "timestampMs": 13980,
+    "confidence": 0.989751
+  }
+]

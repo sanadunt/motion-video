@@ -1,0 +1,16 @@
+[
+  {
+    "text": "Atencion",
+    "startMs": 250,
+    "endMs": 2000,
+    "timestampMs": 2140,
+    "confidence": 0.163103
+  },
+  {
+    "text": " Atencion",
+    "startMs": 2000,
+    "endMs": 4000,
+    "timestampMs": 3400,
+    "confidence": 0.834502
+  }
+]

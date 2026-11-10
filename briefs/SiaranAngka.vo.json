@@ -1,0 +1,13 @@
+{
+  "name": "angka",
+  "voDir": "public/vo/angka",
+  "whisperDir": "public/vo/angka/whisper",
+  "_catatan": "at = detik global awal tiap klip narator. Jeda antar klip 0,6 dtk; sebelum 05 ada tambahan 1,5 dtk hening total (dip-to-black setelah 'untuk apa'). Klip r1/r2 (pembaca angka, sudah diolah jadi suara radio di mix/) dan w1/w2 (bisikan) ditempatkan per adegan di komponen, bukan lewat vo-align. Ubah at di sini kalau susunan berubah, lalu jalankan ulang vo-align.",
+  "clips": [
+    {"file": "01-sekolah",  "at": 1.0,  "text": "Di halaman sekolah, … anak-anak berbisik soal Siren Head: … raksasa yang meneriakkan angka dari hutan."},
+    {"file": "02-karangan", "at": 13.5, "text": "Ia karangan, … digambar seniman Kanada tahun dua ribu delapan belas. … Tapi inspirasinya nyata: … radio yang cuma membacakan angka."},
+    {"file": "03-montes",   "at": 30.3, "text": "Dua ribu satu. … FBI menemukan radio gelombang pendek di kamar seorang analis intelijen Amerika. … Tiga malam seminggu, … ia mencatat angka dari Kuba."},
+    {"file": "04-buzzer",   "at": 47.9, "text": "Ia tertangkap. … Tapi di Rusia, … satu frekuensi masih berdengung, … empat puluh tahun lebih. … Tak ada yang menjelaskan untuk apa."},
+    {"file": "05-penutup",  "at": 64.8, "text": "Monsternya karangan. … Siarannya tidak. … Malam ini, … angka-angka itu … untuk siapa?"}
+  ]
+}

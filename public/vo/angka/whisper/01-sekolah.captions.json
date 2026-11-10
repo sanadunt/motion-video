@@ -1,0 +1,100 @@
+[
+  {
+    "text": "Di",
+    "startMs": 190,
+    "endMs": 250,
+    "timestampMs": 340,
+    "confidence": 0.507596
+  },
+  {
+    "text": " halaman",
+    "startMs": 250,
+    "endMs": 1150,
+    "timestampMs": 580,
+    "confidence": 0.45491
+  },
+  {
+    "text": " sekolah,",
+    "startMs": 1150,
+    "endMs": 2670,
+    "timestampMs": 2940,
+    "confidence": 0.974081
+  },
+  {
+    "text": " anak-anak",
+    "startMs": 2670,
+    "endMs": 3480,
+    "timestampMs": 2940,
+    "confidence": 0.777751
+  },
+  {
+    "text": " berbisik",
+    "startMs": 3480,
+    "endMs": 4470,
+    "timestampMs": 3620,
+    "confidence": 0.989379
+  },
+  {
+    "text": " soal",
+    "startMs": 4470,
+    "endMs": 4990,
+    "timestampMs": 4580,
+    "confidence": 0.764896
+  },
+  {
+    "text": " siren",
+    "startMs": 4990,
+    "endMs": 5600,
+    "timestampMs": 5200,
+    "confidence": 0.509637
+  },
+  {
+    "text": " head,",
+    "startMs": 5600,
+    "endMs": 6920,
+    "timestampMs": 6200,
+    "confidence": 0.444598
+  },
+  {
+    "text": " raksasa",
+    "startMs": 6920,
+    "endMs": 7920,
+    "timestampMs": 7420,
+    "confidence": 0.461887
+  },
+  {
+    "text": " yang",
+    "startMs": 7920,
+    "endMs": 8490,
+    "timestampMs": 8480,
+    "confidence": 0.995006
+  },
+  {
+    "text": " meneriakan",
+    "startMs": 8490,
+    "endMs": 9910,
+    "timestampMs": 8700,
+    "confidence": 0.882189
+  },
+  {
+    "text": " angka",
+    "startMs": 9910,
+    "endMs": 10710,
+    "timestampMs": 9840,
+    "confidence": 0.89049
+  },
+  {
+    "text": " dari",
+    "startMs": 10710,
+    "endMs": 11200,
+    "timestampMs": 10920,
+    "confidence": 0.853787
+  },
+  {
+    "text": " hutan.",
+    "startMs": 11200,
+    "endMs": 12400,
+    "timestampMs": 11200,
+    "confidence": 0.629791
+  }
+]

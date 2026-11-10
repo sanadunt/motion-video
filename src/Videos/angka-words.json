@@ -1,0 +1,583 @@
+[
+  {
+    "clip": "01-sekolah",
+    "i": 0,
+    "text": "di",
+    "t": 1,
+    "anchored": false
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 1,
+    "text": "halaman",
+    "t": 1.75,
+    "anchored": false
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 2,
+    "text": "sekolah",
+    "t": 3.94,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 3,
+    "text": "anakanak",
+    "t": 3.94,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 4,
+    "text": "berbisik",
+    "t": 4.62,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 5,
+    "text": "soal",
+    "t": 5.58,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 6,
+    "text": "siren",
+    "t": 6.2,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 7,
+    "text": "head",
+    "t": 7.2,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 8,
+    "text": "raksasa",
+    "t": 8.42,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 9,
+    "text": "yang",
+    "t": 9.48,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 10,
+    "text": "meneriakkan",
+    "t": 9.7,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 11,
+    "text": "angka",
+    "t": 10.84,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 12,
+    "text": "dari",
+    "t": 11.92,
+    "anchored": true
+  },
+  {
+    "clip": "01-sekolah",
+    "i": 13,
+    "text": "hutan",
+    "t": 12.2,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 0,
+    "text": "ia",
+    "t": 13.82,
+    "anchored": false
+  },
+  {
+    "clip": "02-karangan",
+    "i": 1,
+    "text": "karangan",
+    "t": 15.08,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 2,
+    "text": "digambar",
+    "t": 16.8,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 3,
+    "text": "seniman",
+    "t": 17.2,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 4,
+    "text": "kanada",
+    "t": 17.96,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 5,
+    "text": "tahun",
+    "t": 18.68,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 6,
+    "text": "dua",
+    "t": 20.04,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 7,
+    "text": "ribu",
+    "t": 20.32,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 8,
+    "text": "delapan",
+    "t": 20.6,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 9,
+    "text": "belas",
+    "t": 20.88,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 10,
+    "text": "tapi",
+    "t": 21.49,
+    "anchored": false
+  },
+  {
+    "clip": "02-karangan",
+    "i": 11,
+    "text": "inspirasinya",
+    "t": 22.35,
+    "anchored": false
+  },
+  {
+    "clip": "02-karangan",
+    "i": 12,
+    "text": "nyata",
+    "t": 24.68,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 13,
+    "text": "radio",
+    "t": 26.34,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 14,
+    "text": "yang",
+    "t": 27.18,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 15,
+    "text": "cuma",
+    "t": 27.76,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 16,
+    "text": "membacakan",
+    "t": 28.26,
+    "anchored": true
+  },
+  {
+    "clip": "02-karangan",
+    "i": 17,
+    "text": "angka",
+    "t": 29.2,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 0,
+    "text": "dua",
+    "t": 31.7,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 1,
+    "text": "ribu",
+    "t": 31.98,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 2,
+    "text": "satu",
+    "t": 32.26,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 3,
+    "text": "fbi",
+    "t": 34.04,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 4,
+    "text": "menemukan",
+    "t": 34.32,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 5,
+    "text": "radio",
+    "t": 35.4,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 6,
+    "text": "gelombang",
+    "t": 35.6,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 7,
+    "text": "pendek",
+    "t": 36.23,
+    "anchored": false
+  },
+  {
+    "clip": "03-montes",
+    "i": 8,
+    "text": "di",
+    "t": 37.1,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 9,
+    "text": "kamar",
+    "t": 37.34,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 10,
+    "text": "seorang",
+    "t": 37.7,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 11,
+    "text": "analis",
+    "t": 38.5,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 12,
+    "text": "intelijen",
+    "t": 39.16,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 13,
+    "text": "amerika",
+    "t": 40.18,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 14,
+    "text": "tiga",
+    "t": 42.1,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 15,
+    "text": "malam",
+    "t": 42.72,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 16,
+    "text": "seminggu",
+    "t": 43.08,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 17,
+    "text": "ia",
+    "t": 44.54,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 18,
+    "text": "mencatat",
+    "t": 44.78,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 19,
+    "text": "angka",
+    "t": 45.66,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 20,
+    "text": "dari",
+    "t": 46.4,
+    "anchored": true
+  },
+  {
+    "clip": "03-montes",
+    "i": 21,
+    "text": "kuba",
+    "t": 46.76,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 0,
+    "text": "ia",
+    "t": 48.22,
+    "anchored": false
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 1,
+    "text": "tertangkap",
+    "t": 49.26,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 2,
+    "text": "tapi",
+    "t": 51.24,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 3,
+    "text": "di",
+    "t": 51.42,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 4,
+    "text": "rusia",
+    "t": 51.9,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 5,
+    "text": "satu",
+    "t": 53.38,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 6,
+    "text": "frekuensi",
+    "t": 53.74,
+    "anchored": false
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 7,
+    "text": "masih",
+    "t": 55.06,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 8,
+    "text": "berdengung",
+    "t": 55.32,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 9,
+    "text": "empat",
+    "t": 57.54,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 10,
+    "text": "puluh",
+    "t": 57.82,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 11,
+    "text": "tahun",
+    "t": 58.36,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 12,
+    "text": "lebih",
+    "t": 58.74,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 13,
+    "text": "tak",
+    "t": 60.1,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 14,
+    "text": "ada",
+    "t": 60.44,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 15,
+    "text": "yang",
+    "t": 60.64,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 16,
+    "text": "menjelaskan",
+    "t": 60.78,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 17,
+    "text": "untuk",
+    "t": 61.62,
+    "anchored": true
+  },
+  {
+    "clip": "04-buzzer",
+    "i": 18,
+    "text": "apa",
+    "t": 61.88,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 0,
+    "text": "monsternya",
+    "t": 65.66,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 1,
+    "text": "karangan",
+    "t": 67.1,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 2,
+    "text": "siarannya",
+    "t": 69.02,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 3,
+    "text": "tidak",
+    "t": 69.96,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 4,
+    "text": "malam",
+    "t": 71.42,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 5,
+    "text": "ini",
+    "t": 71.94,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 6,
+    "text": "angkaangka",
+    "t": 73.18,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 7,
+    "text": "itu",
+    "t": 74.34,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 8,
+    "text": "untuk",
+    "t": 75.46,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 9,
+    "text": "siapa",
+    "t": 76.06,
+    "anchored": true
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "text": "\"Empat\",",
+    "startMs": 330,
+    "endMs": 2320,
+    "timestampMs": 460,
+    "confidence": 0.0407268
+  },
+  {
+    "text": " \"Enam\",",
+    "startMs": 2320,
+    "endMs": 3420,
+    "timestampMs": 2300,
+    "confidence": 0.650408
+  },
+  {
+    "text": " \"Dua\",",
+    "startMs": 3420,
+    "endMs": 4710,
+    "timestampMs": 3640,
+    "confidence": 0.94458
+  },
+  {
+    "text": " \"Lima\"",
+    "startMs": 4710,
+    "endMs": 6320,
+    "timestampMs": 5320,
+    "confidence": 0.965328
+  }
+]

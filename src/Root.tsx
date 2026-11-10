@@ -21,6 +21,16 @@ import {
   wajahSchema,
 } from "./Videos/WajahDiLukisan";
 import {
+  AngkaStoryboard,
+  angkaStoryboardDefaults,
+  angkaStoryboardSchema,
+} from "./Videos/AngkaStoryboard";
+import {
+  SiaranAngka,
+  siaranAngkaDefaults,
+  siaranAngkaSchema,
+} from "./Videos/SiaranAngka";
+import {
   TextureBake,
   textureBakeDefaults,
   textureBakeSchema,
@@ -393,6 +403,19 @@ export const RemotionRoot: React.FC = () => {
           component={WajahStoryboard}
           schema={wajahStoryboardSchema}
           defaultProps={wajahStoryboardDefaults}
+          formats={["Portrait"]}
+        />
+        <FormatVariants
+          id="SiaranAngka"
+          component={SiaranAngka}
+          schema={siaranAngkaSchema}
+          defaultProps={siaranAngkaDefaults}
+        />
+        <FormatVariants
+          id="AngkaStoryboard"
+          component={AngkaStoryboard}
+          schema={angkaStoryboardSchema}
+          defaultProps={angkaStoryboardDefaults}
           formats={["Portrait"]}
         />
       </Folder>

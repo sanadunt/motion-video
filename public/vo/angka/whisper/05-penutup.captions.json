@@ -1,0 +1,72 @@
+[
+  {
+    "text": "Monsternya,",
+    "startMs": 270,
+    "endMs": 2190,
+    "timestampMs": 860,
+    "confidence": 0.31349
+  },
+  {
+    "text": " karangan,",
+    "startMs": 2190,
+    "endMs": 3320,
+    "timestampMs": 2300,
+    "confidence": 0.420911
+  },
+  {
+    "text": " siaranya",
+    "startMs": 3320,
+    "endMs": 4650,
+    "timestampMs": 4220,
+    "confidence": 0.305099
+  },
+  {
+    "text": " tidak.",
+    "startMs": 4650,
+    "endMs": 5960,
+    "timestampMs": 5160,
+    "confidence": 0.970221
+  },
+  {
+    "text": " Malam",
+    "startMs": 5960,
+    "endMs": 6600,
+    "timestampMs": 6620,
+    "confidence": 0.86794
+  },
+  {
+    "text": " ini,",
+    "startMs": 6600,
+    "endMs": 8160,
+    "timestampMs": 7140,
+    "confidence": 0.998039
+  },
+  {
+    "text": " angka-angka",
+    "startMs": 8160,
+    "endMs": 9470,
+    "timestampMs": 8380,
+    "confidence": 0.528613
+  },
+  {
+    "text": " itu",
+    "startMs": 9470,
+    "endMs": 10450,
+    "timestampMs": 9540,
+    "confidence": 0.974995
+  },
+  {
+    "text": " untuk",
+    "startMs": 10450,
+    "endMs": 10770,
+    "timestampMs": 10660,
+    "confidence": 0.75409
+  },
+  {
+    "text": " siapa?",
+    "startMs": 10770,
+    "endMs": 12080,
+    "timestampMs": 11260,
+    "confidence": 0.975507
+  }
+]

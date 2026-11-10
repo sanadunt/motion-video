@@ -1,0 +1,114 @@
+[
+  {
+    "text": "Ya,",
+    "startMs": 320,
+    "endMs": 660,
+    "timestampMs": 600,
+    "confidence": 0.419272
+  },
+  {
+    "text": " karangan,",
+    "startMs": 660,
+    "endMs": 2470,
+    "timestampMs": 1580,
+    "confidence": 0.510114
+  },
+  {
+    "text": " di",
+    "startMs": 2470,
+    "endMs": 2870,
+    "timestampMs": 2980,
+    "confidence": 0.301673
+  },
+  {
+    "text": " gambar",
+    "startMs": 2870,
+    "endMs": 3450,
+    "timestampMs": 3300,
+    "confidence": 0.906826
+  },
+  {
+    "text": " seniman",
+    "startMs": 3450,
+    "endMs": 4310,
+    "timestampMs": 3700,
+    "confidence": 0.722089
+  },
+  {
+    "text": " kanada",
+    "startMs": 4310,
+    "endMs": 5050,
+    "timestampMs": 4460,
+    "confidence": 0.487762
+  },
+  {
+    "text": " tahun",
+    "startMs": 5050,
+    "endMs": 5660,
+    "timestampMs": 5180,
+    "confidence": 0.977567
+  },
+  {
+    "text": " 2018.",
+    "startMs": 5660,
+    "endMs": 7280,
+    "timestampMs": 6540,
+    "confidence": 0.980298
+  },
+  {
+    "text": " Tapi",
+    "startMs": 7280,
+    "endMs": 8180,
+    "timestampMs": 8200,
+    "confidence": 0.987276
+  },
+  {
+    "text": " inspirasinya",
+    "startMs": 8180,
+    "endMs": 10850,
+    "timestampMs": 9480,
+    "confidence": 0.759985
+  },
+  {
+    "text": " nyata,",
+    "startMs": 10850,
+    "endMs": 12430,
+    "timestampMs": 11180,
+    "confidence": 0.802476
+  },
+  {
+    "text": " radio",
+    "startMs": 12430,
+    "endMs": 12920,
+    "timestampMs": 12840,
+    "confidence": 0.631191
+  },
+  {
+    "text": " yang",
+    "startMs": 12920,
+    "endMs": 13490,
+    "timestampMs": 13680,
+    "confidence": 0.989091
+  },
+  {
+    "text": " cuma",
+    "startMs": 13490,
+    "endMs": 13980,
+    "timestampMs": 14260,
+    "confidence": 0.786028
+  },
+  {
+    "text": " membacakan",
+    "startMs": 13980,
+    "endMs": 15370,
+    "timestampMs": 14760,
+    "confidence": 0.464581
+  },
+  {
+    "text": " angka.",
+    "startMs": 15370,
+    "endMs": 16200,
+    "timestampMs": 15700,
+    "confidence": 0.789757
+  }
+]
