@@ -38,6 +38,9 @@ Tulis setiap variabel env langsung di depan perintah dengan kutip (path ada spas
 
 Preferensi user yang sudah pasti: wajah **hanya di depan** (stretch sedikit ke atas/samping), belakang = rambut asli; ekspresi dari **foto diam**, bukan video penuh; still dulu baru animasi; gaya PS1 (240×320, 15 gambar/dtk, 48 warna + dither).
 
+## Model 3D lain (pesawat, rumah, properti)
+Cari model CC0/CC-BY (Kenney, Quaternius, Poly Pizza, Poly Haven, paket PSX itch.io, Sketchfab), **minta izin sebelum mengunduh**, simpan dengan `LICENSE-NOTE.md`, lalu ubah ke PSX: `blender -b --factory-startup -P "$SK/scripts/psx_prop.py" -- <model> <outdir> --tris 800 --tex 64 --size <meter>` (still 4 sudut + `prop_psx.blend`). Detail sumber, lisensi, patokan segitiga: `references/assets-3d.md`.
+
 ## Isi skill
 - `scripts/psx_char.py`: skrip Blender utama (impor .glb, material, atlas wajah, rig, animasi, lorong, kabut, jitter, kamera, render).
 - `scripts/face_atlas.py`: atlas contoh 8 ekspresi 32×32 (`--cells 4` untuk layout lama) dan **template kosong** untuk digambar user (`--template --size 64`). Tanpa dependensi.
