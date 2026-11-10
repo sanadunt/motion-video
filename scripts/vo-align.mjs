@@ -15,11 +15,16 @@
  *  4. Kata tanpa jangkar diinterpolasi di antara jangkar tetangga, berbobot panjang kata.
  *  5. Awal frasa dikunci ke ujung jeda sunyi terdekat (titik suara mulai), akhir frasa ke awal frasa berikutnya.
  * Teks caption selalu dari naskah; whisper hanya memberi waktu.
+ *
+ * Pakai:
+ *   node scripts/vo-align.mjs                                   → RipperTape (bawaan)
+ *   node scripts/vo-align.mjs briefs/<nama>.vo.json [lama.json]  → proyek lain; config: {name, voDir, whisperDir, clips:[{file, at, text}]}
+ *   Output: src/Videos/<name>-captions.json dan src/Videos/<name>-words.json. Argumen terakhir (opsional) = captions lama untuk laporan selisih.
  */
 import fs from 'node:fs';
 import {spawnSync} from 'node:child_process';
 
-const CLIPS = [
+const RIPPER_CLIPS = [
   {file: '01-hook', at: 1.0, text: 'Lima perempuan. … Sebelas minggu. … Dan satu surat … yang ditulis dengan tinta merah.'},
   {file: '02-setup', at: 13.0, text: "Tiga puluh satu Agustus, 1888. … Pukul tiga empat puluh pagi. … Buck's Row, London Timur. … Mary Ann Nichols. … Delapan hari kemudian … Annie Chapman. … Lalu, dalam satu malam yang sama … dua sekaligus. … Elizabeth Stride. … Catherine Eddowes."},
   {file: '03-grafiti', at: 42.3, text: 'Di Goulston Street, … di atas sepotong celemek yang basah, … seseorang menulis dengan kapur di dinding. … Polisi menghapusnya sebelum matahari terbit. … Tidak ada yang sempat memotretnya.'},
@@ -27,6 +32,12 @@ const CLIPS = [
   {file: '05-kelly', at: 91.1, text: "Sembilan November. … Miller's Court. … Mary Jane Kelly. … Yang terakhir … tidak ditemukan di jalan. … Dia ditemukan di dalam kamarnya sendiri. … Pintunya … terkunci."},
   {file: '06-penutup', at: 113.5, text: 'Dia tidak pernah tertangkap. … Tidak pernah diidentifikasi. … Surat-suratnya berhenti datang. … Orang-orang bilang dia berhenti. … Tapi tidak ada yang pernah bilang … dia selesai.'},
 ];
+
+const DEFAULT_CFG = {name: 'ripper', voDir: 'public/vo/ripper', whisperDir: 'public/vo/ripper/whisper', clips: RIPPER_CLIPS};
+const args = process.argv.slice(2);
+const cfgArg = args[0] && /\.json$/.test(args[0]) && JSON.parse(fs.readFileSync(args[0], 'utf8')).clips ? args.shift() : null;
+const CFG = cfgArg ? {...DEFAULT_CFG, ...JSON.parse(fs.readFileSync(cfgArg, 'utf8'))} : DEFAULT_CFG;
+const CLIPS = CFG.clips;
 
 /* ---------- angka → kata Indonesia ---------- */
 const SATUAN = ['nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan', 'sepuluh', 'sebelas'];
@@ -103,7 +114,7 @@ const result = [];
 const wordsOut = [];
 const report = [];
 for (const c of CLIPS) {
-  const toks = JSON.parse(fs.readFileSync(`public/vo/ripper/whisper/${c.file}.captions.json`, 'utf8'));
+  const toks = JSON.parse(fs.readFileSync(`${CFG.whisperDir}/${c.file}.captions.json`, 'utf8'));
   // kata whisper (angka dipecah, waktu disebar ±0,25 dtk per kata sampai token berikutnya)
   const W = [];
   toks.forEach((t, k) => {
@@ -118,7 +129,7 @@ for (const c of CLIPS) {
   const phraseOf = [];
   phrases.forEach((p, pi) => words(p).forEach((w) => (S.push(w), phraseOf.push(pi))));
 
-  const {list: sil, dur} = silences(`public/vo/ripper/${c.file}.wav`);
+  const {list: sil, dur} = silences(`${CFG.voDir}/${c.file}.wav`);
   const speechStart = sil.length && sil[0][0] < 0.05 ? sil[0][1] : 0;
   const speechEnd = sil.length && sil[sil.length - 1][1] >= dur - 0.05 ? sil[sil.length - 1][0] : dur;
 
@@ -194,11 +205,11 @@ for (const c of CLIPS) {
 }
 for (let i = 0; i < result.length - 1; i++) if (result[i].end > result[i + 1].start - 0.05) result[i].end = +(result[i + 1].start - 0.05).toFixed(2);
 
-fs.writeFileSync('src/Videos/ripper-captions.json', JSON.stringify(result, null, 2));
-fs.writeFileSync('src/Videos/ripper-words.json', JSON.stringify(wordsOut, null, 2));
+fs.writeFileSync(`src/Videos/${CFG.name}-captions.json`, JSON.stringify(result, null, 2));
+fs.writeFileSync(`src/Videos/${CFG.name}-words.json`, JSON.stringify(wordsOut, null, 2));
 
 // laporan: bandingkan dengan versi lama kalau ada
-const oldPath = process.argv[2];
+const oldPath = args[0];
 const old = oldPath && fs.existsSync(oldPath) ? JSON.parse(fs.readFileSync(oldPath, 'utf8')) : null;
 report.forEach((r, i) => {
   const d = old ? r.start - old[i].start : 0;

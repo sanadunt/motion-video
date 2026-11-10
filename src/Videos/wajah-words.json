@@ -1,0 +1,499 @@
+[
+  {
+    "clip": "01-hook",
+    "i": 0,
+    "text": "seorang",
+    "t": 1.68,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 1,
+    "text": "perempuan",
+    "t": 2.66,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 2,
+    "text": "berhenti",
+    "t": 3.82,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 3,
+    "text": "di",
+    "t": 5.1,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 4,
+    "text": "depan",
+    "t": 5.47,
+    "anchored": false
+  },
+  {
+    "clip": "01-hook",
+    "i": 5,
+    "text": "lukisan",
+    "t": 6.55,
+    "anchored": false
+  },
+  {
+    "clip": "01-hook",
+    "i": 6,
+    "text": "tua",
+    "t": 8.16,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 7,
+    "text": "lalu",
+    "t": 8.16,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 8,
+    "text": "menoleh",
+    "t": 9.04,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 9,
+    "text": "ke",
+    "t": 9.66,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 10,
+    "text": "pacarnya",
+    "t": 9.92,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 11,
+    "text": "itu",
+    "t": 12.08,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 12,
+    "text": "kamu",
+    "t": 12.6,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 0,
+    "text": "tahun",
+    "t": 14.21,
+    "anchored": false
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 1,
+    "text": "seribu",
+    "t": 16.4,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 2,
+    "text": "lima",
+    "t": 16.68,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 3,
+    "text": "ratus",
+    "t": 16.96,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 4,
+    "text": "enam",
+    "t": 17.24,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 5,
+    "text": "puluh",
+    "t": 17.52,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 6,
+    "text": "dua",
+    "t": 17.8,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 7,
+    "text": "pelukisnya",
+    "t": 19.98,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 8,
+    "text": "tak",
+    "t": 21.24,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 9,
+    "text": "dikenal",
+    "t": 21.8,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 10,
+    "text": "prianya",
+    "t": 23.42,
+    "anchored": true
+  },
+  {
+    "clip": "02-lukisan",
+    "i": 11,
+    "text": "juga",
+    "t": 24.78,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 0,
+    "text": "konon",
+    "t": 26.52,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 1,
+    "text": "siapa",
+    "t": 27.88,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 2,
+    "text": "yang",
+    "t": 28.5,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 3,
+    "text": "bertemu",
+    "t": 29.3,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 4,
+    "text": "kembarannya",
+    "t": 29.32,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 5,
+    "text": "tak",
+    "t": 30.84,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 6,
+    "text": "lama",
+    "t": 31.3,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 7,
+    "text": "lagi",
+    "t": 31.58,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 8,
+    "text": "mati",
+    "t": 32.58,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 9,
+    "text": "penyair",
+    "t": 33.54,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 10,
+    "text": "percy",
+    "t": 34.2,
+    "anchored": false
+  },
+  {
+    "clip": "03-legenda",
+    "i": 11,
+    "text": "shelley",
+    "t": 35.38,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 12,
+    "text": "mengaku",
+    "t": 35.94,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 13,
+    "text": "berpapasan",
+    "t": 36.5,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 14,
+    "text": "dengan",
+    "t": 37.62,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 15,
+    "text": "dirinya",
+    "t": 37.94,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 16,
+    "text": "sendiri",
+    "t": 38.84,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 17,
+    "text": "beberapa",
+    "t": 39.88,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 18,
+    "text": "minggu",
+    "t": 40.66,
+    "anchored": false
+  },
+  {
+    "clip": "03-legenda",
+    "i": 19,
+    "text": "kemudian",
+    "t": 41.7,
+    "anchored": false
+  },
+  {
+    "clip": "03-legenda",
+    "i": 20,
+    "text": "ia",
+    "t": 43.16,
+    "anchored": true
+  },
+  {
+    "clip": "03-legenda",
+    "i": 21,
+    "text": "tenggelam",
+    "t": 43.4,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 0,
+    "text": "kata",
+    "t": 45.22,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 1,
+    "text": "sains",
+    "t": 45.68,
+    "anchored": false
+  },
+  {
+    "clip": "04-dna",
+    "i": 2,
+    "text": "kebetulan",
+    "t": 46.98,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 3,
+    "text": "tapi",
+    "t": 49.02,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 4,
+    "text": "saat",
+    "t": 49.4,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 5,
+    "text": "orang",
+    "t": 49.74,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 6,
+    "text": "asing",
+    "t": 50.18,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 7,
+    "text": "berwajah",
+    "t": 50.52,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 8,
+    "text": "kembar",
+    "t": 51.1,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 9,
+    "text": "diperiksa",
+    "t": 51.82,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 10,
+    "text": "kode",
+    "t": 53.36,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 11,
+    "text": "genetik",
+    "t": 53.88,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 12,
+    "text": "mereka",
+    "t": 54.62,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 13,
+    "text": "sebagian",
+    "t": 55.32,
+    "anchored": true
+  },
+  {
+    "clip": "04-dna",
+    "i": 14,
+    "text": "sama",
+    "t": 56.5,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 0,
+    "text": "kebetulan",
+    "t": 58.2,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 1,
+    "text": "atau",
+    "t": 60.22,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 2,
+    "text": "di",
+    "t": 61.6,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 3,
+    "text": "suatu",
+    "t": 61.92,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 4,
+    "text": "tempat",
+    "t": 62.46,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 5,
+    "text": "seseorang",
+    "t": 63.09,
+    "anchored": false
+  },
+  {
+    "clip": "05-penutup",
+    "i": 6,
+    "text": "sedang",
+    "t": 64.86,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 7,
+    "text": "memakai",
+    "t": 65.24,
+    "anchored": true
+  },
+  {
+    "clip": "05-penutup",
+    "i": 8,
+    "text": "wajahmu",
+    "t": 65.78,
+    "anchored": true
+  }
+]

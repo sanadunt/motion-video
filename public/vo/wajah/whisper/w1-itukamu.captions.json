@@ -1,0 +1,16 @@
+[
+  {
+    "text": "itu",
+    "startMs": 190,
+    "endMs": 1430,
+    "timestampMs": 420,
+    "confidence": 0.251429
+  },
+  {
+    "text": " kamu",
+    "startMs": 1430,
+    "endMs": 30000,
+    "timestampMs": 900,
+    "confidence": 0.995354
+  }
+]

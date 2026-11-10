@@ -1,0 +1,93 @@
+[
+  {
+    "text": "seorang",
+    "startMs": 0,
+    "endMs": 1020,
+    "timestampMs": 680,
+    "confidence": 0.585375
+  },
+  {
+    "text": " perempuan",
+    "startMs": 1020,
+    "endMs": 2670,
+    "timestampMs": 1660,
+    "confidence": 0.440407
+  },
+  {
+    "text": " berhenti",
+    "startMs": 2670,
+    "endMs": 3450,
+    "timestampMs": 2820,
+    "confidence": 0.97235
+  },
+  {
+    "text": " di",
+    "startMs": 3450,
+    "endMs": 3950,
+    "timestampMs": 4100,
+    "confidence": 0.931107
+  },
+  {
+    "text": " depan",
+    "startMs": 3950,
+    "endMs": 4470,
+    "timestampMs": 4340,
+    "confidence": 0.978086
+  },
+  {
+    "text": " lukisan",
+    "startMs": 4470,
+    "endMs": 5480,
+    "timestampMs": 4680,
+    "confidence": 0.994429
+  },
+  {
+    "text": " tua,",
+    "startMs": 5480,
+    "endMs": 6400,
+    "timestampMs": 7160,
+    "confidence": 0.643441
+  },
+  {
+    "text": " lalu",
+    "startMs": 6400,
+    "endMs": 7080,
+    "timestampMs": 7160,
+    "confidence": 0.737559
+  },
+  {
+    "text": " menoleh",
+    "startMs": 7080,
+    "endMs": 8090,
+    "timestampMs": 8040,
+    "confidence": 0.973751
+  },
+  {
+    "text": " ke",
+    "startMs": 8090,
+    "endMs": 8400,
+    "timestampMs": 8660,
+    "confidence": 0.679208
+  },
+  {
+    "text": " pacarnya,",
+    "startMs": 8400,
+    "endMs": 10000,
+    "timestampMs": 8920,
+    "confidence": 0.341609
+  },
+  {
+    "text": " itu",
+    "startMs": 10000,
+    "endMs": 10920,
+    "timestampMs": 11080,
+    "confidence": 0.832787
+  },
+  {
+    "text": " kamu.",
+    "startMs": 10920,
+    "endMs": 12460,
+    "timestampMs": 11600,
+    "confidence": 0.988719
+  }
+]

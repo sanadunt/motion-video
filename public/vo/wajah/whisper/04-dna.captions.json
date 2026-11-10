@@ -1,0 +1,114 @@
+[
+  {
+    "text": "kata",
+    "startMs": 10,
+    "endMs": 610,
+    "timestampMs": 420,
+    "confidence": 0.464869
+  },
+  {
+    "text": " science",
+    "startMs": 610,
+    "endMs": 2000,
+    "timestampMs": 1400,
+    "confidence": 0.799362
+  },
+  {
+    "text": " kebetulan,",
+    "startMs": 2000,
+    "endMs": 3400,
+    "timestampMs": 2180,
+    "confidence": 0.770196
+  },
+  {
+    "text": " tapi",
+    "startMs": 3400,
+    "endMs": 4000,
+    "timestampMs": 4220,
+    "confidence": 0.748965
+  },
+  {
+    "text": " saat",
+    "startMs": 4000,
+    "endMs": 4320,
+    "timestampMs": 4600,
+    "confidence": 0.989251
+  },
+  {
+    "text": " orang",
+    "startMs": 4320,
+    "endMs": 4890,
+    "timestampMs": 4940,
+    "confidence": 0.977754
+  },
+  {
+    "text": " asing",
+    "startMs": 4890,
+    "endMs": 5460,
+    "timestampMs": 5380,
+    "confidence": 0.875738
+  },
+  {
+    "text": " berwaja",
+    "startMs": 5460,
+    "endMs": 6250,
+    "timestampMs": 5720,
+    "confidence": 0.970942
+  },
+  {
+    "text": " kembar",
+    "startMs": 6250,
+    "endMs": 6920,
+    "timestampMs": 6300,
+    "confidence": 0.936835
+  },
+  {
+    "text": " di",
+    "startMs": 6920,
+    "endMs": 7150,
+    "timestampMs": 6860,
+    "confidence": 0.978237
+  },
+  {
+    "text": " Periksa,",
+    "startMs": 7150,
+    "endMs": 8500,
+    "timestampMs": 7020,
+    "confidence": 0.535986
+  },
+  {
+    "text": " kode",
+    "startMs": 8500,
+    "endMs": 9100,
+    "timestampMs": 8560,
+    "confidence": 0.335412
+  },
+  {
+    "text": " genetik",
+    "startMs": 9100,
+    "endMs": 9370,
+    "timestampMs": 9080,
+    "confidence": 0.707132
+  },
+  {
+    "text": " mereka",
+    "startMs": 9370,
+    "endMs": 9920,
+    "timestampMs": 9820,
+    "confidence": 0.945956
+  },
+  {
+    "text": " sebagian",
+    "startMs": 9920,
+    "endMs": 11070,
+    "timestampMs": 10520,
+    "confidence": 0.705347
+  },
+  {
+    "text": " sama.",
+    "startMs": 11070,
+    "endMs": 12000,
+    "timestampMs": 11700,
+    "confidence": 0.947258
+  }
+]

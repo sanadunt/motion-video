@@ -1,0 +1,72 @@
+[
+  {
+    "text": "kebetulan",
+    "startMs": 150,
+    "endMs": 2360,
+    "timestampMs": 400,
+    "confidence": 0.738653
+  },
+  {
+    "text": " atau",
+    "startMs": 2360,
+    "endMs": 3560,
+    "timestampMs": 2420,
+    "confidence": 0.867265
+  },
+  {
+    "text": " di",
+    "startMs": 3560,
+    "endMs": 3690,
+    "timestampMs": 3800,
+    "confidence": 0.193824
+  },
+  {
+    "text": " suatu",
+    "startMs": 3690,
+    "endMs": 4320,
+    "timestampMs": 4120,
+    "confidence": 0.604613
+  },
+  {
+    "text": " tempat",
+    "startMs": 4320,
+    "endMs": 4870,
+    "timestampMs": 4660,
+    "confidence": 0.906226
+  },
+  {
+    "text": " sesuatu",
+    "startMs": 4870,
+    "endMs": 5880,
+    "timestampMs": 5980,
+    "confidence": 0.237584
+  },
+  {
+    "text": " orang",
+    "startMs": 5880,
+    "endMs": 6410,
+    "timestampMs": 6720,
+    "confidence": 0.927401
+  },
+  {
+    "text": " sedang",
+    "startMs": 6410,
+    "endMs": 7050,
+    "timestampMs": 7060,
+    "confidence": 0.958268
+  },
+  {
+    "text": " memakai",
+    "startMs": 7050,
+    "endMs": 7790,
+    "timestampMs": 7440,
+    "confidence": 0.961438
+  },
+  {
+    "text": " wajahmu.",
+    "startMs": 7790,
+    "endMs": 8880,
+    "timestampMs": 7980,
+    "confidence": 0.9041
+  }
+]

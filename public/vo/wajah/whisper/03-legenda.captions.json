@@ -1,0 +1,156 @@
+[
+  {
+    "text": "Konon,",
+    "startMs": 290,
+    "endMs": 810,
+    "timestampMs": 520,
+    "confidence": 0.199165
+  },
+  {
+    "text": " siapa",
+    "startMs": 810,
+    "endMs": 1650,
+    "timestampMs": 1880,
+    "confidence": 0.975267
+  },
+  {
+    "text": " yang",
+    "startMs": 1650,
+    "endMs": 1860,
+    "timestampMs": 2500,
+    "confidence": 0.997954
+  },
+  {
+    "text": " bertemu",
+    "startMs": 1860,
+    "endMs": 2670,
+    "timestampMs": 3300,
+    "confidence": 0.963135
+  },
+  {
+    "text": " kembarannya,",
+    "startMs": 2670,
+    "endMs": 4770,
+    "timestampMs": 3320,
+    "confidence": 0.986361
+  },
+  {
+    "text": " tak",
+    "startMs": 4770,
+    "endMs": 4920,
+    "timestampMs": 4840,
+    "confidence": 0.921926
+  },
+  {
+    "text": " lama",
+    "startMs": 4920,
+    "endMs": 5600,
+    "timestampMs": 5300,
+    "confidence": 0.998694
+  },
+  {
+    "text": " lagi",
+    "startMs": 5600,
+    "endMs": 6590,
+    "timestampMs": 5580,
+    "confidence": 0.991962
+  },
+  {
+    "text": " mati,",
+    "startMs": 6590,
+    "endMs": 7450,
+    "timestampMs": 6580,
+    "confidence": 0.905206
+  },
+  {
+    "text": " penyakir",
+    "startMs": 7450,
+    "endMs": 8210,
+    "timestampMs": 7540,
+    "confidence": 0.457719
+  },
+  {
+    "text": " persi",
+    "startMs": 8210,
+    "endMs": 8750,
+    "timestampMs": 8500,
+    "confidence": 0.594298
+  },
+  {
+    "text": " Shelley",
+    "startMs": 8750,
+    "endMs": 9830,
+    "timestampMs": 9380,
+    "confidence": 0.523602
+  },
+  {
+    "text": " mengaku",
+    "startMs": 9830,
+    "endMs": 10400,
+    "timestampMs": 9940,
+    "confidence": 0.776492
+  },
+  {
+    "text": " berpapasan",
+    "startMs": 10400,
+    "endMs": 11430,
+    "timestampMs": 10500,
+    "confidence": 0.772222
+  },
+  {
+    "text": " dengan",
+    "startMs": 11430,
+    "endMs": 11810,
+    "timestampMs": 11620,
+    "confidence": 0.968886
+  },
+  {
+    "text": " dirinya",
+    "startMs": 11810,
+    "endMs": 12380,
+    "timestampMs": 11940,
+    "confidence": 0.94984
+  },
+  {
+    "text": " sendiri.",
+    "startMs": 12380,
+    "endMs": 13160,
+    "timestampMs": 12840,
+    "confidence": 0.962359
+  },
+  {
+    "text": " Beberapa",
+    "startMs": 13160,
+    "endMs": 13960,
+    "timestampMs": 13880,
+    "confidence": 0.933752
+  },
+  {
+    "text": " minggu",
+    "startMs": 13960,
+    "endMs": 14560,
+    "timestampMs": 14500,
+    "confidence": 0.707667
+  },
+  {
+    "text": " kemudian,",
+    "startMs": 14560,
+    "endMs": 15570,
+    "timestampMs": 14880,
+    "confidence": 0.985695
+  },
+  {
+    "text": " ia",
+    "startMs": 15570,
+    "endMs": 16010,
+    "timestampMs": 17160,
+    "confidence": 0.547985
+  },
+  {
+    "text": " tinggelam.",
+    "startMs": 16010,
+    "endMs": 17040,
+    "timestampMs": 17400,
+    "confidence": 0.44239
+  }
+]

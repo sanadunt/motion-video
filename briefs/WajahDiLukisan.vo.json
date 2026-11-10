@@ -1,0 +1,13 @@
+{
+  "name": "wajah",
+  "voDir": "public/vo/wajah",
+  "whisperDir": "public/vo/wajah/whisper",
+  "_catatan": "at = detik global awal tiap klip. Jeda antar klip 0,6 dtk; sebelum 04 ada tambahan 1 dtk hening yang disisipkan ke 03 sebelum 'ia tenggelam'. Ubah at di sini kalau susunan adegan berubah, lalu jalankan ulang vo-align.",
+  "clips": [
+    {"file": "01-hook",    "at": 1.0,  "text": "Seorang perempuan berhenti di depan lukisan tua, … lalu menoleh ke pacarnya. … \"Itu kamu.\""},
+    {"file": "02-lukisan", "at": 13.9, "text": "Tahun seribu lima ratus enam puluh dua. … Pelukisnya tak dikenal. … Prianya juga."},
+    {"file": "03-legenda", "at": 26.0, "text": "Konon, siapa yang bertemu kembarannya … tak lama lagi mati. … Penyair Percy Shelley mengaku berpapasan dengan dirinya sendiri. … Beberapa minggu kemudian ia tenggelam."},
+    {"file": "04-dna",     "at": 44.8, "text": "Kata sains: kebetulan. … Tapi saat orang asing berwajah kembar diperiksa, … kode genetik mereka … sebagian sama."},
+    {"file": "05-penutup", "at": 57.8, "text": "Kebetulan … atau di suatu tempat, … seseorang sedang memakai wajahmu?"}
+  ]
+}

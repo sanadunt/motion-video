@@ -1,0 +1,51 @@
+[
+  {
+    "text": "Tahun",
+    "startMs": 310,
+    "endMs": 1400,
+    "timestampMs": 440,
+    "confidence": 0.526903
+  },
+  {
+    "text": " 1562,",
+    "startMs": 1400,
+    "endMs": 5130,
+    "timestampMs": 2500,
+    "confidence": 0.212186
+  },
+  {
+    "text": " pelukisnya",
+    "startMs": 5130,
+    "endMs": 6770,
+    "timestampMs": 6080,
+    "confidence": 0.957639
+  },
+  {
+    "text": " tak",
+    "startMs": 6770,
+    "endMs": 7260,
+    "timestampMs": 7340,
+    "confidence": 0.953373
+  },
+  {
+    "text": " dikenal,",
+    "startMs": 7260,
+    "endMs": 9330,
+    "timestampMs": 7900,
+    "confidence": 0.969409
+  },
+  {
+    "text": " prianya",
+    "startMs": 9330,
+    "endMs": 10080,
+    "timestampMs": 9520,
+    "confidence": 0.173854
+  },
+  {
+    "text": " juga.",
+    "startMs": 10080,
+    "endMs": 11400,
+    "timestampMs": 10880,
+    "confidence": 0.996297
+  }
+]
