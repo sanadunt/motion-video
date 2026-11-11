@@ -1,0 +1,96 @@
+{
+  "name": "merah",
+  "voDir": "public/vo/merah/edit",
+  "whisperDir": "public/vo/merah/whisper",
+  "_catatan": "Semua waktu = detik global. voDir menunjuk edit/ (48 kHz bersih, jeda internal dipangkas); timing edit/ = mix/ untuk narator. 'clips' dipakai scripts/vo-align.mjs: 'at' = awal file. Tanda … di 'text' = batas caption (jeda '…' naskah ditambah batas kalimat; teks naskah tidak diubah). 'timeline' dipakai file dengar (scripts/sfx/merah_vo.sh dengar) dan komposisi: file = nama di mix/. Lapisan s1 (suara pesan) dan w1 (bisikan) ditempatkan komposisi dari cues, lihat src/Videos/NomorMerah.tsx.",
+  "clips": [
+    {
+      "file": "01-hook",
+      "at": 0.5,
+      "kind": "narator",
+      "text": "Kalau nomor yang meneleponmu berwarna merah, … jangan diangkat."
+    },
+    {
+      "file": "02-sebar",
+      "at": 6.16,
+      "kind": "narator",
+      "text": "Mei dua ribu delapan. … SMS berantai itu menyebar dari Riau sampai ke Jawa."
+    },
+    {
+      "file": "03-konon",
+      "at": 15.26,
+      "kind": "narator",
+      "text": "Konon, peneleponnya dukun ilmu hitam. … Katanya, tujuh orang tewas."
+    },
+    {
+      "file": "04-resmi",
+      "at": 23.94,
+      "kind": "narator",
+      "text": "Polisi: kabar bohong. … Tak satu pun kematian terbukti."
+    },
+    {
+      "file": "05-iseng",
+      "at": 30.43,
+      "kind": "narator",
+      "text": "Sepekan kemudian, pengirimnya disebut sudah diamankan polisi di Riau. … Motifnya, iseng. … Namanya tak pernah diumumkan."
+    },
+    {
+      "file": "06-sakit",
+      "at": 43.27,
+      "kind": "narator",
+      "text": "Tapi beberapa orang mengaku jatuh sakit. … Di Jakarta, seorang pria mengaku layar ponselnya memerah, … lalu tangannya kejang. … Pejabat menyebutnya sugesti."
+    },
+    {
+      "file": "07-dunia",
+      "at": 57.57,
+      "kind": "narator",
+      "text": "Dan pesan ini tidak baru. … Dua ribu empat, Nigeria. … Dua ribu tujuh, Pakistan: … nomornya sudah berwarna merah."
+    },
+    {
+      "file": "08-tutup",
+      "at": 69.63,
+      "kind": "narator",
+      "text": "Kalau pengirimnya tertangkap di Riau, … siapa yang menulisnya empat tahun lebih awal, … di benua lain? … Malam ini, … kalau nomornya merah, … kamu angkat?"
+    }
+  ],
+  "timeline": [
+    {
+      "file": "01-hook",
+      "at": 0.5
+    },
+    {
+      "file": "02-sebar",
+      "at": 6.16
+    },
+    {
+      "file": "03-konon",
+      "at": 15.26
+    },
+    {
+      "file": "04-resmi",
+      "at": 23.94
+    },
+    {
+      "file": "05-iseng",
+      "at": 30.43
+    },
+    {
+      "file": "06-sakit",
+      "at": 43.27
+    },
+    {
+      "file": "07-dunia",
+      "at": 57.57
+    },
+    {
+      "file": "08-tutup",
+      "at": 69.63
+    }
+  ],
+  "voEnd": 84.43,
+  "end": 88.43,
+  "ring": 84.48,
+  "black": 86.73,
+  "sumber": 86.93,
+  "_beats": "Jarak antar file 0,25 dtk (0,40 sebelum 08); file berkepala 0,1 dan berekor 0,2 dtk. Narasi selesai di voEnd. ring = ponsel bergetar + layar ANGKAT? ; black = hitam sebelum dijawab; sumber = kartu sumber satu baris di atas hitam; end = akhir video."
+}

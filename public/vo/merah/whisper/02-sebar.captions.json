@@ -1,0 +1,79 @@
+[
+  {
+    "text": "Mei",
+    "startMs": 100,
+    "endMs": 480,
+    "timestampMs": 500,
+    "confidence": 0.317782
+  },
+  {
+    "text": " 2008,",
+    "startMs": 480,
+    "endMs": 3000,
+    "timestampMs": 1840,
+    "confidence": 0.988059
+  },
+  {
+    "text": " SMS",
+    "startMs": 3000,
+    "endMs": 3170,
+    "timestampMs": 3440,
+    "confidence": 0.580909
+  },
+  {
+    "text": " berantai",
+    "startMs": 3170,
+    "endMs": 4330,
+    "timestampMs": 3960,
+    "confidence": 0.789993
+  },
+  {
+    "text": " itu",
+    "startMs": 4330,
+    "endMs": 4770,
+    "timestampMs": 4720,
+    "confidence": 0.980525
+  },
+  {
+    "text": " menyebar",
+    "startMs": 4770,
+    "endMs": 6130,
+    "timestampMs": 5160,
+    "confidence": 0.934038
+  },
+  {
+    "text": " dari",
+    "startMs": 6130,
+    "endMs": 6450,
+    "timestampMs": 6400,
+    "confidence": 0.950533
+  },
+  {
+    "text": " Riau",
+    "startMs": 6450,
+    "endMs": 6930,
+    "timestampMs": 6720,
+    "confidence": 0.863476
+  },
+  {
+    "text": " sampai",
+    "startMs": 6930,
+    "endMs": 7670,
+    "timestampMs": 7860,
+    "confidence": 0.983974
+  },
+  {
+    "text": " ke",
+    "startMs": 7670,
+    "endMs": 7900,
+    "timestampMs": 8180,
+    "confidence": 0.559611
+  },
+  {
+    "text": " Jawa.",
+    "startMs": 7900,
+    "endMs": 8800,
+    "timestampMs": 8360,
+    "confidence": 0.898566
+  }
+]

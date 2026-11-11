@@ -1,0 +1,65 @@
+[
+  {
+    "text": "Konon,",
+    "startMs": 100,
+    "endMs": 1260,
+    "timestampMs": 400,
+    "confidence": 0.460992
+  },
+  {
+    "text": " peneleponnya",
+    "startMs": 1260,
+    "endMs": 2720,
+    "timestampMs": 1380,
+    "confidence": 0.672322
+  },
+  {
+    "text": " dukun",
+    "startMs": 2720,
+    "endMs": 3330,
+    "timestampMs": 2940,
+    "confidence": 0.232641
+  },
+  {
+    "text": " ilmu",
+    "startMs": 3330,
+    "endMs": 3900,
+    "timestampMs": 3580,
+    "confidence": 0.931374
+  },
+  {
+    "text": " hitam,",
+    "startMs": 3900,
+    "endMs": 5150,
+    "timestampMs": 4100,
+    "confidence": 0.964468
+  },
+  {
+    "text": " katanya",
+    "startMs": 5150,
+    "endMs": 5760,
+    "timestampMs": 5420,
+    "confidence": 0.840589
+  },
+  {
+    "text": " tujuh",
+    "startMs": 5760,
+    "endMs": 6590,
+    "timestampMs": 6700,
+    "confidence": 0.6059
+  },
+  {
+    "text": " orang",
+    "startMs": 6590,
+    "endMs": 7170,
+    "timestampMs": 7340,
+    "confidence": 0.999026
+  },
+  {
+    "text": " tewas.",
+    "startMs": 7170,
+    "endMs": 8340,
+    "timestampMs": 7720,
+    "confidence": 0.978446
+  }
+]

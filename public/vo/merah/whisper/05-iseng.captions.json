@@ -1,0 +1,100 @@
+[
+  {
+    "text": "sepekan",
+    "startMs": 250,
+    "endMs": 910,
+    "timestampMs": 480,
+    "confidence": 0.394242
+  },
+  {
+    "text": " kemudian,",
+    "startMs": 910,
+    "endMs": 2410,
+    "timestampMs": 1140,
+    "confidence": 0.991906
+  },
+  {
+    "text": " pengirimnya",
+    "startMs": 2410,
+    "endMs": 3120,
+    "timestampMs": 2560,
+    "confidence": 0.580242
+  },
+  {
+    "text": " disebut",
+    "startMs": 3120,
+    "endMs": 3840,
+    "timestampMs": 3400,
+    "confidence": 0.959355
+  },
+  {
+    "text": " sudah",
+    "startMs": 3840,
+    "endMs": 3880,
+    "timestampMs": 4220,
+    "confidence": 0.74154
+  },
+  {
+    "text": " diamankan",
+    "startMs": 3880,
+    "endMs": 5080,
+    "timestampMs": 4420,
+    "confidence": 0.711901
+  },
+  {
+    "text": " polisi",
+    "startMs": 5080,
+    "endMs": 5770,
+    "timestampMs": 5360,
+    "confidence": 0.819209
+  },
+  {
+    "text": " diriau.",
+    "startMs": 5770,
+    "endMs": 6640,
+    "timestampMs": 5880,
+    "confidence": 0.96981
+  },
+  {
+    "text": " Motifnya",
+    "startMs": 6640,
+    "endMs": 8710,
+    "timestampMs": 7400,
+    "confidence": 0.837
+  },
+  {
+    "text": " iseng.",
+    "startMs": 8710,
+    "endMs": 10030,
+    "timestampMs": 8900,
+    "confidence": 0.438578
+  },
+  {
+    "text": " Namanya",
+    "startMs": 10030,
+    "endMs": 10520,
+    "timestampMs": 10300,
+    "confidence": 0.470911
+  },
+  {
+    "text": " tak",
+    "startMs": 10520,
+    "endMs": 10820,
+    "timestampMs": 11120,
+    "confidence": 0.793678
+  },
+  {
+    "text": " pernah",
+    "startMs": 10820,
+    "endMs": 11430,
+    "timestampMs": 11520,
+    "confidence": 0.998658
+  },
+  {
+    "text": " diumumkan.",
+    "startMs": 11430,
+    "endMs": 12680,
+    "timestampMs": 11840,
+    "confidence": 0.934837
+  }
+]

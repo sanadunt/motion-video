@@ -1,0 +1,142 @@
+[
+  {
+    "text": "Tapi,",
+    "startMs": 100,
+    "endMs": 550,
+    "timestampMs": 420,
+    "confidence": 0.825494
+  },
+  {
+    "text": " beberapa",
+    "startMs": 550,
+    "endMs": 1290,
+    "timestampMs": 1200,
+    "confidence": 0.973641
+  },
+  {
+    "text": " orang",
+    "startMs": 1290,
+    "endMs": 1750,
+    "timestampMs": 1800,
+    "confidence": 0.998546
+  },
+  {
+    "text": " mengaku",
+    "startMs": 1750,
+    "endMs": 2390,
+    "timestampMs": 2180,
+    "confidence": 0.982436
+  },
+  {
+    "text": " jatuh",
+    "startMs": 2390,
+    "endMs": 2850,
+    "timestampMs": 2680,
+    "confidence": 0.974188
+  },
+  {
+    "text": " sakit.",
+    "startMs": 2850,
+    "endMs": 3960,
+    "timestampMs": 3120,
+    "confidence": 0.993616
+  },
+  {
+    "text": " Di",
+    "startMs": 3960,
+    "endMs": 4250,
+    "timestampMs": 4360,
+    "confidence": 0.962316
+  },
+  {
+    "text": " Jakarta,",
+    "startMs": 4250,
+    "endMs": 5670,
+    "timestampMs": 4580,
+    "confidence": 0.989272
+  },
+  {
+    "text": " seorang",
+    "startMs": 5670,
+    "endMs": 6320,
+    "timestampMs": 5800,
+    "confidence": 0.518446
+  },
+  {
+    "text": " pria",
+    "startMs": 6320,
+    "endMs": 6730,
+    "timestampMs": 6220,
+    "confidence": 0.859616
+  },
+  {
+    "text": " mengaku",
+    "startMs": 6730,
+    "endMs": 7490,
+    "timestampMs": 6600,
+    "confidence": 0.992137
+  },
+  {
+    "text": " layar",
+    "startMs": 7490,
+    "endMs": 8020,
+    "timestampMs": 7620,
+    "confidence": 0.958955
+  },
+  {
+    "text": " ponselnya",
+    "startMs": 8020,
+    "endMs": 8980,
+    "timestampMs": 8060,
+    "confidence": 0.937028
+  },
+  {
+    "text": " memerah,",
+    "startMs": 8980,
+    "endMs": 9840,
+    "timestampMs": 8860,
+    "confidence": 0.762131
+  },
+  {
+    "text": " lalu",
+    "startMs": 9840,
+    "endMs": 10280,
+    "timestampMs": 10100,
+    "confidence": 0.952877
+  },
+  {
+    "text": " tangannya",
+    "startMs": 10280,
+    "endMs": 11010,
+    "timestampMs": 10440,
+    "confidence": 0.988572
+  },
+  {
+    "text": " kejang.",
+    "startMs": 11010,
+    "endMs": 11930,
+    "timestampMs": 10840,
+    "confidence": 0.989097
+  },
+  {
+    "text": " Pejabat",
+    "startMs": 11930,
+    "endMs": 12400,
+    "timestampMs": 12020,
+    "confidence": 0.457514
+  },
+  {
+    "text": " menyebutnya",
+    "startMs": 12400,
+    "endMs": 13280,
+    "timestampMs": 12680,
+    "confidence": 0.866576
+  },
+  {
+    "text": " sugesti.",
+    "startMs": 13280,
+    "endMs": 14100,
+    "timestampMs": 13440,
+    "confidence": 0.562451
+  }
+]

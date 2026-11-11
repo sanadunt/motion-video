@@ -1,0 +1,786 @@
+[
+  {
+    "clip": "01-hook",
+    "i": 0,
+    "text": "kalau",
+    "t": 1.1,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 1,
+    "text": "nomor",
+    "t": 1.68,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 2,
+    "text": "yang",
+    "t": 2.18,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 3,
+    "text": "meneleponmu",
+    "t": 2.44,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 4,
+    "text": "berwarna",
+    "t": 3.3,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 5,
+    "text": "merah",
+    "t": 3.82,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 6,
+    "text": "jangan",
+    "t": 5.24,
+    "anchored": true
+  },
+  {
+    "clip": "01-hook",
+    "i": 7,
+    "text": "diangkat",
+    "t": 5.46,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 0,
+    "text": "mei",
+    "t": 6.66,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 1,
+    "text": "dua",
+    "t": 8,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 2,
+    "text": "ribu",
+    "t": 8.28,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 3,
+    "text": "delapan",
+    "t": 8.56,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 4,
+    "text": "sms",
+    "t": 9.6,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 5,
+    "text": "berantai",
+    "t": 10.12,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 6,
+    "text": "itu",
+    "t": 10.88,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 7,
+    "text": "menyebar",
+    "t": 11.32,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 8,
+    "text": "dari",
+    "t": 12.56,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 9,
+    "text": "riau",
+    "t": 12.88,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 10,
+    "text": "sampai",
+    "t": 14.02,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 11,
+    "text": "ke",
+    "t": 14.34,
+    "anchored": true
+  },
+  {
+    "clip": "02-sebar",
+    "i": 12,
+    "text": "jawa",
+    "t": 14.52,
+    "anchored": true
+  },
+  {
+    "clip": "03-konon",
+    "i": 0,
+    "text": "konon",
+    "t": 15.26,
+    "anchored": false
+  },
+  {
+    "clip": "03-konon",
+    "i": 1,
+    "text": "peneleponnya",
+    "t": 16.15,
+    "anchored": false
+  },
+  {
+    "clip": "03-konon",
+    "i": 2,
+    "text": "dukun",
+    "t": 18.2,
+    "anchored": true
+  },
+  {
+    "clip": "03-konon",
+    "i": 3,
+    "text": "ilmu",
+    "t": 18.84,
+    "anchored": true
+  },
+  {
+    "clip": "03-konon",
+    "i": 4,
+    "text": "hitam",
+    "t": 19.36,
+    "anchored": true
+  },
+  {
+    "clip": "03-konon",
+    "i": 5,
+    "text": "katanya",
+    "t": 20.68,
+    "anchored": true
+  },
+  {
+    "clip": "03-konon",
+    "i": 6,
+    "text": "tujuh",
+    "t": 21.96,
+    "anchored": true
+  },
+  {
+    "clip": "03-konon",
+    "i": 7,
+    "text": "orang",
+    "t": 22.6,
+    "anchored": true
+  },
+  {
+    "clip": "03-konon",
+    "i": 8,
+    "text": "tewas",
+    "t": 22.98,
+    "anchored": true
+  },
+  {
+    "clip": "04-resmi",
+    "i": 0,
+    "text": "polisi",
+    "t": 24.23,
+    "anchored": false
+  },
+  {
+    "clip": "04-resmi",
+    "i": 1,
+    "text": "kabar",
+    "t": 25.9,
+    "anchored": true
+  },
+  {
+    "clip": "04-resmi",
+    "i": 2,
+    "text": "bohong",
+    "t": 26.28,
+    "anchored": true
+  },
+  {
+    "clip": "04-resmi",
+    "i": 3,
+    "text": "tak",
+    "t": 27.72,
+    "anchored": true
+  },
+  {
+    "clip": "04-resmi",
+    "i": 4,
+    "text": "satu",
+    "t": 28.04,
+    "anchored": true
+  },
+  {
+    "clip": "04-resmi",
+    "i": 5,
+    "text": "pun",
+    "t": 28.22,
+    "anchored": false
+  },
+  {
+    "clip": "04-resmi",
+    "i": 6,
+    "text": "kematian",
+    "t": 28.62,
+    "anchored": true
+  },
+  {
+    "clip": "04-resmi",
+    "i": 7,
+    "text": "terbukti",
+    "t": 29.46,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 0,
+    "text": "sepekan",
+    "t": 30.91,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 1,
+    "text": "kemudian",
+    "t": 31.57,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 2,
+    "text": "pengirimnya",
+    "t": 32.99,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 3,
+    "text": "disebut",
+    "t": 33.83,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 4,
+    "text": "sudah",
+    "t": 34.65,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 5,
+    "text": "diamankan",
+    "t": 34.85,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 6,
+    "text": "polisi",
+    "t": 35.79,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 7,
+    "text": "di",
+    "t": 36.42,
+    "anchored": false
+  },
+  {
+    "clip": "05-iseng",
+    "i": 8,
+    "text": "riau",
+    "t": 36.95,
+    "anchored": false
+  },
+  {
+    "clip": "05-iseng",
+    "i": 9,
+    "text": "motifnya",
+    "t": 37.74,
+    "anchored": false
+  },
+  {
+    "clip": "05-iseng",
+    "i": 10,
+    "text": "iseng",
+    "t": 39.33,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 11,
+    "text": "namanya",
+    "t": 40.73,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 12,
+    "text": "tak",
+    "t": 41.55,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 13,
+    "text": "pernah",
+    "t": 41.95,
+    "anchored": true
+  },
+  {
+    "clip": "05-iseng",
+    "i": 14,
+    "text": "diumumkan",
+    "t": 42.27,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 0,
+    "text": "tapi",
+    "t": 43.69,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 1,
+    "text": "beberapa",
+    "t": 44.47,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 2,
+    "text": "orang",
+    "t": 45.07,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 3,
+    "text": "mengaku",
+    "t": 45.45,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 4,
+    "text": "jatuh",
+    "t": 45.95,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 5,
+    "text": "sakit",
+    "t": 46.39,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 6,
+    "text": "di",
+    "t": 47.63,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 7,
+    "text": "jakarta",
+    "t": 47.85,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 8,
+    "text": "seorang",
+    "t": 49.07,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 9,
+    "text": "pria",
+    "t": 49.49,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 10,
+    "text": "mengaku",
+    "t": 49.87,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 11,
+    "text": "layar",
+    "t": 50.89,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 12,
+    "text": "ponselnya",
+    "t": 51.33,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 13,
+    "text": "memerah",
+    "t": 52.13,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 14,
+    "text": "lalu",
+    "t": 53.37,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 15,
+    "text": "tangannya",
+    "t": 53.71,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 16,
+    "text": "kejang",
+    "t": 54.11,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 17,
+    "text": "pejabat",
+    "t": 55.29,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 18,
+    "text": "menyebutnya",
+    "t": 55.95,
+    "anchored": true
+  },
+  {
+    "clip": "06-sakit",
+    "i": 19,
+    "text": "sugesti",
+    "t": 56.71,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 0,
+    "text": "dan",
+    "t": 58.01,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 1,
+    "text": "pesan",
+    "t": 58.67,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 2,
+    "text": "ini",
+    "t": 59.27,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 3,
+    "text": "tidak",
+    "t": 59.67,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 4,
+    "text": "baru",
+    "t": 60.13,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 5,
+    "text": "dua",
+    "t": 61.87,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 6,
+    "text": "ribu",
+    "t": 62.15,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 7,
+    "text": "empat",
+    "t": 62.43,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 8,
+    "text": "nigeria",
+    "t": 63.15,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 9,
+    "text": "dua",
+    "t": 64.69,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 10,
+    "text": "ribu",
+    "t": 64.97,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 11,
+    "text": "tujuh",
+    "t": 65.25,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 12,
+    "text": "pakistan",
+    "t": 66.03,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 13,
+    "text": "nomornya",
+    "t": 67.17,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 14,
+    "text": "sudah",
+    "t": 67.81,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 15,
+    "text": "berwarna",
+    "t": 68.25,
+    "anchored": true
+  },
+  {
+    "clip": "07-dunia",
+    "i": 16,
+    "text": "merah",
+    "t": 68.79,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 0,
+    "text": "kalau",
+    "t": 69.99,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 1,
+    "text": "pengirimnya",
+    "t": 70.35,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 2,
+    "text": "tertangkap",
+    "t": 71.21,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 3,
+    "text": "di",
+    "t": 72.14,
+    "anchored": false
+  },
+  {
+    "clip": "08-tutup",
+    "i": 4,
+    "text": "riau",
+    "t": 72.66,
+    "anchored": false
+  },
+  {
+    "clip": "08-tutup",
+    "i": 5,
+    "text": "siapa",
+    "t": 73.71,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 6,
+    "text": "yang",
+    "t": 74.21,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 7,
+    "text": "menulisnya",
+    "t": 74.39,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 8,
+    "text": "empat",
+    "t": 75.51,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 9,
+    "text": "tahun",
+    "t": 76.21,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 10,
+    "text": "lebih",
+    "t": 76.47,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 11,
+    "text": "awal",
+    "t": 76.87,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 12,
+    "text": "di",
+    "t": 77.99,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 13,
+    "text": "benua",
+    "t": 78.15,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 14,
+    "text": "lain",
+    "t": 78.71,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 15,
+    "text": "malam",
+    "t": 80.21,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 16,
+    "text": "ini",
+    "t": 80.63,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 17,
+    "text": "kalau",
+    "t": 81.77,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 18,
+    "text": "nomornya",
+    "t": 82.03,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 19,
+    "text": "merah",
+    "t": 82.57,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 20,
+    "text": "kamu",
+    "t": 83.81,
+    "anchored": true
+  },
+  {
+    "clip": "08-tutup",
+    "i": 21,
+    "text": "angkat",
+    "t": 84.11,
+    "anchored": true
+  }
+]

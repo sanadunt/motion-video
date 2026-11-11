@@ -1,0 +1,51 @@
+[
+  {
+    "text": "Polisi,",
+    "startMs": 310,
+    "endMs": 1760,
+    "timestampMs": 500,
+    "confidence": 0.879702
+  },
+  {
+    "text": " kabar",
+    "startMs": 1760,
+    "endMs": 2060,
+    "timestampMs": 1960,
+    "confidence": 0.952034
+  },
+  {
+    "text": " bohong,",
+    "startMs": 2060,
+    "endMs": 3200,
+    "timestampMs": 2340,
+    "confidence": 0.944529
+  },
+  {
+    "text": " tak",
+    "startMs": 3200,
+    "endMs": 3650,
+    "timestampMs": 3780,
+    "confidence": 0.690291
+  },
+  {
+    "text": " satupun",
+    "startMs": 3650,
+    "endMs": 4280,
+    "timestampMs": 4100,
+    "confidence": 0.816667
+  },
+  {
+    "text": " kematian",
+    "startMs": 4280,
+    "endMs": 5050,
+    "timestampMs": 4680,
+    "confidence": 0.998691
+  },
+  {
+    "text": " terbukti.",
+    "startMs": 5050,
+    "endMs": 6240,
+    "timestampMs": 5520,
+    "confidence": 0.989347
+  }
+]

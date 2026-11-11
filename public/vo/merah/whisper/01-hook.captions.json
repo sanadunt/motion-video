@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Kalau",
+    "startMs": 290,
+    "endMs": 510,
+    "timestampMs": 600,
+    "confidence": 0.414837
+  },
+  {
+    "text": " nomor",
+    "startMs": 510,
+    "endMs": 1020,
+    "timestampMs": 1180,
+    "confidence": 0.956248
+  },
+  {
+    "text": " yang",
+    "startMs": 1020,
+    "endMs": 1430,
+    "timestampMs": 1680,
+    "confidence": 0.994851
+  },
+  {
+    "text": " menilponmu",
+    "startMs": 1430,
+    "endMs": 2440,
+    "timestampMs": 1940,
+    "confidence": 0.969017
+  },
+  {
+    "text": " berwarna",
+    "startMs": 2440,
+    "endMs": 3260,
+    "timestampMs": 2800,
+    "confidence": 0.979308
+  },
+  {
+    "text": " merah,",
+    "startMs": 3260,
+    "endMs": 4450,
+    "timestampMs": 3320,
+    "confidence": 0.861113
+  },
+  {
+    "text": " jangan",
+    "startMs": 4450,
+    "endMs": 4500,
+    "timestampMs": 4740,
+    "confidence": 0.844787
+  },
+  {
+    "text": " diangkat.",
+    "startMs": 4500,
+    "endMs": 5440,
+    "timestampMs": 4960,
+    "confidence": 0.968871
+  }
+]

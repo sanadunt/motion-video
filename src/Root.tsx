@@ -31,6 +31,11 @@ import {
   arsipTiangSchema,
 } from "./Videos/ArsipTiang";
 import {
+  NomorMerah,
+  nomorMerahDefaults,
+  nomorMerahSchema,
+} from "./Videos/NomorMerah";
+import {
   TiangStoryboard,
   tiangStoryboardDefaults,
   tiangStoryboardSchema,
@@ -440,6 +445,13 @@ export const RemotionRoot: React.FC = () => {
           component={TiangStoryboard}
           schema={tiangStoryboardSchema}
           defaultProps={tiangStoryboardDefaults}
+          formats={["Portrait"]}
+        />
+        <FormatVariants
+          id="NomorMerah"
+          component={NomorMerah}
+          schema={nomorMerahSchema}
+          defaultProps={nomorMerahDefaults}
           formats={["Portrait"]}
         />
       </Folder>
